@@ -1,0 +1,16 @@
+# Folder yang tidak perlu ikut Git
+/vendor/
+/node_modules/
+/writable/
+.env
+*.log
+*.bak
+*.zip
+
+# IDE/editor config
+*.sublime*
+*.vscode/
+*.idea/
+.DS_Store
+Thumbs.db
+/writable
