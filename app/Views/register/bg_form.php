@@ -599,9 +599,6 @@
               $('#submitBtn').prop('disabled', true).text('Mengirim...');
             },
             success: function (response) {
-              // Handle response dari backend
-              alert("Pendaftaran berhasil!");
-
               $('#formRegister')[0].reset();
 
               top.location.href = "<?= base_url('register-success?token=') ?>" + response.token;

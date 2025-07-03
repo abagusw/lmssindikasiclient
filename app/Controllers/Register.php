@@ -13,18 +13,22 @@ class Register extends BaseController
 {
 	public function formRegisterNextX()
 	{
-    $config = new EncryptionConfig();
-    $encrypter = new OpenSSLHandler($config);
+        $config = new EncryptionConfig();
+        $encrypter = new OpenSSLHandler($config);
 
-    $data = json_encode([
-        'fullname' => 'Devanda',
-        'email'    => 'devanda@example.com',
-    ]);
+        $data = json_encode([
+            'fullname' => 'Devanda',
+            'email'    => 'devanda@example.com',
+        ]);
 
-    $encrypted = urlencode($encrypter->encrypt($data));
-    dd($encrypted);
-    return redirect()->to(base_url('user/terima?data=' . $encrypted));
+        $encrypted = urlencode($encrypter->encrypt($data));
+        dd($encrypted);
+        return redirect()->to(base_url('user/terima?data=' . $encrypted));
 	}
+
+    public function set_password(){
+        return view("register/bg_set_password");
+    }
 
 	public function proseRegister(){
         $model = new MemberModel();
