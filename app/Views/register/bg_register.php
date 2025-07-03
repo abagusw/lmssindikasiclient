@@ -66,7 +66,7 @@
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">Alamat email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan kata kunci">
+        <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan alamat email">
       </div>
       <div class="d-grid mt-4">
         <button type="button" onclick="inputFormRegiser()" class="btn btn-orange">Daftar</button>
@@ -99,16 +99,19 @@
   function inputFormRegiser(){
         var fullname = $('#fullname').val();
         var email = $('#email').val();
+        
         $.ajax({
             type: 'POST',
             data: {fullname:fullname,email:email},
             url: "<?php echo base_url('register/proseRegister')?>",
             async: false,
             success: function(response) {
+              if(response == 1){
+                alert("Email sudah pernah didaftarkan !, silahkan untuk menggunakan email lain");
+              }else{
                 top.location.href="<?= base_url() ?>form-register-next?token="+response;
               }
-
-
+            }
         });
   }
 </script>

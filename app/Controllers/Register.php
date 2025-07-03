@@ -27,6 +27,7 @@ class Register extends BaseController
 	}
 
 	public function proseRegister(){
+        $model = new MemberModel();
 		$fullname = $this->request->getPost('fullname');
 		$email = $this->request->getPost('email');
 		$encrypter = new MyEncrypter();
@@ -34,9 +35,14 @@ class Register extends BaseController
         'fullname' => $fullname,
         'email'    => $email,
     	]);
-		$ciphertext = $encrypter->encrypt($data);	
 
-		echo $ciphertext;		
+        $cekMember = $model->getMemberByEmail($email);
+        if($cekMember->getNumRows() > 0){
+            echo "1";
+        }else{
+		  $ciphertext = $encrypter->encrypt($data);	
+		  echo $ciphertext;		
+        }
 	}
 
 	public function formRegisterNext(){
@@ -137,10 +143,37 @@ class Register extends BaseController
 
         ];
 
-        $model->insert($data);
+        $insert = $model->insert($data);
+        if($insert){
+            $encrypter = new MyEncrypter();
+            $data = json_encode([
+                'fullname' => $this->request->getPost('fullname'),
+                'email'    => $this->request->getPost('email'),
+            ]);
+            $ciphertext = $encrypter->encrypt($data);
+            $jsonResp = json_encode(array('msg'=>0,'desc'=>"Pendaftaran berhasil",'token'=>$ciphertext));
+            echo $jsonResp;
 
-        return $this->response->setJSON(['status' => 'success']);
+        }
 
+        //return $this->response->setJSON(['status' => 'success']);
+
+    }
+
+    public function registerSuccess(){
+        $encrypter = new MyEncrypter();
+
+        $token = $this->request->getGet('token');
+        $token = str_replace(' ', '+', $token);
+
+        $ciphertext = $encrypter->decrypt($token);  
+
+        $dataKey = json_decode($ciphertext);
+
+        $data = [
+            'dataKey' => $dataKey,
+        ];
+        return view("register/reg_success",$data);        
     }
 
 }

@@ -15,6 +15,7 @@ $routes->get('form-register','Auth::form_register');
 $routes->post('register/proseRegister', 'Register::proseRegister');
 $routes->get('form-register-next','Register::formRegisterNext');
 $routes->post('register/simpan','Register::save');
+$routes->get('register-success','Register::registerSuccess');
 //Routes email
 $routes->get('email/testEmail', 'SendEmailCon::testEmail');
 $routes->get('email/templateEmail', 'SendEmailCon::templateEmail');

@@ -139,6 +139,7 @@
             <label class="form-label required">Alamat email</label>
             <input type="email" name="email" id="email" class="form-control" value="<?= $dataKey->email ?>" required>
             <div class="form-text-muted">Contoh: namakamu@gmail.com</div>
+            <div class="form-text-muted text-warning">Pastikan anda menggunakan alamat email yang valid karena proses aktivasi akan dilakukan melalui email</div>
           </div>
 
           <div class="col-md-6">
@@ -242,7 +243,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label">Instansi/perusaan/pemberi kerja</label>
+              <label class="form-label">Instansi/perusahaan/pemberi kerja</label>
               <input type="text" id="instansi" name="instansi" class="form-control" required>
             </div>
 
@@ -593,6 +594,7 @@
             data: formData,
             processData: false,
             contentType: false,
+            dataType: 'JSON',
             beforeSend: function () {
               $('#submitBtn').prop('disabled', true).text('Mengirim...');
             },
@@ -601,6 +603,9 @@
               alert("Pendaftaran berhasil!");
 
               $('#formRegister')[0].reset();
+
+              top.location.href = "<?= base_url('register-success?token=') ?>" + response.token;
+
             },
             error: function (xhr) {
               alert("Terjadi kesalahan: " + xhr.responseText);

@@ -102,6 +102,13 @@ class MemberModel extends Model
         return $query;
     }
 
+    public function getMemberByEmail($email){
+        $builder = $this->db->table('tb_member');
+        $builder->where('email', $email);
+        $query = $builder->get();
+        return $query;
+    }
+
 }
 
 ?>
