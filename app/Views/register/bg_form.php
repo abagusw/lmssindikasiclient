@@ -163,8 +163,11 @@
             <label class="form-label required">Kota kelahiran</label>
             <select class="form-select" name="kota_kelahiran" id="kota_kelahiran" required>
               <option selected disabled>Pilih</option>
-              <option  value="Jakarta">Jakarta</option>
-              <option value="Bandung">Bandung</option>
+            <?php 
+                foreach($getCity as $city){
+                  echo"
+                <option value=".$city['id'].">".$city['name']."</option>";}
+            ?>
             </select>
           </div>
 
@@ -177,8 +180,11 @@
             <label class="form-label required">Kota domisili</label>
             <select class="form-select" name="kota_domisili" id="kota_domisili" required>
               <option selected disabled>Pilih</option>
-              <option  value="Jakarta">Jakarta</option>
-              <option value="Bandung">Bandung</option>
+              <?php 
+                foreach($getCity as $city){
+                  echo"
+                <option value=".$city['id'].">".$city['name']."</option>";}
+              ?>
             </select>
           </div>
 
@@ -242,8 +248,10 @@
               <label class="form-label required">Subsektor industri kreatif</label>
                 <select class="form-select" id="subsektor" name="subsektor" required>
                   <option selected disabled>Pilih</option>
-                  <option>Jakarta</option>
-                  <option>Surabaya</option>
+                  <?php 
+                  foreach($getDataSubsektor as $subsektor){
+                    echo"
+                  <option value=".$subsektor['id'].">".$subsektor['name']."</option>";}?>
                 </select>
             </div>
             <div class="col-md-6">
@@ -255,8 +263,10 @@
               <label class="form-label required">Jabatan/profesi</label>
                 <select class="form-select" id="jabatan" name="jabatan" required>
                   <option selected disabled>Pilih</option>
-                  <option>Jakarta</option>
-                  <option>Surabaya</option>
+                  <?php 
+                  foreach($getDataJabatan as $jabatan){
+                    echo"
+                  <option value=".$jabatan['id'].">".$jabatan['name']."</option>";}?>
                 </select>
             </div>
             <div class="col-md-6">
@@ -430,6 +440,17 @@
                   <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 6" id="pakta_integritas_point_6" required><label class="form-check-label" for="pakta_integritas_point_6">Pakta Integritas Point 6</label></div>
                 </div>
 
+              </div>
+              <div class="mt-4">
+                <h6 class="fw-bold">Isi Lengkap Pakta Integritas:</h6>
+                <ol class="ps-3">
+                  <li>Tidak akan melakukan kekerasan dan pelecehan seksual baik itu di dalam dan di luar organisasi.</li>
+                  <li>Mendukung <strong>SINDIKASI</strong> mewujudkan lingkungan yang aman dan nyaman untuk semua orang dalam memperoleh hak untuk hidup tanpa diskriminasi, terutama kekerasan dan pelecehan seksual.</li>
+                  <li>Bersikap aktif mendukung <strong>SINDIKASI</strong> membangun budaya toleransi nol untuk segala bentuk kekerasan dan pelecehan seksual.</li>
+                  <li>Mematuhi dan melaksanakan kode etik dan pedoman perilaku <strong>SINDIKASI</strong> untuk memberikan rasa aman dan nyaman sesuai dengan peraturan organisasi.</li>
+                  <li>Menegakkan hak atas kebenaran serta mendukung upaya pencarian keadilan dan pemulihan bagi korban kekerasan dan pelecehan seksual.</li>
+                  <li>Apabila melanggar hal-hal yang dinyatakan dalam <strong>PAKTA INTEGRITAS</strong> ini, bersedia menerima sanksi sesuai dengan peraturan <strong>SINDIKASI</strong>.</li>
+                </ol>
               </div>
             </div>
           </div>

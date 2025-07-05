@@ -4,13 +4,23 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\MemberModel;
-
+use App\Models\MasterSubsektor;
+use App\Models\MasterJabatan;
+use App\Models\MasterCityModel;
 use App\Libraries\MyEncrypter;
 
 
 
 class Register extends BaseController
 {
+
+    public function __construct()
+    {
+        $this->masterCityModel = new MasterCityModel();
+        $this->masterSubsektor = new MasterSubsektor();
+        $this->masterJabatan = new MasterJabatan();
+    }
+
 	public function formRegisterNextX()
 	{
         $config = new EncryptionConfig();
@@ -61,6 +71,9 @@ class Register extends BaseController
 
         $data = [
             'dataKey' => $dataKey,
+            'getCity' => $this->masterCityModel->findAll(),
+            'getDataJabatan' => $this->masterJabatan->findAll(),
+            'getDataSubsektor' => $this->masterSubsektor->findAll(),
         ];
         return view("register/bg_form",$data);
 	}
