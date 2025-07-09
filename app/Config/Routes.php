@@ -17,6 +17,10 @@ $routes->get('form-register-next','Register::formRegisterNext');
 $routes->post('register/simpan','Register::save');
 $routes->get('register-success','Register::registerSuccess');
 $routes->get('set-password','Register::set_password');
+$routes->post('register/simpan-password','Register::simpanPassword');
+$routes->get('set-password-success','Register::setPassSuccess');
+
+
 
 //Routes email
 $routes->get('email/testEmail', 'SendEmailCon::testEmail');

@@ -37,7 +37,19 @@ class Register extends BaseController
 	}
 
     public function set_password(){
-        return view("register/bg_set_password");
+        $encrypter = new MyEncrypter();
+
+        $token = $this->request->getGet('accountregister');
+        $token = str_replace(' ', '+', $token);
+
+        $ciphertext = $encrypter->decrypt($token);  
+
+        $dataKey = json_decode($ciphertext);
+
+        $data = [
+            'dataKey' => $dataKey,
+        ];
+        return view("register/bg_set_password",$data);
     }
 
 	public function proseRegister(){
@@ -192,5 +204,48 @@ class Register extends BaseController
         ];
         return view("register/reg_success",$data);        
     }
+
+    public function simpanPassword(){
+        if (!$this->request->isAJAX()) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Permintaan tidak valid.'
+            ]);
+        }
+
+        $rules = [
+            'password' => 'required|min_length[8]',
+            'confirm_password' => 'required|matches[password]'
+        ];
+
+        if (!$this->validate($rules)) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => implode(', ', $this->validator->getErrors()),
+                'csrf' => csrf_hash()
+            ]);
+        }
+
+        $password = $this->request->getPost('password');
+        $id = $this->request->getPost('id');
+        $token = $this->request->getPost('token');
+
+        $model = new MemberModel();
+
+        // Simpan password baru
+        $model->update($id, [
+            'password' => password_hash($password, PASSWORD_DEFAULT)
+        ]);
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Password berhasil diperbarui.',
+            'csrf' => csrf_hash()
+        ]);
+    }  
+
+    public function setPassSuccess(){
+        return view("register/set_password_success");        
+    }      
 
 }
