@@ -163,7 +163,7 @@
           <!-- Message. Default to the start -->
           <div class="direct-chat-msg">
             <div class="direct-chat-infos clearfix">
-              <span class="direct-chat-name float-start"> <?= $user_logged_in['nama']; ?> </span>
+              <span class="direct-chat-name float-start"> <?= session()->get('nama_lengkap'); ?> </span>
               <span class="direct-chat-timestamp float-end"> 23 Jan 2:00 pm </span>
             </div>
             <!-- /.direct-chat-infos -->
@@ -199,7 +199,7 @@
           <!-- Message. Default to the start -->
           <div class="direct-chat-msg">
             <div class="direct-chat-infos clearfix">
-              <span class="direct-chat-name float-start"> <?= $user_logged_in['nama']; ?> </span>
+              <span class="direct-chat-name float-start"> <?= session()->get('nama_lengkap'); ?> </span>
               <span class="direct-chat-timestamp float-end"> 23 Jan 5:37 pm </span>
             </div>
             <!-- /.direct-chat-infos -->

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Halaman Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?=ASSETS_URL?>compo_notif/jquery.ambiance.css" rel="stylesheet">
   <style>
     body {
       background-color: #121212;
@@ -59,14 +60,14 @@
         <img src="<?= ASSETS_URL ?>login/logo_sindikasi.png" alt="Logo" width="120" class="mb-4">
         <h5>Masuk ke akun member</h5>
     </center>
-    <form>
+    <form id="loginForm">
       <div class="mb-3 mt-4">
         <label for="email" class="form-label">Alamat email</label>
-        <input type="email" class="form-control" id="email" placeholder="Masukkan email Anda">
+        <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email Anda">
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Kata kunci</label>
-        <input type="password" class="form-control" id="password" placeholder="Masukkan kata kunci">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan kata kunci">
         <div class="text-end mt-1">
           <a href="#" class="small-text text-decoration-none">Lupa kata kunci?</a>
         </div>
@@ -92,5 +93,53 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="<?=ASSETS_URL?>compo_notif/jquery.ambiance.js"></script>
+
+<script>
+  function isValidEmail(email) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+  }
+$('#loginForm').on('submit', function(e) {
+    e.preventDefault();
+    var email = $('#email').val();
+    var password = $('#password').val();
+
+    if(email == "" || password == ""){
+        $.ambiance({message: "Email atau password harus diisi !",
+                  type: "error",
+                  fade: false});
+    }else if (!isValidEmail(email)) {
+        $.ambiance({message: "Email tidak valid",
+                  type: "error",
+                  fade: false});
+    }else{  
+      $.ajax({
+          type: 'POST',
+          data: {email:email,password:password,'<?= csrf_token() ?>': '<?= csrf_hash() ?>'},
+          url: "<?php echo base_url('auth/cekLogin')?>",
+          dataType: 'json',
+          async: false,
+          success: function(data) {
+              //if(msg == 1){
+              if(data.respCode == 0){
+                  $.ambiance({message: data.respMessage,
+                  type: "success",
+                  fade: false});
+                  top.location.href="<?= base_url() ?>form-token-login?rsp="+data.rsp;
+              }else{
+                  $.ambiance({message: data.respMessage,
+                  type: "error",
+                  fade: false});
+              }
+              //}
+
+          }
+
+      });
+    }
+});
+</script>
 </body>
 </html>

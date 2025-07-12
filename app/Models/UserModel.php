@@ -6,16 +6,16 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-    protected $table = 'user';
-    protected $allowedFields = ['nama', 'username', 'email', 'password', 'role', 'is_active'];
+    protected $table = 'tb_member';
+    protected $allowedFields = ['password','token','token_expired'];
     protected $useTimestamps = true;
 
-    public function getUser($username = false)
+    public function getUserByEmail($email = false)
     {
-        if ($username == false) {
+        if ($email == false) {
             return $this->orderBy('role', 'ASC')->findAll();
         }
 
-        return $this->where('username', $username)->first();
+        return $this->where('email', $email)->first();
     }
 }
