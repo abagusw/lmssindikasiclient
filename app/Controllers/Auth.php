@@ -116,8 +116,7 @@ class Auth extends BaseController
 	public function logout()
 	{
 		// remove session
-		$newdata = ['username', 'role', 'logged_in'];
-		$this->session->remove($newdata);
+		session()->destroy();
 
 		return redirect()->to('/')->with('msg', '<div class="alert alert-info">Logout berhasil.</div>');
 	}

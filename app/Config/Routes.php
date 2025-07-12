@@ -41,11 +41,11 @@ $routes->get('/midtrans/checkout', function() {
 $routes->get('paymentXXX/pay','MidtransController::index');
 
 $routes->get('setup/setpassword','Setup::setPassword');
+	$routes->get('auth/logout', 'Auth::logout');
 
 
 $routes->group('/', ['filter' => 'auth'], function ($routes) {
 
-	$routes->get('auth/logout', 'Auth::logout');
 
 	$routes->get('dashboard', 'Dashboard::index');
 

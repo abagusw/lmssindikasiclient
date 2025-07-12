@@ -87,7 +87,7 @@
     </div>
 
     <!-- Tombol -->
-    <a href="<?= base_url('/') ?>" class="btn btn-outline-secondary w-100">Kembali ke Beranda</a>
+    <!-- <a href="<?= base_url('/') ?>" class="btn btn-outline-secondary w-100">Kembali ke Beranda</a> -->
   </div>
 </div>
 
