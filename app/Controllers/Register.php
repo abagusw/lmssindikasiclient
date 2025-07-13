@@ -173,6 +173,7 @@ class Register extends BaseController
         ];
 
         $insert = $model->insert($data);
+
         if($insert){
             $encrypter = new MyEncrypter();
             $data = json_encode([

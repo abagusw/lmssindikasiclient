@@ -113,12 +113,12 @@
       <h3 class="mt-3">Pendaftaran Member</h3>
       <p>Silakan lengkapi form di bawah ini untuk mendaftar</p>
     </div>
-
+    <form id="formRegister">
     <!-- SECTION 1: Data Pribadi -->
     <div class="form-section">
       <div class="section-header">📄 Data Pribadi</div>
 
-      <form id="formRegister">
+      
         <div class="row g-3">
           <div class="col-md-6">
             <label class="form-label required">Nama lengkap</label>
@@ -255,7 +255,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label">Instansi/perusahaan/pemberi kerja</label>
+              <label class="form-label required">Instansi/perusahaan/pemberi kerja</label>
               <input type="text" id="instansi" name="instansi" class="form-control" required>
             </div>
 
@@ -270,7 +270,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label">Status ketenagakerjaan</label>
+              <label class="form-label required">Status ketenagakerjaan</label>
               <input type="text" id="status_ketenagakerjaan" name="status_ketenagakerjaan" class="form-control" required>
             </div>      
             <div class="col-md-12">
@@ -405,17 +405,17 @@
           <div class="section-header">Keanggotaan BPJS</div>
           <div class="row g-3">
             <div class="col-md-6">
-              <label class="form-label">Status keanggotaan BPJSTK</label>
+              <label class="form-label required">Status keanggotaan BPJSTK</label>
               <select class="form-select" id="status_anggota_bpjstk" name="status_anggota_bpjstk" required>
-                  <option selected disabled>Pilih</option>
+                  <option value="" selected disabled>Pilih</option>
                   <option value="aktif">Aktif</option>
                   <option value="tidak_aktif">Tidak Aktif</option>
                 </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label">Status keanggotaan BPJSKS</label>
+              <label class="form-label required">Status keanggotaan BPJSKS</label>
               <select class="form-select" id="status_anggota_bpjsks" name="status_anggota_bpjsks" required>
-                  <option selected disabled>Pilih</option>
+                  <option value="" selected disabled>Pilih</option>
                   <option value="aktif">Aktif</option>
                   <option value="tidak_aktif">Tidak Aktif</option>
                 </select>
@@ -529,6 +529,7 @@
           required: true,
           minlength: 6 // semua harus dicentang
         },
+        
         gender: "required",
         kota_kelahiran: "required",
         kota_domisili: "required",
@@ -540,8 +541,8 @@
         status_ketenagakerjaan: "required",
         bpjstk: "required",
         bpjsks: "required",
-        status_anggota_bpjstk: "required",
         status_anggota_bpjsks: "required",
+        status_anggota_bpjstk: "required",
         alasan_bergabung_sindikasi: "required",
       },
       messages: {
@@ -566,6 +567,12 @@
           required: "Semua pernyataan keanggotaan wajib dicentang",
           minlength: "Harap centang semua 6 pernyataan"
         },
+        status_anggota_bpjsks: {
+          required: "Pilih status keanggotaan BPJSKS"
+        },
+        status_anggota_bpjstk: {
+          required: "Pilih status keanggotaan BPJSTK"
+        },
         gender: "Pilih jenis kelamin",
         kota_kelahiran: "Pilih kota kelahiran",
         kota_domisili: "Pilih kota domisili",
@@ -577,8 +584,6 @@
         status_ketenagakerjaan: "Wajib diisi",
         bpjstk: "Pilih salah satu",
         bpjsks: "Pilih salah satu",
-        status_anggota_bpjstk: "Wajib dipilih",
-        status_anggota_bpjsks: "Wajib dipilih",
         alasan_bergabung_sindikasi: "Wajib diisi",
       },
       errorElement: 'div',
@@ -612,6 +617,7 @@
 
           // Ambil data sebagai FormData
           const formData = new FormData(form);
+          //alert(formData);
 
           $.ajax({
             url: '<?= base_url("register/simpan") ?>', // Ganti dengan URL controller CodeIgniter kamu
@@ -630,6 +636,7 @@
 
             },
             error: function (xhr) {
+              alert('xhr :'+xhr);
               alert("Terjadi kesalahan: " + xhr.responseText);
             },
             complete: function () {
