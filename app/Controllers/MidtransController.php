@@ -88,7 +88,7 @@ class MidtransController extends BaseController
         $paymentModel = new PaymentModel();
         $paymentCallbackModel->updateStatusByOrderId($order_id, $transaction_status);
 
-        $cekCallBack = $paymentCallbackModel->where('order_id', $request->order_id)->first();
+        $cekCallBack = $paymentCallbackModel->where('order_id', $notif->order_id)->first();
 
         $memberModel = new MemberModel();
 
