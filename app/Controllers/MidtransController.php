@@ -71,6 +71,50 @@ class MidtransController extends BaseController
         \Midtrans\Config::$serverKey = Midtrans_ServerKey;
         \Midtrans\Config::$isProduction = false;
 
+        $notifs = file_get_contents('php://input'); // ambil raw input
+
+
+
+        //$notifs = new Notification();
+        //log_message('info', 'Midtrans notifs: ' . $notifs);
+        $notif = preg_replace('/[\x00-\x1F\x7F\xA0\x{200B}]/u', '', $notifs);
+        $notif = json_decode($notif);
+
+
+        $transaction_status = $notif->transaction_status;
+        $payment_type       = $notif->payment_type;
+        $order_id           = $notif->order_id;
+        $fraud_status       = $notif->fraud_status;
+
+        log_message('info', 'Midtrans Notif: ' . json_encode($notif));
+
+        $paymentCallbackModel = new PaymentCallBackModel();
+        $paymentModel = new PaymentModel();
+        $paymentCallbackModel->updateStatusByOrderId($order_id, $transaction_status);
+
+        $cekCallBack = $paymentCallbackModel->where('order_id', $notif->order_id)->first();
+
+        $memberModel = new MemberModel();
+        if($cekCallBack){
+            $dataMember = [
+                    'flag_active' => 1,
+                    'isregisteredpaid' => 1
+            ];
+
+            $updateMember = $memberModel->update($cekCallBack->user_id,$dataMember);
+        }
+
+
+        // Respon ke Midtrans WAJIB 200 OK
+        return $this->response->setStatusCode(200)->setJSON(['message' => 'Notification received']);
+    }
+
+
+    public function notificationXXXXX()
+    {
+        \Midtrans\Config::$serverKey = Midtrans_ServerKey;
+        \Midtrans\Config::$isProduction = false;
+
 
         $notifs = new Notification();
         log_message('info', 'Midtrans notifs: ' . $notifs);
