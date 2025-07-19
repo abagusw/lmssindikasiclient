@@ -127,21 +127,21 @@ class Auth extends BaseController
 	}
 
 	public function resendTokenLogin(){
-		$userModel = new UserModel;
+		    $userModel = new UserModel;
         $email = $this->request->getPost('email');
        	$user = $userModel->where('email', $email)->first();
         $token = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
         $now = new \DateTime();
-		$now->modify('+1 hour');
-		$userModel->update($user['id'], [
-		    'token' => $token,
-		    'token_expired' => $now->format('Y-m-d H:i:s')
-		]);
-		$this->sendAsyncRequest($this->kirimEmailToken($email,$token,$now->format('Y-m-d H:i:s')));	
+		    $now->modify('+1 hour');
+		    $userModel->update($user['id'], [
+  		    'token' => $token,
+  		    'token_expired' => $now->format('Y-m-d H:i:s')
+		    ]);
+		    $this->sendAsyncRequest($this->kirimEmailToken($email,$token,$now->format('Y-m-d H:i:s')));	
 	}
 
 	public function verifikasiTokenLogin(){
-		$userModel = new UserModel;
+		    $userModel = new UserModel;
         $token = $this->request->getPost('token');
         $email = $this->request->getPost('email');
         $datNow = date('Y-m-d H:i:s');
@@ -225,12 +225,14 @@ class Auth extends BaseController
     public function konfigEmail($to,$subject,$view)
     {
         $email = \Config\Services::email();
-
+        
         $email->setTo($to);
         $email->setSubject($subject);
         $email->setMessage($view);
         $email->setMailType('html');
-        $email->setFrom('adminlms@scriptmedia.net', 'AdminLMS');
+        $fromEmail = config('Email')->fromEmail;
+        $fromName  = config('Email')->fromName;
+        $email->setFrom($fromEmail, $fromName);
 
         if ($email->send()) {
             //echo 'Email berhasil dikirim!';

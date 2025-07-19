@@ -102,6 +102,7 @@ class Dashboard extends BaseController
 
             $data = [
                 'order_id'         => $request->order_id,
+                'user_id'          => $id,
                 'transaction_id'   => $request->transaction_id,
                 'transaction_time' => $request->transaction_time,
                 'payment_type'     => $request->payment_type,

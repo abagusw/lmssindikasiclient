@@ -8,6 +8,7 @@ use Midtrans\Transaction;
 use Midtrans\Notification;
 use App\Models\PaymentCallBackModel;
 use App\Models\PaymentModel;
+use App\Models\MemberModel;
 
 class MidtransController extends BaseController
 {
@@ -83,6 +84,18 @@ class MidtransController extends BaseController
         $paymentCallbackModel = new PaymentCallBackModel();
         $paymentModel = new PaymentModel();
         $paymentCallbackModel->updateStatusByOrderId($order_id, $transaction_status);
+
+        $cekCallBack = $paymentCallbackModel->where('order_id', $request->order_id)->first();
+
+        $memberModel = new MemberModel();
+
+        $dataMember = [
+                'flag_active' => 1,
+                'isregisteredpaid' => 1
+        ];
+
+        $updateMember = $memberModel->update($cekCallBack->user_id,$dataMember);
+
 
         // Respon ke Midtrans WAJIB 200 OK
         return $this->response->setStatusCode(200)->setJSON(['message' => 'Notification received']);
