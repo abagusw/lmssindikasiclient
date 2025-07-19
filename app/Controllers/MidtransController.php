@@ -68,8 +68,8 @@ class MidtransController extends BaseController
 
     public function notification()
     {
-        Config::$serverKey = Midtrans_ServerKey;
-        Config::$isProduction = false;
+        \Midtrans\Config::$serverKey = Midtrans_ServerKey;
+        \Midtrans\Config::$isProduction = false;
 
 
         $notif = new Notification();

@@ -43,7 +43,7 @@ $routes->get('paymentXXX/pay','MidtransController::index');
 $routes->get('setup/setpassword','Setup::setPassword');
 	$routes->get('auth/logout', 'Auth::logout');
 	
-$routes->post('/midtrans/notification', 'Midtrans::notification');
+$routes->post('/midtrans/notification', 'MidtransController::notification');
 
 $routes->group('/', ['filter' => 'auth'], function ($routes) {
 

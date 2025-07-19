@@ -75,23 +75,27 @@
     })
             .then(response => response.json())
             .then(data => {
+              console.log("Snap Token:", data.token);
                 snap.pay(data.token, {
-                    onSuccess: function (result) {
-                        //console.log("Success", result);
-                        saveDatabase(result);
-                        //alert("Pembayaran berhasil!");
-                    },
                     onPending: function (result) {
+                     alert('oke');
                         // console.log("Pending", result);
                         // $('#resultJson').val(JSON.stringify(result));
-                        saveDatabase(result);
+                      //  saveDatabase(result);
                         //alert("Menunggu pembayaran.");
                     },
+                    onSuccess: function (result) {
+
+                        //console.log("Success", result);
+                      //  saveDatabase(result);
+                        //alert("Pembayaran berhasil!");
+                    },
+
                     onError: function (result) {
-                        console.log("Error", result);
+                       // console.log("Error", result);
                         //$('#resultJson').val(JSON.stringify(result));
                         //alert("Pembayaran gagal.");
-                        saveDatabase(result);
+                       // saveDatabase(result);
                     }
 
 
