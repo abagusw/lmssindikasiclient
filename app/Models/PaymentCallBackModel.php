@@ -91,6 +91,11 @@ class PaymentCallBackModel extends Model
         return $query;
     }
 
+    public function updateStatusByOrderId($orderId, $transaction_status)
+    {
+        return $this->where('order_id', $orderId)->set(['transaction_status' => $transaction_status])->update();
+    }
+
 }
 
 ?>

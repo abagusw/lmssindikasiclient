@@ -42,12 +42,15 @@ $routes->get('paymentXXX/pay','MidtransController::index');
 
 $routes->get('setup/setpassword','Setup::setPassword');
 	$routes->get('auth/logout', 'Auth::logout');
-
+	
+$routes->post('/midtrans/notification', 'Midtrans::notification');
 
 $routes->group('/', ['filter' => 'auth'], function ($routes) {
 
 
 	$routes->get('dashboard', 'Dashboard::index');
+	$routes->get('/dashboard/token', 'Dashboard::token');
+	$routes->post('/dashboard/insert_transaksi', 'Dashboard::insert_transaksi');
 
 	$routes->get('user/profile', 'User::profile');
 	$routes->patch('user/(:segment)/changeprofile', 'User::changeProfile/$1');

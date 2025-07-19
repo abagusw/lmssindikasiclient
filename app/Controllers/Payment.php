@@ -9,7 +9,7 @@ use App\Models\LogModel;
 use CodeIgniter\Email\Email;
 use App\Controllers\SendEmailCon;
 use App\Libraries\SendEmail;
-use App\Models\PaymentCallBackModel;;
+use App\Models\PaymentCallBackModel;
 
 class Payment extends BaseController
 {

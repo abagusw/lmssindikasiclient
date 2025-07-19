@@ -9,8 +9,9 @@
 <button id="pay-button">Bayar Sekarang</button>
 
 <script>
+    const baseUrl = "<?= base_url() ?>";
     document.getElementById('pay-button').addEventListener('click', function () {
-        fetch('/midtrans/token', {
+        fetch(baseUrl +'/dashboard/token', {
 		    credentials: 'same-origin'  // penting supaya cookie sesi dikirim
 		})// Panggil token
             .then(response => response.json())
