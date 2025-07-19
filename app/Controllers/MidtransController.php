@@ -73,7 +73,7 @@ class MidtransController extends BaseController
 
 
         $notifs = new Notification();
-
+        log_message('info', 'Midtrans notifs: ' . $notifs);
         $notif = preg_replace('/[\x00-\x1F\x7F\xA0\x{200B}]/u', '', $notifs);
 
 
