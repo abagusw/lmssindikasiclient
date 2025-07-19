@@ -229,7 +229,8 @@ class Auth extends BaseController
         $email->setTo($to);
         $email->setSubject($subject);
         $email->setMessage($view);
-        $email->setMailType('html'); // wajib kalau isinya HTML
+        $email->setMailType('html');
+        $email->setFrom('adminlms@scriptmedia.net', 'AdminLMS');
 
         if ($email->send()) {
             //echo 'Email berhasil dikirim!';
