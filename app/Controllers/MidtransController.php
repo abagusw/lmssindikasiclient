@@ -98,10 +98,10 @@ class MidtransController extends BaseController
         if($cekCallBack){
             $dataMember = [
                     'flag_active' => 1,
-                    'isregisteredpaid' => 1
+                    'isregisterpaid' => 1
             ];
 
-            $updateMember = $memberModel->update($cekCallBack->user_id,$dataMember);
+            $updateMember = $memberModel->update($cekCallBack['user_id'],$dataMember);
         }
 
 
