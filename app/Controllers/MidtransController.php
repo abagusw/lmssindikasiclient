@@ -70,10 +70,10 @@ class MidtransController extends BaseController
     {
         \Midtrans\Config::$serverKey = Midtrans_ServerKey;
         \Midtrans\Config::$isProduction = false;
-        $id  = session()->get('id');
-        $email = session()->get('email');
-        $nama_lengkap = session()->get('nama_lengkap');
-        $nama_panggilan = session()->get('nama_panggilan');
+        // $id  = session()->get('id');
+        // $email = session()->get('email');
+        // $nama_lengkap = session()->get('nama_lengkap');
+        // $nama_panggilan = session()->get('nama_panggilan');
         $notifs = file_get_contents('php://input'); // ambil raw input
 
 
@@ -89,6 +89,16 @@ class MidtransController extends BaseController
         $order_id           = $notif->order_id;
         $fraud_status       = $notif->fraud_status;
 
+        $parts = explode("|", $notif->order_id);
+        $id = $parts[1];
+        $memberModel = new MemberModel();
+        $getMemberById = $memberModel->find($id);
+        $email = $getMemberById['email'];
+        $nama_lengkap = $getMemberById['nama_lengkap'];
+        $nama_panggilan = $getMemberById['nama_panggilan'];
+
+
+
         log_message('info', 'Midtrans Notif: ' . json_encode($notif));
 
         $paymentCallbackModel = new PaymentCallBackModel();
@@ -98,7 +108,6 @@ class MidtransController extends BaseController
         $cekCallBack = $paymentCallbackModel->where('order_id', $notif->order_id)->first();
 
         $memberModel = new MemberModel();
-
 
 
         $dataPayment = [

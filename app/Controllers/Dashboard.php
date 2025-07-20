@@ -37,15 +37,24 @@ class Dashboard extends BaseController
         //     )
         // ];
 
-        $order_id = uniqid();
+        $paymentCallbackModel = new PaymentCallBackModel();
+        $cekMemberPaymentPending = $paymentCallbackModel->where('user_id', session()->get('id'))->where('transaction_status','pending')->first();
+
+        if(!$cekMemberPaymentPending){
+            $IdbuttonPay = "pay-button";
+        }else{
+            $IdbuttonPay = "failed-button";
+        }
+
+        $order_id = uniqid()."|".session()->get('id');
         $param = [
             'transaction_details' => [
                 'order_id' => $order_id,
                 'gross_amount' => 75000,
             ],
             'customer_details' => [
-                'Nama Lengkap' => session()->get('nama_lengkap'),
-                'Nama Panggilan' => session()->get('nama_panggilan'),
+                'first_name' => session()->get('nama_lengkap'),
+                'last_name' => session()->get('nama_panggilan'),
                 'email' => session()->get('email'),
             ],
         ];
@@ -54,8 +63,11 @@ class Dashboard extends BaseController
             'title' => 'Dashboard',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),
             'snapToken' => \Midtrans\Snap::getSnapToken($param),
-            'session' => \Config\Services::session()
+            'session' => \Config\Services::session(),
+            'idButton' => $IdbuttonPay
         ];
+
+
 
         return view('dashboard/index', $data);
     }
@@ -72,8 +84,8 @@ class Dashboard extends BaseController
                     'gross_amount' => 75000,
                 ],
                 'customer_details' => [
-                    'Nama Lengkap' => session()->get('nama_lengkap'),
-                    'Nama Panggilan' => session()->get('nama_panggilan'),
+                    'first_name' => session()->get('nama_lengkap'),
+                    'last_name' => session()->get('nama_panggilan'),
                     'email' => session()->get('email'),
                 ],
             ];

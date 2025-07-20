@@ -34,7 +34,7 @@
         <p class="text-muted">Sebagai bentuk komitmen awal dan dukungan terhadap gerakan bersama, silakan lakukan pembayaran iuran awal. Iuran ini membantu mendukung operasional server dan memungkinkan semua anggota mendapatkan akses penuh ke manfaat, pelatihan, dan kegiatan komunitas.</p>
 
         <div class="payment-price mt-3">Rp. 75,000</div>
-        <button class="btn btn-orange w-100 mt-3 mb-3" id="pay-button">Bayar sekarang</button>
+        <button class="btn btn-orange w-100 mt-3 mb-3" id="<?= $idButton; ?>">Bayar sekarang</button>
         <div id="result-jsons">JSON result will appear here after payment:<br></div>
 
         <input type="hidden" id="resultJson" name="resultJson">
@@ -113,7 +113,7 @@
           console.log("Token", "<?php echo $snapToken?>");
             // SnapToken acquired from previous step
             snap.pay('<?php echo $snapToken?>', {
-              
+
                 // Optional
                 onSuccess: function(result){
                   console.log("Success", result);
@@ -170,5 +170,15 @@
       
     }
     </script>
+
+    <script>
+        $('#failed-button').click(function() {
+        $.ambiance({
+            message: 'Masih terdapat transaksi yang belum diselesaikan !',
+            type: "error",
+            fade: false
+        });
+    });
+  </script>
       <!-- /.row (main row) -->
 <?= $this->endSection(); ?>
