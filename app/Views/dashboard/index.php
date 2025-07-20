@@ -67,42 +67,75 @@
         });
       };
     </script> -->
-    <script>
+    <script type="text/javascript">
     const baseUrl = "<?= base_url() ?>";
-    document.getElementById('pay-button').addEventListener('click', function () {
-        fetch(baseUrl +'/dashboard/token', {
-        credentials: 'same-origin' 
-    })
-            .then(response => response.json())
-            .then(data => {
-              console.log("Snap Token:", data.token);
-                snap.pay(data.token, {
-                    onPending: function (result) {
-                    // alert('oke');
-                        // console.log("Pending", result);
-                        // $('#resultJson').val(JSON.stringify(result));
-                       saveDatabase(result);
-                        //alert("Menunggu pembayaran.");
-                    },
-                    onSuccess: function (result) {
-
-                        //console.log("Success", result);
-                      saveDatabase(result);
-                        //alert("Pembayaran berhasil!");
-                    },
-
-                    onError: function (result) {
-                       // console.log("Error", result);
-                        //$('#resultJson').val(JSON.stringify(result));
-                        //alert("Pembayaran gagal.");
-                       saveDatabase(result);
-                    }
+    // document.getElementById('pay-button').addEventListener('click', function () {
+    //     fetch(baseUrl +'/dashboard/token', {
+    //     credentials: 'same-origin' 
+    // })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //           console.log("Snap Data:",data.va_number);
+    //           console.log("Snap Token:", data.token);
+    //             snap.pay(data.token, {
 
 
-                });
-            })
 
-    });
+    //                 onPending: function (result) {
+    //                   getDataByToken(result.order_id); 
+    //                 // alert('oke');
+    //                     // console.log("Pending", result);
+    //                     // $('#resultJson').val(JSON.stringify(result));
+    //                    saveDatabase(result);
+    //                     //alert("Menunggu pembayaran.");
+    //                 },
+    //                 onSuccess: function (result) {
+
+    //                     //console.log("Success", result);
+    //                   saveDatabase(result);
+    //                     //alert("Pembayaran berhasil!");
+    //                 },
+
+    //                 onError: function (result) {
+    //                    // console.log("Error", result);
+    //                     //$('#resultJson').val(JSON.stringify(result));
+    //                     //alert("Pembayaran gagal.");
+    //                    saveDatabase(result);
+    //                 }
+
+
+    //             });
+    //         })
+
+    // });
+
+        document.getElementById('pay-button').onclick = function(){
+          console.log("Token", "<?php echo $snapToken?>");
+            // SnapToken acquired from previous step
+            snap.pay('<?php echo $snapToken?>', {
+              
+                // Optional
+                onSuccess: function(result){
+                  console.log("Success", result);
+                    /* You may add your own js here, this is just example */ 
+                    document.getElementById('result-jsons').innerHTML += JSON.stringify(result, null, 2);
+                },
+                // Optional
+                onPending: function(result){
+                    /* You may add your own js here, this is just example */
+                    console.log("Pending", result); 
+                    document.getElementById('result-jsons').innerHTML += JSON.stringify(result, null, 2);
+                },
+                // Optional
+                onError: function(result){
+                  console.log("Error", result);
+                    /* You may add your own js here, this is just example */ 
+                    document.getElementById('result-jsons').innerHTML += JSON.stringify(result, null, 2);
+                }
+            });
+        };
+
+
 
     function saveDatabase(result) {
       fetch(baseUrl + '/dashboard/insert_transaksi', {
@@ -120,6 +153,21 @@
                     type: "success",
                     fade: false});
     });
+    }
+
+    function getDataByToken(token){
+        $.ajax({
+            type: 'POST',
+            data: {token:token,'<?= csrf_token() ?>': '<?= csrf_hash() ?>'},
+            url: "<?php echo base_url('dashboard/getDataByToken')?>",
+            async: false,
+            success: function(response) {
+              
+
+            }
+
+        });
+      
     }
     </script>
       <!-- /.row (main row) -->

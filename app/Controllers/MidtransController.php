@@ -70,7 +70,10 @@ class MidtransController extends BaseController
     {
         \Midtrans\Config::$serverKey = Midtrans_ServerKey;
         \Midtrans\Config::$isProduction = false;
-
+        $id  = session()->get('id');
+        $email = session()->get('email');
+        $nama_lengkap = session()->get('nama_lengkap');
+        $nama_panggilan = session()->get('nama_panggilan');
         $notifs = file_get_contents('php://input'); // ambil raw input
 
 
@@ -95,14 +98,60 @@ class MidtransController extends BaseController
         $cekCallBack = $paymentCallbackModel->where('order_id', $notif->order_id)->first();
 
         $memberModel = new MemberModel();
-        if($cekCallBack){
-            $dataMember = [
-                    'flag_active' => 1,
-                    'isregisterpaid' => 1
-            ];
 
-            $updateMember = $memberModel->update($cekCallBack['user_id'],$dataMember);
+
+
+        $dataPayment = [
+            'type'                  => 'Registration',
+            'user_id'               => $id,
+            'user'                  => $email,
+            'fullname'              => $nama_lengkap,
+            'amount'                => $notif->gross_amount,
+            'method'                => $notif->payment_type,
+            'status'                => $notif->transaction_status ?? null
+        ];
+
+        
+
+        $data = [
+            'order_id'         => $notif->order_id,
+            'user_id'          => $id,
+            'transaction_id'   => $notif->transaction_id,
+            'transaction_time' => $notif->transaction_time,
+            'payment_type'     => $notif->payment_type,
+            'transaction_status' => $notif->transaction_status,
+            'gross_amount'     => $notif->gross_amount,
+            //'currency'         => $notif->currency,
+            'fraud_status'     => $notif->fraud_status ?? null,
+            'settlement_time'  => $notif->settlement_time ?? null,
+            'status_code'      => $notif->status_code,
+            'status_message'   => $notif->status_message,
+            'va_number'        => isset($notif->va_numbers[0]->va_number) ? $notif->va_numbers[0]->va_number : null,
+            'bank'             => isset($notif->va_numbers[0]->bank) ? $notif->va_numbers[0]->bank : null
+        ];
+
+
+        // if($cekCallBack){
+        //     $dataMember = [
+        //             'flag_active' => 1,
+        //             'isregisterpaid' => 1
+        //     ];
+
+        //     $updateMember = $memberModel->update($cekCallBack['user_id'],$dataMember);
+        // }
+
+        if ($cekCallBack) {
+            $paymentCallbackModel->where('order_id', $notif->order_id)->set($data)->update();
+            $paymentModel->where('user_id', $id)->set($dataPayment)->update();
+            log_message('info', 'Midtrans Data Update : ' . json_encode($notif));
+        }else{
+            $paymentModel->insert($dataPayment);
+            $paymentCallbackModel->insert($data);
+            log_message('info', 'Midtrans Data Insert : ' . json_encode($notif));
+
         }
+
+  
 
 
         // Respon ke Midtrans WAJIB 200 OK

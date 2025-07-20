@@ -30,13 +30,25 @@ class Dashboard extends BaseController
         // Set 3DS transaction for credit card to true
         \Midtrans\Config::$is3ds = true;
 
-        $param = [
-             'transaction_details' => array(
-                'order_id' => rand(),
-                'gross_amount' => 75000,
-            )
-        ];
+        // $param = [
+        //      'transaction_details' => array(
+        //         'order_id' => rand(),
+        //         'gross_amount' => 75000,
+        //     )
+        // ];
 
+        $order_id = uniqid();
+        $param = [
+            'transaction_details' => [
+                'order_id' => $order_id,
+                'gross_amount' => 75000,
+            ],
+            'customer_details' => [
+                'Nama Lengkap' => session()->get('nama_lengkap'),
+                'Nama Panggilan' => session()->get('nama_panggilan'),
+                'email' => session()->get('email'),
+            ],
+        ];
 
         $data = [
             'title' => 'Dashboard',
@@ -53,10 +65,10 @@ class Dashboard extends BaseController
         log_message('info', 'Token Midtrans dipanggil...');
         try {
             \Config\Midtrans::init();
-
+            $order_id = uniqid();
             $params = [
                 'transaction_details' => [
-                    'order_id' => uniqid(),
+                    'order_id' => $order_id,
                     'gross_amount' => 75000,
                 ],
                 'customer_details' => [
@@ -131,6 +143,30 @@ class Dashboard extends BaseController
         //$model->where('order_id', $request->order_id)->set($data)->update();
 
         return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function getDataByToken(){
+        $token = $this->request->getPost('token');
+        $url = "https://app.sandbox.midtrans.com/snap/v1/transactions/".$token."/status";
+
+        $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => $url,
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => '',
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 0,
+              CURLOPT_FOLLOWLOCATION => true,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => 'GET',
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+            echo $response;
+
     }
 
     //--------------------------------------------------------------------
