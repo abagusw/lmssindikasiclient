@@ -78,16 +78,16 @@
               console.log("Snap Token:", data.token);
                 snap.pay(data.token, {
                     onPending: function (result) {
-                     alert('oke');
+                    // alert('oke');
                         // console.log("Pending", result);
                         // $('#resultJson').val(JSON.stringify(result));
-                      //  saveDatabase(result);
+                       saveDatabase(result);
                         //alert("Menunggu pembayaran.");
                     },
                     onSuccess: function (result) {
 
                         //console.log("Success", result);
-                      //  saveDatabase(result);
+                      saveDatabase(result);
                         //alert("Pembayaran berhasil!");
                     },
 
@@ -95,7 +95,7 @@
                        // console.log("Error", result);
                         //$('#resultJson').val(JSON.stringify(result));
                         //alert("Pembayaran gagal.");
-                       // saveDatabase(result);
+                       saveDatabase(result);
                     }
 
 
