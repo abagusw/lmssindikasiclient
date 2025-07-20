@@ -107,7 +107,7 @@ class MidtransController extends BaseController
 
         $cekCallBack = $paymentCallbackModel->where('order_id', $notif->order_id)->first();
 
-        $memberModel = new MemberModel();
+        //$memberModel = new MemberModel();
 
 
         $dataPayment = [
@@ -140,18 +140,17 @@ class MidtransController extends BaseController
         ];
 
 
-        // if($cekCallBack){
-        //     $dataMember = [
-        //             'flag_active' => 1,
-        //             'isregisterpaid' => 1
-        //     ];
+        $dataMember = [
+                'flag_active' => 1,
+                'isregisterpaid' => 1
+        ];
 
-        //     $updateMember = $memberModel->update($cekCallBack['user_id'],$dataMember);
-        // }
+            
 
         if ($cekCallBack) {
             $paymentCallbackModel->where('order_id', $notif->order_id)->set($data)->update();
             $paymentModel->where('user_id', $id)->set($dataPayment)->update();
+            $updateMember = $memberModel->update($id,$dataMember);
             log_message('info', 'Midtrans Data Update : ' . json_encode($notif));
         }else{
             $paymentModel->insert($dataPayment);

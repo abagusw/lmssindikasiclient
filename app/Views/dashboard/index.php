@@ -118,19 +118,19 @@
                 onSuccess: function(result){
                   console.log("Success", result);
                     /* You may add your own js here, this is just example */ 
-                    document.getElementById('result-jsons').innerHTML += JSON.stringify(result, null, 2);
+                    //document.getElementById('result-jsons').innerHTML += JSON.stringify(result, null, 2);
                 },
                 // Optional
                 onPending: function(result){
                     /* You may add your own js here, this is just example */
                     console.log("Pending", result); 
-                    document.getElementById('result-jsons').innerHTML += JSON.stringify(result, null, 2);
+                    //document.getElementById('result-jsons').innerHTML += JSON.stringify(result, null, 2);
                 },
                 // Optional
                 onError: function(result){
                   console.log("Error", result);
                     /* You may add your own js here, this is just example */ 
-                    document.getElementById('result-jsons').innerHTML += JSON.stringify(result, null, 2);
+                   // document.getElementById('result-jsons').innerHTML += JSON.stringify(result, null, 2);
                 }
             });
         };
