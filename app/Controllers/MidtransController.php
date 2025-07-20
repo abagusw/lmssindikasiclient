@@ -106,6 +106,8 @@ class MidtransController extends BaseController
         $paymentCallbackModel->updateStatusByOrderId($order_id, $transaction_status);
 
         $cekCallBack = $paymentCallbackModel->where('order_id', $notif->order_id)->first();
+        $cekCallBackandMember = $paymentCallbackModel->where('order_id', $notif->order_id)->where('user_id', $id)->first();
+
 
         //$memberModel = new MemberModel();
 
@@ -139,18 +141,21 @@ class MidtransController extends BaseController
             'bank'             => isset($notif->va_numbers[0]->bank) ? $notif->va_numbers[0]->bank : null
         ];
 
+        if($notif->transaction_status == 'settlement'){
 
-        $dataMember = [
-                'flag_active' => 1,
-                'isregisterpaid' => 1
-        ];
+            $dataMember = [
+                    'flag_active' => 1,
+                    'isregisterpaid' => 1
+            ];
+            $updateMember = $memberModel->update($id,$dataMember);
+        }
 
             
 
         if ($cekCallBack) {
             $paymentCallbackModel->where('order_id', $notif->order_id)->set($data)->update();
             $paymentModel->where('user_id', $id)->set($dataPayment)->update();
-            $updateMember = $memberModel->update($id,$dataMember);
+            
             log_message('info', 'Midtrans Data Update : ' . json_encode($notif));
         }else{
             $paymentModel->insert($dataPayment);
