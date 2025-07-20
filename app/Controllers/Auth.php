@@ -230,8 +230,10 @@ class Auth extends BaseController
         $email->setSubject($subject);
         $email->setMessage($view);
         $email->setMailType('html');
-        $fromEmail = config('Email')->fromEmail;
-        $fromName  = config('Email')->fromName;
+        // $fromEmail = config('Email')->fromEmail;
+        // $fromName  = config('Email')->fromName;
+        $fromEmail = "adminlms@scriptmedia.net";
+        $fromName = "AdminLMS";
         $email->setFrom($fromEmail, $fromName);
 
         if ($email->send()) {
