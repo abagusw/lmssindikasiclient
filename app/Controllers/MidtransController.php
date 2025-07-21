@@ -144,7 +144,7 @@ class MidtransController extends BaseController
         if($notif->transaction_status == 'settlement'){
 
             $dataMember = [
-                    'flag_active' => 1,
+                    //'flag_active' => 1,
                     'isregisterpaid' => 1
             ];
             $updateMember = $memberModel->update($id,$dataMember);

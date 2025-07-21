@@ -22,107 +22,47 @@
   }
   ?>
   <!-- Isi utama -->
-<div class="row mt-4">
-  <!-- Checklist Kiri -->
-  <div class="col-md-4">
-    <div class="list-group">
-      <a href="#pembayaran" class="list-group-item list-group-item-action active d-flex align-items-center" data-bs-toggle="tab">
-        <i class="bi bi-check-circle-fill text-success me-2"></i> Pembayaran awal
-      </a>
-      <a href="#pendidikan" class="list-group-item list-group-item-action d-flex align-items-center" data-bs-toggle="tab">
-        <i class="bi bi-circle text-muted me-2"></i> Pendidikan dasar
-      </a>
+  <div class="row mt-4">
+    <!-- Checklist -->
+    <div class="col-md-4">
+      <div class="card-checklist">
+        <h6>Checklist Pengaturan</h6>
+        <ul class="list-group list-group-flush mt-3">
+          <li class="list-group-item d-flex align-items-center">
+            <i class="<?= $iconPaid; ?>"></i> Pembayaran awal
+          </li>
+          <li class="list-group-item d-flex align-items-center text-muted">
+            <i class="bi bi-circle me-2"></i> Pendidikan dasar
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Pembayaran -->
+    <div class="col-md-8">
+      <div class="section-box">
+        <h5>Pembayaran Iuran Awal</h5>
+        <p class="text-muted">Sebagai bentuk komitmen awal dan dukungan terhadap gerakan bersama, silakan lakukan pembayaran iuran awal. Iuran ini membantu mendukung operasional server dan memungkinkan semua anggota mendapatkan akses penuh ke manfaat, pelatihan, dan kegiatan komunitas.</p>
+        <?= $ketPaid; ?>
+        <div class="payment-price mt-3">Rp. 75,000</div>
+        <?php
+        if($user_logged_in['isregisterpaid'] == 1){
+          ?>
+          <button class="btn btn-grey w-100 mt-3 mb-3">Lihat rincian</button> <?php }
+        else{
+          ?>
+          <button class="btn btn-orange w-100 mt-3 mb-3" id="<?= $idButton; ?>">Bayar sekarang</button> <?php } ?>
+        <!-- <div id="result-jsons">JSON result will appear here after payment:<br></div> -->
+
+        <input type="hidden" id="resultJson" name="resultJson">
+
+        <ul class="text-muted">
+          <li><i class="bi bi-check-circle-fill text-success me-2"></i>Dapat mulai mengakses <strong>“Pendidikan Dasar Sindikasi”</strong></li>
+          <li><i class="bi bi-check-circle-fill text-success me-2"></i>Tersambut masuk wilayah anggota selama 3 bulan</li>
+        </ul>
+      </div>
     </div>
   </div>
-
-  <!-- Konten Kanan -->
-  <div class="col-md-8">
-    <div class="tab-content">
-
-      <!-- Tab Pembayaran -->
-      <div class="tab-pane fade show active" id="pembayaran">
-        <div class="card border-success rounded-4 shadow-sm p-4">
-          <h5 class="fw-bold">Pembayaran Iuran Awal</h5>
-          <p>Sebagai bentuk komitmen awal dan dukungan terhadap gerakan bersama, silakan lakukan pembayaran iuran awal. Iuran ini membantu mendukung operasional server dan memungkinkan semua anggota mendapatkan akses penuh ke manfaat, pelatihan, dan kegiatan komunitas.</p>
-
-          <div class="d-flex align-items-center mb-2">
-            <strong class="me-2">Iuran Awal</strong>
-            <span class="badge bg-success">Lunas</span>
-          </div>
-
-          <h3 class="fw-bold">Rp. 75,000</h3>
-
-          <button class="btn btn-outline-secondary w-100 mt-3 mb-3">
-            Lihat rincian
-          </button>
-
-          <div>
-            <ul class="list-unstyled text-muted">
-              <li class="mb-2">
-                <i class="bi bi-check-circle-fill text-success me-2"></i>
-                Dapat mulai mengakses <strong>“Pendidikan Dasar Sindikasi”</strong>
-              </li>
-              <li>
-                <i class="bi bi-check-circle-fill text-success me-2"></i>
-                Termasuk iuran wajib anggota selama 3 bulan
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tab Pendidikan -->
-      <div class="tab-pane fade" id="pendidikan">
-        <div class="card rounded-4 shadow-sm p-4">
-          <h5 class="fw-bold">Pendidikan Dasar</h5>
-          <?php if($user_logged_in['isregisterpaid'] == 1){
-            ?>
-          <p class="text-muted mb-4">
-            Luangkan waktumu sejenak untuk menyelesaikannya—ini adalah fondasi penting untuk langkah-langkah ke depan sebagai anggota aktif!
-          </p>
-
-          <div class="card border rounded-4 p-3">
-            <div class="mb-2">
-              <h6 class="fw-semibold mb-1">Pendidikan Dasar Serikat</h6>
-              <small class="text-muted">by Sindikasi &nbsp;•&nbsp; 25 menit &nbsp;•&nbsp; 6 materi</small>
-            </div>
-
-            <div class="mb-2">
-              <span class="badge bg-secondary rounded-pill me-1">Pendidikan Dasar</span>
-              <span class="badge bg-secondary rounded-pill me-1">Serikat 101</span>
-              <span class="badge bg-secondary rounded-pill">AD/ART</span>
-            </div>
-
-            <div class="my-3">
-              <div class="ratio ratio-16x9 rounded-4 overflow-hidden">
-                <iframe src="https://www.youtube.com/embed/YOUTUBE_ID" title="Video Pendidikan Dasar" allowfullscreen></iframe>
-              </div>
-            </div>
-
-            <p class="text-muted">
-              <strong>Diksarser 🎶</strong> atau Pendidikan Dasar Serikat adalah forum berbagi pengetahuan & kapasitas, khususnya tentang keorganisasian SINDIKASI. Pengetahuan dalam konteks ini juga bukan dalam posisi yang hierarkis, untuk siapa yang lebih tahu dan tidak,
-              tetapi untuk berefleksi pada kondisi kerja kita masing-masing dan kemudian membayangkan apa aja yang bisa kita
-              lakukan bareng-bareng untuk memperjuangkan hak kita sebagai pekerja media dan industri kreatif.
-            </p>
-
-            <div class="mt-4">
-              <a href="<?= base_url('materi/pendidikan-dasar') ?>" class="btn btn-orange w-100 rounded-3 fw-semibold py-2">
-                Lihat materi
-              </a>
-            </div>
-          </div>
-
-
-          <?php }else{?>
-           <p class="text-danger">Silakan melakukan pembayaran terlebih dahulu untuk mengakses pendidikan dasar.</p>
-           <?php
-          }?>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
 
       <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?= Midtrans_ClientKey ?>"></script>
 <!--     <script type="text/javascript">

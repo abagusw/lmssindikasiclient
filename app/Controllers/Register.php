@@ -235,7 +235,8 @@ class Register extends BaseController
 
         // Simpan password baru
         $model->update($id, [
-            'password' => password_hash($password, PASSWORD_DEFAULT)
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'issetuppassword' => 1
         ]);
 
         return $this->response->setJSON([
