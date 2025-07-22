@@ -132,9 +132,14 @@
       </div>
 
       <!-- Banner Hitam -->
+              <?php
+        if($user['isregisterpaid'] <> 1){
+          ?>
       <div class="bg-dark text-white text-center py-2 px-3 fw-medium">
+
         Kamu belum membayar iuran awal. Segera lakukan pembayaran agar dapat mulai mengakses portal Sindikasi secara lengkap
       </div>
+    <?php } ?>
 
       <div class="main-content">
         <!-- Banner -->

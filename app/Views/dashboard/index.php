@@ -26,10 +26,10 @@
   <!-- Checklist Kiri -->
   <div class="col-md-4">
     <div class="list-group">
-      <a href="#pembayaran" class="list-group-item list-group-item-action active d-flex align-items-center" data-bs-toggle="tab">
+      <a id="btnPembayaran" href="#pembayaran" class="list-group-item list-group-item-action active d-flex align-items-center" data-bs-toggle="tab">
         <i class="<?= $iconPaid; ?>"></i> Pembayaran awal
       </a>
-      <a href="#pendidikan" class="list-group-item list-group-item-action d-flex align-items-center" data-bs-toggle="tab">
+      <a id="btnPendidikan" href="#pendidikan" class="list-group-item list-group-item-action d-flex align-items-center" data-bs-toggle="tab">
         <i class="bi bi-circle text-muted me-2"></i> Pendidikan dasar
       </a>
     </div>
@@ -290,6 +290,32 @@
             fade: false
         });
     });
-  </script>
+    </script>
+
+    <script>
+      const btnPembayaran = document.getElementById('btnPembayaran');
+      const btnPendidikan = document.getElementById('btnPendidikan');
+      const pembayaran = document.getElementById('pembayaran');
+      const pendidikan = document.getElementById('pendidikan');
+
+      btnPembayaran.addEventListener('click', function () {
+        pembayaran.style.display = 'block';
+        pendidikan.style.display = 'none';
+        btnPembayaran.classList.add('active');
+        btnPendidikan.classList.remove('active');
+      });
+
+      btnPendidikan.addEventListener('click', function () {
+        pembayaran.style.display = 'none';
+        pendidikan.style.display = 'block';
+        btnPembayaran.classList.remove('active');
+        btnPendidikan.classList.add('active');
+      });
+
+      <?php if($user_logged_in['isregisterpaid'] == 1){
+        ?>
+        btnPendidikan.click();
+      <?php }?>
+    </script>
       <!-- /.row (main row) -->
 <?= $this->endSection(); ?>
