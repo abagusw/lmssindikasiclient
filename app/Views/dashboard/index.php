@@ -44,17 +44,26 @@
         <div class="card border-success rounded-4 shadow-sm p-4">
           <h5 class="fw-bold">Pembayaran Iuran Awal</h5>
           <p>Sebagai bentuk komitmen awal dan dukungan terhadap gerakan bersama, silakan lakukan pembayaran iuran awal. Iuran ini membantu mendukung operasional server dan memungkinkan semua anggota mendapatkan akses penuh ke manfaat, pelatihan, dan kegiatan komunitas.</p>
-
+          
+          
+          <?php
+          $tagihan = "<h3 class='fw-bold'>Rp. 75,000</h3>";
+          
+        if($user_logged_in['isregisterpaid'] == 1){
+          ?>
           <div class="d-flex align-items-center mb-2">
             <strong class="me-2">Iuran Awal</strong>
             <span class="badge bg-success">Lunas</span>
           </div>
 
-          <h3 class="fw-bold">Rp. 75,000</h3>
-
+          <?=  $tagihan; ?>
           <button class="btn btn-outline-secondary w-100 mt-3 mb-3">
             Lihat rincian
-          </button>
+          </button><?php }
+        else{
+          ?>
+          <?=  $tagihan; ?>
+          <button class="btn btn-orange w-100 mt-3 mb-3" id="<?= $idButton; ?>">Bayar sekarang</button> <?php } ?>
 
           <div>
             <ul class="list-unstyled text-muted">
@@ -64,7 +73,7 @@
               </li>
               <li>
                 <i class="bi bi-check-circle-fill text-success me-2"></i>
-                Termasuk iuran wajib anggota selama 3 bulan
+                Termasuk iuran wajib anggota selama 3 bulan 
               </li>
             </ul>
           </div>
