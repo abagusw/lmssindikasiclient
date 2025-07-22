@@ -8,6 +8,13 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link href="<?=ASSETS_URL?>compo_notif/jquery.ambiance.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="<?=ASSETS_URL?>compo_notif/jquery.ambiance.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap 4 JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
   <style>
     body {
       background-color: #f9f9f9;
@@ -141,7 +148,8 @@
     </div>
   </div>
 </div>
-<script src="<?=ASSETS_URL?>compo_notif/jquery.ambiance.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 </body>
 </html>

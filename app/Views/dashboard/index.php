@@ -27,7 +27,7 @@
   <div class="col-md-4">
     <div class="list-group">
       <a href="#pembayaran" class="list-group-item list-group-item-action active d-flex align-items-center" data-bs-toggle="tab">
-        <i class="bi bi-check-circle-fill text-success me-2"></i> Pembayaran awal
+        <i class="<?= $iconPaid; ?>"></i> Pembayaran awal
       </a>
       <a href="#pendidikan" class="list-group-item list-group-item-action d-flex align-items-center" data-bs-toggle="tab">
         <i class="bi bi-circle text-muted me-2"></i> Pendidikan dasar
@@ -132,6 +132,29 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="paymentSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4 border-0" style="border-radius: 1rem;">
+      
+      <!-- Close Button -->
+      <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      <!-- Icon -->
+      <div class="mb-3">
+        <img src="<?=ASSETS_URL?>assets/images/payment_success.png" alt="Icon Pembayaran" width="60">
+      </div>
+
+      <!-- Title -->
+      <h5 class="fw-bold">Pembayaran berhasil!</h5>
+
+      <!-- Description -->
+      <p class="text-muted mb-0">
+        Pembayaran <strong>Iuran 3 Bulan</strong> kamu sudah berhasil dibayar dan diverifikasi
+      </p>
+
+    </div>
+  </div>
+</div>
 
       <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?= Midtrans_ClientKey ?>"></script>
 <!--     <script type="text/javascript">
@@ -203,6 +226,8 @@
                 // Optional
                 onSuccess: function(result){
                   console.log("Success", result);
+                  const myModal = new bootstrap.Modal(document.getElementById('paymentSuccessModal'));
+                  myModal.show();
                     /* You may add your own js here, this is just example */ 
                     //document.getElementById('result-jsons').innerHTML += JSON.stringify(result, null, 2);
                 },
