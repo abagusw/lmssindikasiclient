@@ -226,8 +226,19 @@
                 // Optional
                 onSuccess: function(result){
                   console.log("Success", result);
-                  const myModal = new bootstrap.Modal(document.getElementById('paymentSuccessModal'));
+                  // const myModal = new bootstrap.Modal(document.getElementById('paymentSuccessModal'));
+                  // myModal.show();
+
+                  const myModalEl = document.getElementById('paymentSuccessModal');
+                  const myModal = new bootstrap.Modal(myModalEl);
+
+                  // Tampilkan modal
                   myModal.show();
+
+                  // Reload saat modal ditutup
+                  myModalEl.addEventListener('hidden.bs.modal', function () {
+                    location.reload();
+                  });
                     /* You may add your own js here, this is just example */ 
                     //document.getElementById('result-jsons').innerHTML += JSON.stringify(result, null, 2);
                 },
@@ -317,5 +328,6 @@
         btnPendidikan.click();
       <?php }?>
     </script>
+
       <!-- /.row (main row) -->
 <?= $this->endSection(); ?>
