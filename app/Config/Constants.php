@@ -97,4 +97,4 @@ define('ApiKeyGhost','1a0be4d09ea16d73f6cebb1d39');
 define('Midtrans_MerchantID','G574834467');
 define('Midtrans_ClientKey','SB-Mid-client-Tub-Ws0lTTNJ5LCa');
 define('Midtrans_ServerKey','SB-Mid-server-CK5FEFJ9eLezZhEechTlVHso');
-define('urlAdmin','http://localhost:8081/course/');
+define('urlAdmin','https://lmsdev.scriptmedia.net/');
