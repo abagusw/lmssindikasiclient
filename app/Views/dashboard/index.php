@@ -107,12 +107,14 @@
                 $data = json_decode($response->getBody(), true);
                 if (!empty($data['posts'][0])) {
                     $title = $data['posts'][0]['title'];
+                    $slug = $data['posts'][0]['slug'];
                    // echo 'Judul: ' . $title;
                 } else {
+                  $slug = "N/A";
                    // echo 'Data tidak ditemukan.';
                 }
                 ?>
-              <span class="badge bg-secondary rounded-pill me-1"><?= $data['posts'][0]['slug']; ?></span>
+              <span class="badge bg-secondary rounded-pill me-1"><?= $slug; ?></span>
             <?php } ?>
             </div>
             <?php
