@@ -22,6 +22,11 @@ use App\Models\UserModel;
  */
 abstract class BaseController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->userModel = new UserModel();
+    }
     /**
      * Instance of the main Request object.
      *
