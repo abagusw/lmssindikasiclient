@@ -10,13 +10,16 @@ use Midtrans\Config;
 use Midtrans\Notification;
 use App\Models\PaymentCallBackModel;
 use App\Models\PaymentModel;
-
+use App\Models\MasterCourseModel;
+use App\Models\MasterCourseLesson;
 class Dashboard extends BaseController
 {
     public function __construct()
     {
 
         $this->userModel = new UserModel();
+        $this->masterCourseModel = new MasterCourseModel();
+        $this->masterCourseLesson = new MasterCourseLesson();
     }
 
     public function index()
@@ -58,12 +61,16 @@ class Dashboard extends BaseController
                 'email' => session()->get('email'),
             ],
         ];
+        $dataCourseRow = $this->masterCourseModel->orderBy('id', 'DESC')->first();
+        $dataLesson = $this->masterCourseLesson->where('course_id',$dataCourseRow['id'])->findAll();
 
         $data = [
             'title' => 'Dashboard',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),
             'snapToken' => \Midtrans\Snap::getSnapToken($param),
             'session' => \Config\Services::session(),
+            'dataCourseRow' => $dataCourseRow,
+            'dataLesson' => $dataLesson,
             'idButton' => $IdbuttonPay
         ];
 

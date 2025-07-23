@@ -92,19 +92,36 @@
 
           <div class="card border rounded-4 p-3">
             <div class="mb-2">
-              <h6 class="fw-semibold mb-1">Pendidikan Dasar Serikat</h6>
-              <small class="text-muted">by Sindikasi &nbsp;•&nbsp; 25 menit &nbsp;•&nbsp; 6 materi</small>
+              <h6 class="fw-semibold mb-1"><?= $dataCourseRow['judul']; ?></h6>
+              <small class="text-muted">by Sindikasi &nbsp;•&nbsp; 25 menit &nbsp;•&nbsp; <?= count($dataLesson); ?> materi</small>
             </div>
 
             <div class="mb-2">
-              <span class="badge bg-secondary rounded-pill me-1">Pendidikan Dasar</span>
-              <span class="badge bg-secondary rounded-pill me-1">Serikat 101</span>
-              <span class="badge bg-secondary rounded-pill">AD/ART</span>
-            </div>
+              <?php
+              foreach($dataLesson as $lesson){
+                $key = ApiKeyGhost; // Ganti dengan API key kamu
+                $url = URLGhost."/ghost/api/content/posts/?key=$key&filter=uuid:[".$lesson['uuid']."]&limit=1";
 
+                $client = \Config\Services::curlrequest();
+                $response = $client->get($url);
+                $data = json_decode($response->getBody(), true);
+                if (!empty($data['posts'][0])) {
+                    $title = $data['posts'][0]['title'];
+                   // echo 'Judul: ' . $title;
+                } else {
+                   // echo 'Data tidak ditemukan.';
+                }
+                ?>
+              <span class="badge bg-secondary rounded-pill me-1"><?= $data['posts'][0]['slug']; ?></span>
+            <?php } ?>
+            </div>
+            <?php
+            $gb = urlAdmin."uploads/course/" . $dataCourseRow['cover'];
+            ?>
             <div class="my-3">
               <div class="ratio ratio-16x9 rounded-4 overflow-hidden">
-                <iframe src="https://www.youtube.com/embed/YOUTUBE_ID" title="Video Pendidikan Dasar" allowfullscreen></iframe>
+                <img src="<?= $gb; ?>" alt="Cover Course">
+
               </div>
             </div>
 
@@ -151,6 +168,10 @@
       <p class="text-muted mb-0">
         Pembayaran <strong>Iuran 3 Bulan</strong> kamu sudah berhasil dibayar dan diverifikasi
       </p>
+      <button type="button" class="btn btn-warning text-white px-4 mt-2 mx-auto d-block">
+        Mulai pendidikan dasar
+      </button>
+
 
     </div>
   </div>
@@ -328,6 +349,19 @@
         btnPendidikan.click();
       <?php }?>
     </script>
+
+<!--     <script>
+      const myModalEl = document.getElementById('paymentSuccessModal');
+                  const myModal = new bootstrap.Modal(myModalEl);
+
+                  // Tampilkan modal
+                  myModal.show();
+
+                  // Reload saat modal ditutup
+                  myModalEl.addEventListener('hidden.bs.modal', function () {
+                    location.reload();
+                  });
+    </script> -->
 
       <!-- /.row (main row) -->
 <?= $this->endSection(); ?>
