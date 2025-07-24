@@ -53,7 +53,10 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->post('/dashboard/insert_transaksi', 'Dashboard::insert_transaksi');
 	$routes->post('/dashboard/getDataByToken', 'Dashboard::getDataByToken');
 
-	
+
+	$routes->get('materi/dasar', 'Materi::masteri_dasar');
+	//$routes->get('materi/konten', 'Materi::konten');
+	$routes->get('materi/konten/(:segment)', 'Materi::konten/$1');
 
 	$routes->get('user/profile', 'User::profile');
 	$routes->patch('user/(:segment)/changeprofile', 'User::changeProfile/$1');
