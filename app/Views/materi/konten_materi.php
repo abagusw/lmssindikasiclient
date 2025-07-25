@@ -93,11 +93,7 @@
 
         <img src="<?= $getData['feature_image']; ?>" class="img-fluid rounded mb-4" alt="Ilustrasi">
 
-        <p>Pekerja bisa mendefinisi di mana saja. Tak hanya di kantor atau depan layar, masalah dan beban hidup mengantarmu mulai dari keluar kamar, di dalam gedung KRL, di tempat makan siang, sampai di pojok warung depan—pun bisa terkait dunia kerja.</p>
-
-        <p>Pasalnya, masalah struktural pekerja tidak selesai. Ini menjadi struktural karena isu-isu tersebut berkembang dengan berbagai isu lainnya dan menembus dalam kesemua lini. Isu umum langsung bersilangan dengan beban rumah tangga, relasi sosial, dan tekanan kehidupan sehari-hari. Ini menyasar mereka yang bekerja secara temporer/freelance hingga buruh. Setiap pekerja, yang bekerja maupun tidak, memiliki narasi persoalan yang hampir serupa, tetapi tidak cukup hanya disuarakan.</p>
-
-        <p>"Kerja" tidak melekat kata kemudian dalam hal mobilitas dan rumah. Namun, narasi pekerja muda juga berada di simpang yang sama: upah rendah, jam tidak pasti, tidak ada perlindungan hukum atau perjanjian tertulis, dan potensi eksploitasi dari rekan kerja atau bos. Semua itu membuat kita perlu merefleksikan apa itu kerja dan siapa yang pekerja. Karena semua dari kita mungkin—sedang—mengalami apa yang disebut relasi kerja. Ruang refleksi ini hadir sebagai pintu menuju simpul bersama perjuangan.</p>
+        <?= $getData['html']; ?>
 
         <div class="text-center mt-5">
           <button class="btn btn-orange px-4 rounded-pill">Selesai dibaca</button>

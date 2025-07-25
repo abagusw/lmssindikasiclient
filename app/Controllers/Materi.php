@@ -76,6 +76,10 @@ class Materi extends BaseController
            // echo "Post not found.";
         }
 
+        // $ghostC = new \App\Controllers\GhostAdminService();
+        // $postC = $ghostC->getPostByUuid($uuid);
+        //         print_r($postC);
+        // die;
         $data = [
             'title' => 'Dashboard',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),

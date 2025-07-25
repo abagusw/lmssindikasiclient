@@ -46,7 +46,7 @@
               <input class="form-check-input me-2" type="checkbox" disabled>
               <?= $title; ?>
             </div>
-            <small class="text-muted">7 menit baca</small>
+            <small class="text-muted"><?= $data['posts'][0]['reading_time'] ?> menit baca</small>
           </label>
         <?php } ?>
 
