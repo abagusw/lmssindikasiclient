@@ -62,6 +62,133 @@
       font-weight: bold;
       color: #111827;
     }
+  
+
+/* Global container */
+.ghost-post-content {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.8;
+  padding: 1rem;
+}
+
+/* Headings */
+.ghost-post-content h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #212529;
+  border-left: 4px solid #ff5e5e;
+  padding-left: 0.75rem;
+}
+
+/* Paragraphs */
+.ghost-post-content p {
+  margin-bottom: 1rem;
+}
+
+/* Bookmark Card */
+.ghost-post-content .kg-card.kg-bookmark-card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.ghost-post-content .kg-bookmark-container {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  color: inherit;
+}
+
+.ghost-post-content .kg-bookmark-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+.ghost-post-content .kg-bookmark-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #d62828;
+}
+
+.ghost-post-content .kg-bookmark-description {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+
+.ghost-post-content .kg-bookmark-metadata {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.ghost-post-content .kg-bookmark-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.ghost-post-content .kg-bookmark-thumbnail {
+  width: 160px;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.ghost-post-content .kg-bookmark-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Figure Caption */
+.ghost-post-content figcaption {
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  color: #444;
+}
+
+/* Callout Card */
+.ghost-post-content .kg-callout-card {
+  background-color: #fdf6e3;
+  border-left: 5px solid #ffb703;
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 2rem 0;
+}
+
+.ghost-post-content .kg-callout-text {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ghost-post-content .kg-bookmark-container {
+    flex-direction: column;
+  }
+
+  .ghost-post-content .kg-bookmark-thumbnail {
+    width: 100%;
+    height: auto;
+  }
+
+  .ghost-post-content .kg-bookmark-thumbnail img {
+    height: auto;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -92,9 +219,9 @@
         <h4 class="fw-bold mb-4"><?= $getData['title']; ?></h4>
 
         <img src="<?= $getData['feature_image']; ?>" class="img-fluid rounded mb-4" alt="Ilustrasi">
-
-        <?= $getData['html']; ?>
-
+        <div class="ghost-post-content">
+            <?= $getData['html']; ?>
+        </div>
         <div class="text-center mt-5">
           <button class="btn btn-orange px-4 rounded-pill">Selesai dibaca</button>
         </div>
