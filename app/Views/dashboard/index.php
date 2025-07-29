@@ -170,9 +170,9 @@
       <p class="text-muted mb-0">
         Pembayaran <strong>Iuran 3 Bulan</strong> kamu sudah berhasil dibayar dan diverifikasi
       </p>
-      <button type="button" class="btn btn-warning text-white px-4 mt-2 mx-auto d-block">
+      <a href="<?= base_url('materi/dasar') ?>" class="btn btn-warning text-white px-4 mt-2 mx-auto d-block">
         Mulai pendidikan dasar
-      </button>
+      </a>
 
 
     </div>

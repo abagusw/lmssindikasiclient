@@ -312,15 +312,15 @@
                       <label class="form-check-label" for="phk_sepihak">PHK sepihak</label>
                   </div>
                   <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="masalah_ketenagakerjaan[]" value="Lainnya" id="lainnya">
-                      <label class="form-check-label" for="lainnya">Lainnya</label>
+                      <input class="form-check-input" type="checkbox" name="masalah_ketenagakerjaan[]" value="Lainnya" id="masalah_ketenagakerjaan_lainnya">
+                      <label class="form-check-label" for="masalah_ketenagakerjaan_lainnya">Lainnya</label>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-md-12">
               <label class="form-label">Jenis masalah lainnya</label>
-              <input type="text" id="jenis_masalah_lainnya" name="jenis_masalah_lainnya" class="form-control" required>
+              <input type="text" id="jenis_masalah_lainnya" name="jenis_masalah_lainnya" class="form-control">
             </div>
             <div class="col-md-12">
               <label class="form-label">Alasan bergabung Sindikasi</label>
@@ -645,5 +645,26 @@
           });
       }
     });
-  });
+  
+    //hitung tanggal - 18 tahun tanggal lahir
+    const today = new Date();
+    const year = today.getFullYear() - 18;
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // bulan mulai dari 0
+    const day = String(today.getDate()).padStart(2, '0');
+
+    const maxDate = `${year}-${month}-${day}`;
+
+    document.getElementById('tanggal_lahir').max = maxDate;
+
+    });
+
+    $('#masalah_ketenagakerjaan_lainnya').change(function () {
+      if ($(this).is(':checked')) {
+        $('#jenis_masalah_lainnya').attr('required', true);
+      } else {
+        $('#jenis_masalah_lainnya').removeAttr('required');
+      }
+    });
+
+
 </script>
