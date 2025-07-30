@@ -134,7 +134,7 @@
             </p>
 
             <div class="mt-4">
-              <a href="<?= base_url('materi/dasar') ?>" class="btn btn-orange w-100 rounded-3 fw-semibold py-2">
+              <a href="<?= base_url('materi/dasar/'.$course_id.'') ?>" class="btn btn-orange w-100 rounded-3 fw-semibold py-2">
                 Lihat materi
               </a>
             </div>

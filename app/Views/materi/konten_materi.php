@@ -6,6 +6,7 @@
   <title>Materi Kolektaria</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="<?=ASSETS_URL?>compo_notif/jquery.ambiance.css" rel="stylesheet">
   <style>
     body {
       background-color: #f9fafb;
@@ -197,7 +198,7 @@
 <div class="topbar d-flex justify-content-between align-items-center">
   <div class="d-flex align-items-center gap-3">
    <!--  <img src="<?= base_url('logo.png') ?>" alt="logo" height="32"> -->
-    <strong class="me-3">🧩 kolektaria</strong>
+    <strong class="me-3"><a href="<?= base_url()?>dashboard">🧩 kolektaria</a></strong>
     <span class="text-muted">Pendidikan Dasar Serikat</span>
     <a href="#" id="toggleSidebar" class="text-orange ms-4 small">Sembunyikan daftar materi</a>
   </div>
@@ -223,7 +224,7 @@
             <?= $getData['html']; ?>
         </div>
         <div class="text-center mt-5">
-          <button class="btn btn-orange px-4 rounded-pill">Selesai dibaca</button>
+          <button class="btn btn-orange px-4 rounded-pill" type="button" onclick="selesaiBaca(<?php echo $course_id; ?>,<?php echo $getMsCourseLessonByid['course_id']; ?>)">Selesai dibaca</button>
         </div>
       </div>
     </div>
@@ -233,6 +234,11 @@
       <h6 class="fw-semibold mt-4 mb-3">Daftar Materi</h6>
       <div class="list-group list-group-flush small">
         <?php
+
+        use App\Models\MasterCourseParticipantModel;
+
+        $coursePartModel = new MasterCourseParticipantModel();
+        $user_id = session()->get('id');
       foreach($dataLesson as $lesson){
         $key = ApiKeyGhost; // Ganti dengan API key kamu
         $url = URLGhost."/ghost/api/content/posts/?key=$key&filter=uuid:[".$lesson['uuid']."]&limit=1";
@@ -250,13 +256,31 @@
            // echo 'Data tidak ditemukan.';
         }
         ?>
-        <a href="<?= base_url()?>materi/konten/<?= $data['posts'][0]['uuid'] ?>" class="list-group-item list-group-item-action"><i class="bi bi-check-circle-fill text-success me-2"></i><?= $title; ?></a>
+
+        <?php
+            $isParticipated = $coursePartModel->where('user_id', $user_id)
+                                                  ->where('course_id', $getMsCourseLessonByid['course_id'])
+                                                  ->where('course_lesson_id', $lesson['id'])
+                                                  ->countAllResults() > 0;
+
+        ?>
+<!--         <i class="bi bi-circle text-muted me-2"></i> -->
+
+        <a href="<?= base_url()?>materi/konten/<?= $lesson['id'] ?>" class="list-group-item list-group-item-action">
+          <?php if ($isParticipated): ?>
+            <i class="bi bi-check-circle-fill text-success me-2"></i>
+          <?php else: ?>
+            <i class="bi bi-circle text-muted me-2"></i>
+          <?php endif; ?>
+          <?= esc($title); ?>
+        </a>
       <?php } ?>
       </div>
     </div>
   </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="<?=ASSETS_URL?>compo_notif/jquery.ambiance.js"></script>
 <script>
   const toggleSidebar = document.getElementById('toggleSidebar');
   const sidebarBox = document.getElementById('sidebarBox');
@@ -266,6 +290,33 @@
     sidebarBox.classList.toggle('d-none');
     toggleSidebar.textContent = sidebarBox.classList.contains('d-none') ? 'Tampilkan daftar materi' : 'Sembunyikan daftar materi';
   });
+</script>
+
+<script>
+  function selesaiBaca(course_lesson_id,course_id){
+        $.ajax({
+            type: 'POST',
+            data: {course_lesson_id:course_lesson_id,course_id:course_id,'<?= csrf_token() ?>': '<?= csrf_hash() ?>'},
+            url: "<?php echo base_url('materi/selesai_baca')?>",
+            async: false,
+            dataType: 'JSON',
+            success: function(response) {
+              if(response.respCode == 0){
+               location.reload();
+                $.ambiance({message: "Login Sukses",
+                  type: "success",
+                  fade: false});
+              }else{
+                $.ambiance({message: response.respMessage,
+                  type: "error",
+                  fade: false});
+              }
+
+            }
+
+        });
+  }
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

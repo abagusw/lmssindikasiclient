@@ -29,6 +29,15 @@ class MasterCourseModel extends Model
             ->getResultArray();
     }
 
+    public function getFilteredCourses($kategori = null, $perPage = 6)
+    {
+        if ($kategori) {
+            $this->where('kategori', $kategori);
+        }
+
+        return $this->paginate($perPage);
+    }
+
 
     // public function getCourseByName($name){
     // 	$builder = $this->db->table('tb_course');

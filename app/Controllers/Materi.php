@@ -13,6 +13,7 @@ use App\Models\PaymentModel;
 use App\Models\MasterCourseModel;
 use App\Models\MasterCourseLesson;
 use App\Models\MasterLesson;
+use App\Models\MasterCourseParticipantModel;
 class Materi extends BaseController
 {
     public function __construct()
@@ -26,10 +27,12 @@ class Materi extends BaseController
 
     public function masteri_dasar()
     {
+        $uri = service('uri');
 
+        $course_id = service('uri')->getSegment(3);
         $dataCourseRow = $this->masterCourseModel->orderBy('id', 'DESC')->first();
-        $dataLesson = $this->masterCourseLesson->where('course_id',$dataCourseRow['id'])->findAll();
-        $dataLessonAsc = $this->masterCourseLesson->where('course_id',$dataCourseRow['id'])->orderBy('id', 'ASC')->first();;
+        $dataLesson = $this->masterCourseLesson->where('course_id',$uri->getSegment(3))->findAll();
+        $dataLessonAsc = $this->masterCourseLesson->where('course_id',$uri->getSegment(3))->orderBy('id', 'ASC')->first();;
 
         $data = [
             'title' => 'Dashboard',
@@ -37,6 +40,7 @@ class Materi extends BaseController
             'session' => \Config\Services::session(),
             'dataCourseRow' => $dataCourseRow,
             'dataLesson' => $dataLesson,
+            'course_id' => $course_id,
             'dataLessonAsc' => $dataLessonAsc
         ];
 
@@ -47,14 +51,24 @@ class Materi extends BaseController
 
     public function konten()
     {
-        $uuid = service('uri')->getSegment(3);
+        //$uuid = service('uri')->getSegment(3);
 
-
+        $course_id = service('uri')->getSegment(3);
+     //   print_r($course_id);
+       // $getCourseid = $dataLesson = $this->masterCourseLesson->where('uuid',$uuid)->first();
         $dataCourseRow = $this->masterCourseModel->orderBy('id', 'DESC')->first();
-        $dataLesson = $this->masterCourseLesson->where('course_id',$dataCourseRow['id'])->findAll();
-        $getMsLessonByUuid =  $this->masterLesson->where('uuid',$uuid)->first();
+        
+   // dd($dataLesson, \Config\Database::connect()->getLastQuery());
 
-        $uuid = $uuid;
+       // $getMsLessonByUuid =  $this->masterLesson->where('uuid',$uuid)->first();
+        $getMsCourseLessonByid =  $this->masterCourseLesson->where('id',$course_id)->first();
+
+        $dataLesson = $this->masterCourseLesson->where('course_id',$getMsCourseLessonByid['course_id'])->findAll();
+     //   dd($getMsCourseLessonByCourse, \Config\Database::connect()->getLastQuery());
+
+
+        $getMsLessonByUuid =  $this->masterLesson->where('uuid',$getMsCourseLessonByid['uuid'])->first();
+        $uuid = $getMsCourseLessonByid['uuid'];
         $apiKey = ApiKeyGhost;
         $ghostUrl = URLGhost;
 
@@ -86,12 +100,48 @@ class Materi extends BaseController
             'session' => \Config\Services::session(),
             'dataCourseRow' => $dataCourseRow,
             'dataLesson' => $dataLesson,
-            'getData' => $post
+            'getData' => $post,
+            'course_id' => $course_id,
+            'getMsCourseLessonByid' => $getMsCourseLessonByid
         ];
 
 
 
         return view('materi/konten_materi', $data);
+    }
+
+    public function selesai_baca(){
+        $course_lesson_id = $this->request->getPost('course_lesson_id');
+        $course_id = $this->request->getPost('course_id');
+        $session = \Config\Services::session();
+       // dd(session()->get('id'));
+            $coursePart = new MasterCourseParticipantModel();
+
+            $data = $coursePart->where('user_id', session()->get('id'))
+                   ->where('course_id', $course_id)
+                   ->where('course_lesson_id', $course_lesson_id)
+                   ->findAll();
+            $count = count($data);
+
+            if($count <= 0){
+                $dataCoursePart = [
+                    'user_id'   => session()->get('id'),
+                    'course_id'   => $course_id,
+                    'course_lesson_id'   => $course_lesson_id
+                ];
+
+                $insert = $coursePart->insert($dataCoursePart);
+
+                if($insert){
+                    $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Sukses Insert Data"));
+                }else{
+                    $jsonResp = json_encode(array('respCode'=>1,'respMessage'=>"Gagal Insert Data"));
+                }
+            }else{
+                $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Sukses Insert Data"));
+            }
+
+            echo $jsonResp;
     }
 
 

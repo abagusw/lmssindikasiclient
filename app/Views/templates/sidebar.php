@@ -7,7 +7,7 @@
 
       <div class="nav-label">LMS</div>
       <a href="#" class="nav-link">Lini Masa</a>
-      <a href="#" class="nav-link">Course</a>
+      <a href="<?= base_url() ?>course" class="nav-link">Course</a>
 
       <div class="nav-label">Payment</div>
       <a href="#" class="nav-link">Pembayaran</a>

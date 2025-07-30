@@ -24,6 +24,7 @@ class Dashboard extends BaseController
 
     public function index()
     {
+        //$dataCourseRow = $this->masterCourseModel->orderBy('id', 'DESC')->first();
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = Midtrans_ServerKey;
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
@@ -71,7 +72,8 @@ class Dashboard extends BaseController
             'session' => \Config\Services::session(),
             'dataCourseRow' => $dataCourseRow,
             'dataLesson' => $dataLesson,
-            'idButton' => $IdbuttonPay
+            'idButton' => $IdbuttonPay,
+            'course_id' => $dataCourseRow['id']
         ];
 
 

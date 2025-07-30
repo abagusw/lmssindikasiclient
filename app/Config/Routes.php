@@ -54,9 +54,11 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->post('/dashboard/getDataByToken', 'Dashboard::getDataByToken');
 
 
-	$routes->get('materi/dasar', 'Materi::masteri_dasar');
+	$routes->get('materi/dasar/(:segment)', 'Materi::masteri_dasar/$1');
 	//$routes->get('materi/konten', 'Materi::konten');
 	$routes->get('materi/konten/(:segment)', 'Materi::konten/$1');
+	$routes->post('materi/selesai_baca', 'Materi::selesai_baca');
+
 
 	$routes->get('user/profile', 'User::profile');
 	$routes->patch('user/(:segment)/changeprofile', 'User::changeProfile/$1');
@@ -141,7 +143,12 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->get('master/edit_course_topic/(:segment)','Master::edit_course_topic/$1');
 	$routes->post('master/simpanCourseTopic','Master::simpanCourseTopic');
 	$routes->post('master/simpanEditCourseTopic','Master::simpanEditCourseTopic');
-	$routes->post('master/hapusDataCourseTopic','Master::hapusDataCourseTopic');	
+	$routes->post('master/hapusDataCourseTopic','Master::hapusDataCourseTopic');
+
+
+	//fe 	course
+	$routes->get('course','course::index');
+
 
 });
 
