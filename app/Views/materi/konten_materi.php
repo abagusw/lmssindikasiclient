@@ -303,7 +303,7 @@
             success: function(response) {
               if(response.respCode == 0){
                location.reload();
-                $.ambiance({message: "Login Sukses",
+                $.ambiance({message: "Sukses disimpan",
                   type: "success",
                   fade: false});
               }else{

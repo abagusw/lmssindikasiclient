@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class MasterCourseParticipantModel extends Model
+class MasterCourseAnalyticModel extends Model
 {
-    protected $table = 'tb_course_participant';
+    protected $table = 'tb_course_analytic';
     protected $allowedFields = ['id','user_id','course_id','course_lesson_id'];
     protected $useTimestamps = true;
     protected $order = ['id' => 'DESC'];

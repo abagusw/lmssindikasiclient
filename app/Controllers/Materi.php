@@ -14,6 +14,7 @@ use App\Models\MasterCourseModel;
 use App\Models\MasterCourseLesson;
 use App\Models\MasterLesson;
 use App\Models\MasterCourseParticipantModel;
+use App\Models\MasterCourseAnalyticModel;
 class Materi extends BaseController
 {
     public function __construct()
@@ -23,6 +24,7 @@ class Materi extends BaseController
         $this->masterCourseModel = new MasterCourseModel();
         $this->masterCourseLesson = new MasterCourseLesson();
         $this->masterLesson = new MasterLesson();
+        $this->masterCourseAnalyticModel = new MasterCourseAnalyticModel();
     }
 
     public function masteri_dasar()
@@ -54,6 +56,7 @@ class Materi extends BaseController
         //$uuid = service('uri')->getSegment(3);
 
         $course_id = service('uri')->getSegment(3);
+    //   $course_id ini course lesson id
      //   print_r($course_id);
        // $getCourseid = $dataLesson = $this->masterCourseLesson->where('uuid',$uuid)->first();
         $dataCourseRow = $this->masterCourseModel->orderBy('id', 'DESC')->first();
@@ -90,6 +93,35 @@ class Materi extends BaseController
            // echo "Post not found.";
         }
 
+        $course_lesson_id = $getMsCourseLessonByid['course_id']; 
+        $session = \Config\Services::session();
+        $courseAnalytic = new MasterCourseAnalyticModel();
+
+        $data = $courseAnalytic->where('user_id', session()->get('id'))
+               ->where('course_id', $course_lesson_id)
+               ->where('course_lesson_id', $course_id)
+               ->findAll();
+        $count = count($data);
+
+        if($count <= 0){
+            $dataCourseAnalytic = [
+                'user_id'   => session()->get('id'),
+                'course_id'   => $course_lesson_id,
+                'course_lesson_id'   => $course_id
+            ];
+
+            $insert = $courseAnalytic->insert($dataCourseAnalytic);
+
+            if($insert){
+                $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Sukses Insert Data"));
+            }else{
+                $jsonResp = json_encode(array('respCode'=>1,'respMessage'=>"Gagal Insert Data"));
+            }
+        }else{
+            $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Sukses Insert Data"));
+        }
+
+
         // $ghostC = new \App\Controllers\GhostAdminService();
         // $postC = $ghostC->getPostByUuid($uuid);
         //         print_r($postC);
@@ -104,6 +136,9 @@ class Materi extends BaseController
             'course_id' => $course_id,
             'getMsCourseLessonByid' => $getMsCourseLessonByid
         ];
+
+
+
 
 
 
