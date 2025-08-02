@@ -147,7 +147,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 
 
 	//fe 	course
-	$routes->get('course','course::index');
+	$routes->get('course/list','course::index');
 
 
 });
