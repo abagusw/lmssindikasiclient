@@ -58,6 +58,8 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	//$routes->get('materi/konten', 'Materi::konten');
 	$routes->get('materi/konten/(:segment)', 'Materi::konten/$1');
 	$routes->post('materi/selesai_baca', 'Materi::selesai_baca');
+	$routes->post('materi/cekMateriSelesai', 'Materi::cekMateriSelesai');
+	
 
 
 	$routes->get('user/profile', 'User::profile');
@@ -151,4 +153,3 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 
 
 });
-

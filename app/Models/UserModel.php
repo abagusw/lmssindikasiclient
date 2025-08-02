@@ -18,4 +18,12 @@ class UserModel extends Model
 
         return $this->where('email', $email)->first();
     }
+
+    public function findWithCity($id)
+    {
+        return $this->select('tb_member.*, mc.kode as city_kode')
+                    ->join('ms_city mc', 'mc.id = tb_member.domisili', 'left')
+                    ->where('tb_member.id', $id)
+                    ->first();
+    }
 }

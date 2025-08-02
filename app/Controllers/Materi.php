@@ -15,6 +15,9 @@ use App\Models\MasterCourseLesson;
 use App\Models\MasterLesson;
 use App\Models\MasterCourseParticipantModel;
 use App\Models\MasterCourseAnalyticModel;
+use App\Models\MemberModel;
+use App\Models\MasterCityModel;
+
 class Materi extends BaseController
 {
     public function __construct()
@@ -25,6 +28,10 @@ class Materi extends BaseController
         $this->masterCourseLesson = new MasterCourseLesson();
         $this->masterLesson = new MasterLesson();
         $this->masterCourseAnalyticModel = new MasterCourseAnalyticModel();
+        $this->masterCourseParticipantModel = new MasterCourseParticipantModel();
+        $this->memberModel = new MemberModel();
+        $this->masterCityModel = new MasterCityModel();
+        
     }
 
     public function masteri_dasar()
@@ -158,6 +165,9 @@ class Materi extends BaseController
                    ->findAll();
             $count = count($data);
 
+
+
+
             if($count <= 0){
                 $dataCoursePart = [
                     'user_id'   => session()->get('id'),
@@ -177,6 +187,83 @@ class Materi extends BaseController
             }
 
             echo $jsonResp;
+    }
+
+    public function cekMateriSelesai(){
+        $course_lesson_id = $this->request->getPost('course_lesson_id');
+        $course_id = $this->request->getPost('course_id');
+        $session = \Config\Services::session();
+        $dataLesson = $this->masterCourseLesson->where('course_id',$course_id)->findAll();
+        $totalCourse = count($dataLesson);
+
+        $dataCourseParticipant = $this->masterCourseParticipantModel->where('course_id',$course_id)->where('user_id',session()->get('id'))->findAll();
+        $totalCourseParticipant = count($dataCourseParticipant);
+
+        $sisa = $totalCourse - $totalCourseParticipant; 
+
+        if($sisa == 0){
+            $getMemberByid = $this->userModel->findWithCity(session()->get('id'));
+
+
+            $uniq = $this->generateNomorAnggota($getMemberByid['domisili']);
+           // $nomor_anggota = "SND/".$uniq."-".$getMemberByid['city_kode']."";
+            $nomor_anggota = $uniq;
+
+                $data = [
+                    'nomor_anggota' => $nomor_anggota,
+                    'isfoundationalcoursecomplete' => 1,
+                    'flag_active' => 1
+                ];
+
+            $update = $this->memberModel->update(session()->get('id'),$data);
+
+
+
+        }
+
+        if($sisa == 0){
+            $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Materi Dasar telah selesai"));
+        }else{
+            $jsonResp = json_encode(array('respCode'=>1,'respMessage'=>"Materi Dasar belum selesai"));
+        }
+
+        echo $jsonResp;
+
+        
+
+    }
+
+
+    public function generateNomorAnggota($cityId)
+    {
+        $db = \Config\Database::connect();
+
+        // Ambil kode kota dari ms_city
+        $city = $db->table('ms_city')
+                   ->select('kode')
+                   ->where('id', $cityId)
+                   ->get()
+                   ->getRow();
+
+        if (!$city) {
+            return null; // Kota tidak ditemukan
+        }
+
+        $kodeKota = $city->kode;
+
+        // Hitung jumlah member yang sudah ada di kota ini
+        $totalMemberCity = $db->table('tb_member')
+                              ->where('domisili', $cityId)
+                              ->countAllResults();
+
+        // Nomor urut baru: total + 1
+        $nomorUrut = $totalMemberCity + 1;
+
+        // Format nomor: SND/00001-D
+        $nomorFormatted = str_pad($nomorUrut, 5, '0', STR_PAD_LEFT);
+        $nomorAnggota = 'SND/' . $nomorFormatted . '-' . $kodeKota;
+
+        return $nomorAnggota;
     }
 
 

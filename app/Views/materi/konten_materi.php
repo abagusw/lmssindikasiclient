@@ -302,14 +302,40 @@
             dataType: 'JSON',
             success: function(response) {
               if(response.respCode == 0){
-               location.reload();
                 $.ambiance({message: "Sukses disimpan",
+                  type: "success",
+                  fade: false});
+
+                cekMateriSelesai(course_lesson_id,course_id);
+              }else{
+                $.ambiance({message: response.respMessage,
+                  type: "error",
+                  fade: false});
+              }
+
+            }
+
+        });
+  }
+
+  function cekMateriSelesai(course_lesson_id,course_id){
+        $.ajax({
+            type: 'POST',
+            data: {course_lesson_id:course_lesson_id,course_id:course_id,'<?= csrf_token() ?>': '<?= csrf_hash() ?>'},
+            url: "<?php echo base_url('materi/cekMateriSelesai')?>",
+            async: false,
+            dataType: 'JSON',
+            success: function(response) {
+              if(response.respCode == 0){
+                location.reload();
+                $.ambiance({message: "Materi Dasar telah selesai",
                   type: "success",
                   fade: false});
               }else{
                 $.ambiance({message: response.respMessage,
                   type: "error",
                   fade: false});
+                location.reload();
               }
 
             }

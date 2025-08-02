@@ -44,5 +44,7 @@ class MasterCityModel extends Model
             ->get()
             ->getResultArray();
     }
+
+
 }
 
