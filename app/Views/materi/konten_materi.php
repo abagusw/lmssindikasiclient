@@ -193,13 +193,23 @@
   </style>
 </head>
 <body>
+<?php
+    $user_id = session()->get('id');
+    use App\Models\MasterCourseParticipantModel;
 
+    $coursePartModel = new MasterCourseParticipantModel();
+
+    $cekCoursePart = $coursePartModel->where('user_id', $user_id)
+                                      ->where('course_id', $getMsCourseLessonByid['course_id'])
+                                      ->where('course_lesson_id', $course_id)
+                                      ->countAllResults() > 0;
+?>
 <!-- TOPBAR -->
 <div class="topbar d-flex justify-content-between align-items-center">
   <div class="d-flex align-items-center gap-3">
    <!--  <img src="<?= base_url('logo.png') ?>" alt="logo" height="32"> -->
     <strong class="me-3"><a href="<?= base_url()?>dashboard">🧩 kolektaria</a></strong>
-    <span class="text-muted">Pendidikan Dasar Serikat</span>
+    <span class="text-muted">Course</span>
     <a href="#" id="toggleSidebar" class="text-orange ms-4 small">Sembunyikan daftar materi</a>
   </div>
   <div class="d-flex align-items-center gap-3">
@@ -224,7 +234,13 @@
             <?= $getData['html']; ?>
         </div>
         <div class="text-center mt-5">
+          <?php 
+          if(!$cekCoursePart){
+            ?>
           <button class="btn btn-orange px-4 rounded-pill" type="button" onclick="selesaiBaca(<?php echo $course_id; ?>,<?php echo $getMsCourseLessonByid['course_id']; ?>)">Selesai dibaca</button>
+        <?php } else {?>
+          <button class="btn btn-success px-4 rounded-pill" type="button" disabled>Sudah Dibaca</button> <?php } ?>
+
         </div>
       </div>
     </div>
@@ -235,10 +251,7 @@
       <div class="list-group list-group-flush small">
         <?php
 
-        use App\Models\MasterCourseParticipantModel;
 
-        $coursePartModel = new MasterCourseParticipantModel();
-        $user_id = session()->get('id');
       foreach($dataLesson as $lesson){
         $key = ApiKeyGhost; // Ganti dengan API key kamu
         $url = URLGhost."/ghost/api/content/posts/?key=$key&filter=uuid:[".$lesson['uuid']."]&limit=1";

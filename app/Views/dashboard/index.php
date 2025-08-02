@@ -15,10 +15,16 @@
     $ketPaid = "<div class='d-flex align-items-center'>
   <strong class='me-2'>Iuran Awal</strong>
   <span class='badge rounded-pill bg-success'>Lunas</span>
-</div>";
+  </div>";
   }else{
     $iconPaid = "bi bi-circle me-2";
     $ketPaid = "";
+  }
+
+  if($user_logged_in['isfoundationalcoursecomplete'] == 1){
+    $iconFoundational = "bi bi-check-circle-fill text-success me-2";
+  }else{
+    $iconFoundational = "bi bi-circle me-2";
   }
   ?>
   <!-- Isi utama -->
@@ -30,7 +36,7 @@
         <i class="<?= $iconPaid; ?>"></i> Pembayaran awal
       </a>
       <a id="btnPendidikan" href="#pendidikan" class="list-group-item list-group-item-action d-flex align-items-center" data-bs-toggle="tab">
-        <i class="bi bi-circle text-muted me-2"></i> Pendidikan dasar
+        <i class="<?= $iconFoundational; ?>"></i> Pendidikan dasar
       </a>
     </div>
   </div>
