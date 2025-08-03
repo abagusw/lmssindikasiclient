@@ -62,7 +62,7 @@ class Dashboard extends BaseController
                 'email' => session()->get('email'),
             ],
         ];
-        $dataCourseRow = $this->masterCourseModel->orderBy('id', 'DESC')->first();
+        $dataCourseRow = $this->masterCourseModel->where('kategori',0)->orderBy('id', 'DESC')->first();
         $dataLesson = $this->masterCourseLesson->where('course_id',$dataCourseRow['id'])->findAll();
 
         $data = [

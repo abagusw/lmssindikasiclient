@@ -23,7 +23,7 @@
 <?php } else { ?>
 <div class="section-box">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h5 class="mb-0">Course</h5>
+    <h5 class="mb-0"><?= $dataCourseRow['judul'] ?></h5>
     <a href="<?= base_url()?>materi/konten/<?= $dataLessonAsc['id'] ?>" class="btn btn-orange">Mulai pelajaran</a>
   </div>
 

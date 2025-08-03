@@ -39,7 +39,7 @@ class Materi extends BaseController
         $uri = service('uri');
 
         $course_id = service('uri')->getSegment(3);
-        $dataCourseRow = $this->masterCourseModel->orderBy('id', 'DESC')->first();
+        $dataCourseRow = $this->masterCourseModel->where('id',$course_id)->orderBy('id', 'DESC')->first();
         $dataLesson = $this->masterCourseLesson->where('course_id',$uri->getSegment(3))->findAll();
         $dataLessonAsc = $this->masterCourseLesson->where('course_id',$uri->getSegment(3))->orderBy('id', 'ASC')->first();;
 
