@@ -92,6 +92,25 @@
       margin: 15px 0 5px 20px;
       color: #555;
     }
+
+    .active-card {
+      border: 2px solid #f97316 !important;
+      background-color: #fff7ed;
+    }
+    .btn-orange {
+      background-color: #f97316;
+      color: white;
+    }
+    .btn-orange:hover {
+      background-color: #ea580c;
+    }
+    .next-payment {
+      background-color: #fff;
+      border-left: 4px solid #f97316;
+    }
+    .badge-success {
+      background-color: #16a34a;
+    }
   </style>
 </head>
 <body>

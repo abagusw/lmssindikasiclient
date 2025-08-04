@@ -1,133 +1,95 @@
 <?= $this->extend('templates/app'); ?>
 
 <?= $this->section('content'); ?>
-<div class="row">
-    <div class="container my-4">
-    <!-- Summary Cards -->
-    <div class="row g-3 mb-3">
-      <div class="col-12 col-sm-6 col-md-3">
-        <div class="card-box">
-          <div class="label">Total Revenue <i class="fas fa-money-bill"></i></div>
-          <div class="value">Rp70,000,000</div>
-        </div>
+
+<div class="container py-5">
+  <div class="row">
+    <!-- Paket Pilihan -->
+    <div class="col-lg-8 mb-4">
+      <h5 class="mb-3">Pilih Paket Anda</h5>
+      <div class="mb-3">
+        <button class="btn btn-outline-dark me-2 active">Iuran Anggota</button>
+        <button class="btn btn-outline-secondary">Iuran + BPJS TK</button>
       </div>
-      <div class="col-12 col-sm-6 col-md-3">
-        <div class="card-box">
-          <div class="label">Total Registration Payment <i class="fas fa-money-bill"></i></div>
-          <div class="value">Rp30,000,000</div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-3">
-        <div class="card-box">
-          <div class="label">Total Member Dues <i class="fas fa-money-bill"></i></div>
-          <div class="value">Rp30,000,000</div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-3">
-        <div class="card-box">
-          <div class="label">Total Donation <i class="fas fa-money-bill"></i></div>
-          <div class="value">Rp10,000,000</div>
-        </div>
+
+      <div class="list-group">
+        <!-- Iuran 3 Bulan (Active) -->
+        <label class="list-group-item d-flex justify-content-between align-items-center active-card">
+          <div>
+            <input class="form-check-input me-2" type="radio" name="paket" checked>
+            <strong>Iuran 3 Bulan</strong>
+            <div class="text-muted small">Full features, highest limits and priority support</div>
+          </div>
+          <div class="text-end">
+            <div class="fw-bold">Rp 75,000</div>
+            <button class="btn btn-orange btn-sm mt-2">Bayar Iuran</button>
+          </div>
+        </label>
+
+        <!-- Paket lainnya -->
+        <label class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <input class="form-check-input me-2" type="radio" name="paket">
+            <strong>Iuran 6 Bulan</strong>
+            <div class="text-muted small">Full features, highest limits and priority support</div>
+          </div>
+          <div class="fw-bold">Rp 150,000</div>
+        </label>
+
+        <label class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <input class="form-check-input me-2" type="radio" name="paket">
+            <strong>Iuran 12 Bulan</strong>
+            <div class="text-muted small">Full features, highest limits and priority support</div>
+          </div>
+          <div class="fw-bold">Rp 300,000</div>
+        </label>
+
+        <label class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <input class="form-check-input me-2" type="radio" name="paket">
+            <strong>Iuran 24 Bulan</strong>
+            <div class="text-muted small">Full features, highest limits and priority support</div>
+          </div>
+          <div class="fw-bold">Rp 600,000</div>
+        </label>
+
+        <label class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <input class="form-check-input me-2" type="radio" name="paket">
+            <strong>Iuran lainnya</strong>
+            <div class="text-muted small">Full features, highest limits and priority support</div>
+          </div>
+          <div class="fw-bold">Rp 75,000</div>
+        </label>
       </div>
     </div>
 
-    <!-- Filter Inputs -->
-    <div class="row g-2 mb-4">
-      <div class="col-12 col-sm-6 col-md-2">
-        <input type="text" class="form-control" placeholder="Search">
+    <!-- Informasi Pembayaran -->
+    <div class="col-lg-4">
+      <div class="p-3 border rounded next-payment mb-3">
+        <div class="d-flex align-items-center mb-2">
+          <div class="me-2">
+            <i class="bi bi-clock-history fs-4 text-warning"></i>
+          </div>
+          <div>
+            <small class="text-muted">Pembayaran Iuran Selanjutnya</small><br>
+            <strong>4 Desember 2025</strong>
+          </div>
+        </div>
       </div>
-      <div class="col-12 col-sm-6 col-md-2">
-        <select class="form-control">
-          <option>Payment Type</option>
-        </select>
-      </div>
-      <div class="col-12 col-sm-6 col-md-2">
-        <select class="form-control">
-          <option>Method</option>
-        </select>
-      </div>
-      <div class="col-12 col-sm-6 col-md-2">
-        <select class="form-control">
-          <option>Status</option>
-        </select>
-      </div>
-      <div class="col-12 col-sm-6 col-md-4">
-        <input type="text" class="form-control" placeholder="dd/mm/yyyy - dd/mm/yyyy">
+
+      <div class="border p-3 rounded">
+        <h6 class="mb-3">Riwayat Pembayaran</h6>
+        <div class="mb-2">
+          <span class="badge badge-success">Lunas</span>
+          <div class="fw-bold">Rp 75,000</div>
+          <div class="small text-muted">Pembayaran Iuran Awal</div>
+          <div class="text-muted small">4 September 2025 10:38AM</div>
+        </div>
       </div>
     </div>
-    </div>
-
-
-  <div class="col-lg-12">
-    <table id="example"class="table table-bordered table-striped table-hover align-middle">
-          <thead>
-              <tr>
-                  <th>Payment Type</th>
-                  <th>User</th>
-                  <th>Amount</th>
-                  <th>Method</th>
-                  <th>Payment Date</th>
-                  <th>Status</th>
-                  <th>Action</th>
-              </tr>
-          </thead>
-          <tbody>
-
-          </tbody>
-          <!-- <tfoot>
-              <tr>
-                  <th>#</th>
-                  <th>Fullname</th>
-                  <th>Email</th>
-                  <th>City Domicile</th>
-                  <th>Job Title</th>
-                  <th>Date Registration</th>
-                  <th>Date Approval</th>
-                  <th>Status</th>
-                  <th>Action</th>
-              </tr>
-          </tfoot> -->
-    </table>
   </div>
-  <!--end::Col-->
 </div>
 
-
-<script type="text/javascript">
-    var table;
-    $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Ambil token dari meta tag
-            }
-        });
-
-        //datatables
-        table = $('#example').DataTable({ 
-            
-            "processing": true, 
-            "serverSide": true, 
-            "order": [], 
-             
-            "ajax": {
-                "url": "<?php echo base_url('payment/getPayment')?>",
-                "type": "POST",
-                "data": function(d) {
-                    d['<?= csrf_token() ?>'] = '<?= csrf_hash() ?>';
-                },
-
-            },
- 
-             
-            "columnDefs": [
-            { 
-                "targets": [ 0 ], 
-                "orderable": false, 
-            },
-            ],
- 
-        });
- 
-    });
-</script>
 <?= $this->endSection(); ?>

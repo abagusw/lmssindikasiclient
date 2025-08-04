@@ -10,7 +10,7 @@
       <a href="<?= base_url() ?>course/list" class="nav-link">Course</a>
 
       <div class="nav-label">Payment</div>
-      <a href="#" class="nav-link">Pembayaran</a>
+      <a href="<?= base_url() ?>payment/index" class="nav-link">Pembayaran</a>
 
       <div class="nav-label">Event</div>
       <a href="#" class="nav-link">Acara</a>
