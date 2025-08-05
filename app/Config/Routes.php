@@ -151,5 +151,14 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	//fe 	course
 	$routes->get('course/list','Course::index');
 
+	//fe 	linimasa
+	$routes->get('linimasa/list','Materi::linimasa');
+
+
+	//fe 	event
+	$routes->get('event/list','Event::list');
+
+	//fe 	anggota
+	$routes->get('anggota/list','Anggota::list');
 
 });

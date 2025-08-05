@@ -266,6 +266,18 @@ class Materi extends BaseController
         return $nomorAnggota;
     }
 
+    public function linimasa(){
+        $data = [
+            'title' => 'Payment',
+            'user_logged_in' => $this->userModel->find($this->session->get('id')),
+            'memberActive' => $this->memberModel->countMemberByFlag(1),
+            'memberAll' => $this->memberModel->countMemberAll(),
+            'getData' => $this->memberModel->where('flag', '1')->findAll(),
+        ];
+
+        return view('linimasa/bg_index', $data);        
+    }
+
 
     //--------------------------------------------------------------------
 
