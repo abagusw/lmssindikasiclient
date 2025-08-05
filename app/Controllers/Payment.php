@@ -14,6 +14,7 @@ use CodeIgniter\Email\Email;
 use App\Controllers\SendEmailCon;
 use App\Libraries\SendEmail;
 use App\Models\PaymentCallBackModel;
+use App\Models\PaymentSuccessMemberModel;
 
 class Payment extends BaseController
 {
@@ -25,16 +26,20 @@ class Payment extends BaseController
         $this->userModel = new UserModel();
         $this->memberModel = new MemberModel();
         $this->paymentModel = new PaymentModel();
+        $this->paymentSuccessMemberModel = new PaymentSuccessMemberModel();
     }
 
     public function index()
     {
+        $getPaymentSukses = $this->paymentSuccessMemberModel->orderBy('id', 'DESC')->where('user_id',$this->session->get('id'));
+        $rowData = $getPaymentSukses->first();
         $data = [
             'title' => 'Payment',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),
             'memberActive' => $this->memberModel->countMemberByFlag(1),
             'memberAll' => $this->memberModel->countMemberAll(),
             'getData' => $this->memberModel->where('flag', '1')->findAll(),
+            'rowData' => $rowData
         ];
 
         return view('payment/bg_index', $data);

@@ -1,7 +1,14 @@
 <?= $this->extend('templates/app'); ?>
 
 <?= $this->section('content'); ?>
+<?php
+$today = date('Y-m-d');
 
+$expired_dateOri = $rowData['expired_date'];
+$expired_date = date('Y-m-d', strtotime($expired_dateOri));
+// echo $today."<br>";
+// echo $expired_date;
+?>
 <div class="container py-5">
   <div class="row">
     <!-- Paket Pilihan -->
@@ -22,8 +29,13 @@
           </div>
           <div class="text-end">
             <div class="fw-bold">Rp 75,000</div>
+            <?php
+            if ($today >= $expired_date){
+              ?>
+
             <button class="btn btn-orange btn-sm mt-2 btn-bayar" 
             data-amount="75000" data-periode="3">Bayar Iuran</button>
+            <?php } ?>
           </div>
         </label>
 
@@ -36,8 +48,13 @@
           </div>
           <div class="text-end">
             <div class="fw-bold">Rp 150,000</div>
+            <?php
+            if ($today >= $expired_date){
+              ?>
+
             <button class="btn btn-orange btn-sm mt-2 btn-bayar"
             data-amount="150000"  data-periode="6">Bayar Iuran</button>
+            <?php } ?>
           </div>
         </label>
 
@@ -49,8 +66,14 @@
           </div>
           <div class="text-end">
             <div class="fw-bold">Rp 300,000</div>
+            <?php
+            if ($today >= $expired_date){
+              ?>
+
             <button class="btn btn-orange btn-sm mt-2 btn-bayar" 
             data-amount="300000" data-periode="12">Bayar Iuran</button>
+
+            <?php } ?>
           </div>
         </label>
 
@@ -62,8 +85,12 @@
           </div>
           <div class="text-end">
             <div class="fw-bold">Rp 600,000</div>
+            <?php
+            if ($today >= $expired_date){
+              ?>
             <button class="btn btn-orange btn-sm mt-2 btn-bayar" 
             data-amount="600000" data-periode="24">Bayar Iuran</button>
+            <?php } ?>
           </div>
         </label>
 
@@ -75,8 +102,12 @@
           </div>
           <div class="text-end">
             <div class="fw-bold">Rp 75,000</div>
+            <?php
+            if ($today >= $expired_date){
+              ?>
             <button class="btn btn-orange btn-sm mt-2 btn-bayar"
             data-amount="75000"  data-periode="lainnya">Bayar Iuran</button>
+          <?php } ?>
           </div>
         </label>
       </div>
@@ -91,7 +122,7 @@
           </div>
           <div>
             <small class="text-muted">Pembayaran Iuran Selanjutnya</small><br>
-            <strong>4 Desember 2025</strong>
+            <strong><?= date('d M Y', strtotime($expired_dateOri)); ?></strong>
           </div>
         </div>
       </div>
@@ -100,9 +131,9 @@
         <h6 class="mb-3">Riwayat Pembayaran</h6>
         <div class="mb-2">
           <span class="badge badge-success">Lunas</span>
-          <div class="fw-bold">Rp 75,000</div>
-          <div class="small text-muted">Pembayaran Iuran Awal</div>
-          <div class="text-muted small">4 September 2025 10:38AM</div>
+          <div class="fw-bold">Rp <?php echo number_format($rowData['gross_amount'], 0, ',', '.'); ?></div>
+          <div class="small text-muted">Pembayaran <?= $rowData['jenis_transaksi']; ?> bulan</div>
+          <div class="text-muted small"><?= date('d M Y H:i:s', strtotime($rowData['created_at'])); ?></div>
         </div>
       </div>
     </div>

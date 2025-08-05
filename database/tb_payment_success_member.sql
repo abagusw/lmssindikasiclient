@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2025-08-05 20:26:45
+Date: 2025-08-05 21:25:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,6 +29,11 @@ CREATE TABLE `tb_payment_success_member` (
   `gross_amount` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
+  `expired_date` datetime DEFAULT NULL,
+  `first_notify` datetime DEFAULT NULL,
+  `second_notify` datetime DEFAULT NULL,
+  `third_notify` datetime DEFAULT NULL,
+  `final_notify` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

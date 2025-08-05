@@ -151,6 +151,14 @@ class MidtransController extends BaseController
             ];
             $updateMember = $memberModel->update($id,$dataMember);
 
+            $today = date('Y-m-d');
+            $expired_date = date('Y-m-d', strtotime("+$jenistrx months", strtotime($today)));
+
+            // Notifikasi H-7, H-3, H-1, H
+            $first_notify  = date('Y-m-d', strtotime('-7 days', strtotime($expired_date)));
+            $second_notify = date('Y-m-d', strtotime('-3 days', strtotime($expired_date)));
+            $third_notify  = date('Y-m-d', strtotime('-1 day', strtotime($expired_date)));
+            $final_notify  = $expired_date; // sama dengan expired
 
 
 
@@ -162,8 +170,13 @@ class MidtransController extends BaseController
                 'jenis_transaksi'       => $jenistrx,
                 'transaction_status'    => $notif->transaction_status,
                 'gross_amount'          => $notif->gross_amount,
-                'created_at'            => date('Y-m-d'),
-                'updated_at'            => date('Y-m-d')
+                'created_at'            => date('Y-m-d H:i:s'),
+                'updated_at'            => date('Y-m-d H:i:s'),
+                'expired_date'          => $expired_date,
+                'first_notify'          => $first_notify,
+                'second_notify'          => $second_notify,
+                'third_notify'          => $third_notify,
+                'final_notify'          => $final_notify,
             ];
 
             $paymentSuccess->insert($dataPaymentSuccess);
