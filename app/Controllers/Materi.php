@@ -267,6 +267,7 @@ class Materi extends BaseController
     }
 
     public function linimasa(){
+
         $data = [
             'title' => 'Payment',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),
@@ -277,6 +278,7 @@ class Materi extends BaseController
 
         return view('linimasa/bg_index', $data);        
     }
+
 
 
     //--------------------------------------------------------------------

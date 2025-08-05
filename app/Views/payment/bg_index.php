@@ -22,7 +22,8 @@
           </div>
           <div class="text-end">
             <div class="fw-bold">Rp 75,000</div>
-            <button class="btn btn-orange btn-sm mt-2">Bayar Iuran</button>
+            <button class="btn btn-orange btn-sm mt-2 btn-bayar" 
+            data-amount="75000" data-periode="3">Bayar Iuran</button>
           </div>
         </label>
 
@@ -33,7 +34,11 @@
             <strong>Iuran 6 Bulan</strong>
             <div class="text-muted small">Full features, highest limits and priority support</div>
           </div>
-          <div class="fw-bold">Rp 150,000</div>
+          <div class="text-end">
+            <div class="fw-bold">Rp 150,000</div>
+            <button class="btn btn-orange btn-sm mt-2 btn-bayar"
+            data-amount="150000"  data-periode="6">Bayar Iuran</button>
+          </div>
         </label>
 
         <label class="list-group-item d-flex justify-content-between align-items-center">
@@ -42,7 +47,11 @@
             <strong>Iuran 12 Bulan</strong>
             <div class="text-muted small">Full features, highest limits and priority support</div>
           </div>
-          <div class="fw-bold">Rp 300,000</div>
+          <div class="text-end">
+            <div class="fw-bold">Rp 300,000</div>
+            <button class="btn btn-orange btn-sm mt-2 btn-bayar" 
+            data-amount="300000" data-periode="12">Bayar Iuran</button>
+          </div>
         </label>
 
         <label class="list-group-item d-flex justify-content-between align-items-center">
@@ -51,7 +60,11 @@
             <strong>Iuran 24 Bulan</strong>
             <div class="text-muted small">Full features, highest limits and priority support</div>
           </div>
-          <div class="fw-bold">Rp 600,000</div>
+          <div class="text-end">
+            <div class="fw-bold">Rp 600,000</div>
+            <button class="btn btn-orange btn-sm mt-2 btn-bayar" 
+            data-amount="600000" data-periode="24">Bayar Iuran</button>
+          </div>
         </label>
 
         <label class="list-group-item d-flex justify-content-between align-items-center">
@@ -60,7 +73,11 @@
             <strong>Iuran lainnya</strong>
             <div class="text-muted small">Full features, highest limits and priority support</div>
           </div>
-          <div class="fw-bold">Rp 75,000</div>
+          <div class="text-end">
+            <div class="fw-bold">Rp 75,000</div>
+            <button class="btn btn-orange btn-sm mt-2 btn-bayar"
+            data-amount="75000"  data-periode="lainnya">Bayar Iuran</button>
+          </div>
         </label>
       </div>
     </div>
@@ -91,5 +108,35 @@
     </div>
   </div>
 </div>
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?= Midtrans_ClientKey ?>"></script>
 
+<script>
+  document.querySelectorAll('.btn-bayar').forEach(function(button) {
+    button.addEventListener('click', function () {
+      const amount = this.dataset.amount;
+      const periode = this.dataset.periode;
+
+      fetch("<?= base_url('payment/bayar') ?>", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          // Jika kamu pakai CSRF di CI4, tambahkan token di sini juga
+        },
+        body: `gross_amount=${amount}&periode=${encodeURIComponent(periode)}`
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.token) {
+          snap.pay(data.token);
+        } else {
+          alert("Gagal mendapatkan token.");
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert("Terjadi kesalahan saat memproses pembayaran.");
+      });
+    });
+  });
+</script>
 <?= $this->endSection(); ?>

@@ -7,6 +7,7 @@ use Midtrans\Snap;
 use Midtrans\Transaction;
 use Midtrans\Notification;
 use App\Models\PaymentCallBackModel;
+use App\Models\PaymentSuccessMemberModel;
 use App\Models\PaymentModel;
 use App\Models\MemberModel;
 
@@ -91,6 +92,7 @@ class MidtransController extends BaseController
 
         $parts = explode("|", $notif->order_id);
         $id = $parts[1];
+        $jenistrx = $parts[2];
         $memberModel = new MemberModel();
         $getMemberById = $memberModel->find($id);
         $email = $getMemberById['email'];
@@ -148,6 +150,23 @@ class MidtransController extends BaseController
                     'isregisterpaid' => 1
             ];
             $updateMember = $memberModel->update($id,$dataMember);
+
+
+
+
+            $paymentSuccess = new PaymentSuccessMemberModel();
+            $dataPaymentSuccess = [
+                'jenis'                 => '0',
+                'user_id'               => $id,
+                'transaction_id'        => $notif->transaction_id,
+                'jenis_transaksi'       => $jenistrx,
+                'transaction_status'    => $notif->transaction_status,
+                'gross_amount'          => $notif->gross_amount,
+                'created_at'            => date('Y-m-d'),
+                'updated_at'            => date('Y-m-d')
+            ];
+
+            $paymentSuccess->insert($dataPaymentSuccess);
         }
 
             

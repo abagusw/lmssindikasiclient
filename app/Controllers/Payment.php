@@ -2,6 +2,10 @@
 
 namespace App\Controllers;
 
+use Config\Midtrans;
+use Midtrans\Snap;
+use Midtrans\Config;
+use Midtrans\Transaction;
 use App\Models\UserModel;
 use App\Models\MemberModel;
 use App\Models\PaymentModel;
@@ -122,6 +126,32 @@ class Payment extends BaseController
         //output dalam format JSON
         echo json_encode($output);
     }
+
+    public function aksiBayar(){
+        $grossAmount = $this->request->getPost('gross_amount');
+        $periode = $this->request->getPost('periode');
+        
+        \Midtrans\Config::$serverKey = Midtrans_ServerKey;
+        \Midtrans\Config::$isProduction = false;
+        \Midtrans\Config::$isSanitized = true;
+        \Midtrans\Config::$is3ds = true;
+        $order_id = uniqid()."|".session()->get('id')."|".$periode."";
+        $param = [
+            'transaction_details' => [
+                'order_id' => $order_id,
+                'gross_amount' => (int)$grossAmount,
+            ],
+            'customer_details' => [
+                'first_name' => session()->get('nama_lengkap'),
+                'last_name' => session()->get('nama_panggilan'),
+                'email' => session()->get('email'),
+            ],
+        ];
+
+        $snapToken = \Midtrans\Snap::getSnapToken($param);
+        return $this->response->setJSON(['token' => $snapToken]);
+    }
+
     
 
 }

@@ -111,6 +111,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 
 	//Routes Payment//
 	$routes->get('payment/index','Payment::index');
+	$routes->post('payment/bayar','Payment::aksiBayar');
 	$routes->post('payment/getPayment','Payment::getPayment');
 	$routes->get('payment/index_call_back','Payment::index_call_back');
 	$routes->post('payment/getPaymentCallBack','Payment::getPaymentCallBack');
