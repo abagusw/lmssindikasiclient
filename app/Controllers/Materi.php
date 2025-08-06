@@ -152,6 +152,15 @@ class Materi extends BaseController
         return view('materi/konten_materi', $data);
     }
 
+    public function materi_selesai()
+    {
+        $data = [
+            'title' => 'Dashboard',
+            'user_logged_in' => $this->userModel->find($this->session->get('id')),
+        ];
+        return view('materi/bg_finish', $data);
+    }
+
     public function selesai_baca(){
         $course_lesson_id = $this->request->getPost('course_lesson_id');
         $course_id = $this->request->getPost('course_id');

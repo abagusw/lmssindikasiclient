@@ -292,6 +292,28 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="modalSelesai" tabindex="-1" aria-labelledby="modalSelesaiLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center border-0 rounded-4 shadow-sm p-3">
+      
+      <!-- Tombol Close -->
+      <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      <!-- Gambar Sertifikat -->
+      <img src="<?= base_url() ?>public/assets/images/final.png" alt="Ilustrasi Sertifikat" width="80" class="mx-auto mb-3">
+
+      <!-- Isi Konten -->
+      <h5 class="fw-bold">Materi selesai!</h5>
+      <p class="mb-1">Selamat! Kamu telah menyelesaikan</p>
+      <p class="fw-semibold">Pendidikan Dasar Serikat</p>
+
+      <!-- Tombol Unduh -->
+      <a href="<?= base_url() ?>materi/materi_selesai" class="btn btn-orange mt-2">Unduh Kartu Tanda Anggota</a>
+    </div>
+  </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="<?=ASSETS_URL?>compo_notif/jquery.ambiance.js"></script>
 <script>
@@ -340,7 +362,7 @@
             dataType: 'JSON',
             success: function(response) {
               if(response.respCode == 0){
-                location.reload();
+                $('#modalSelesai').modal('show');
                 $.ambiance({message: "Materi Dasar telah selesai",
                   type: "success",
                   fade: false});

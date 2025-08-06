@@ -3,7 +3,7 @@
 <?= $this->section('content'); ?>
 <?php
 $today = date('Y-m-d');
-
+$todaySeminggu = date('Y-m-d', strtotime($today . ' +7 days'));
 $expired_dateOri = $rowData['expired_date'];
 $expired_date = date('Y-m-d', strtotime($expired_dateOri));
 // echo $today."<br>";
@@ -30,7 +30,7 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
           <div class="text-end">
             <div class="fw-bold">Rp 75,000</div>
             <?php
-            if ($today >= $expired_date){
+            if ($todaySeminggu >= $expired_date){
               ?>
 
             <button class="btn btn-orange btn-sm mt-2 btn-bayar" 
@@ -49,7 +49,7 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
           <div class="text-end">
             <div class="fw-bold">Rp 150,000</div>
             <?php
-            if ($today >= $expired_date){
+            if ($todaySeminggu >= $expired_date){
               ?>
 
             <button class="btn btn-orange btn-sm mt-2 btn-bayar"
@@ -67,7 +67,7 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
           <div class="text-end">
             <div class="fw-bold">Rp 300,000</div>
             <?php
-            if ($today >= $expired_date){
+            if ($todaySeminggu >= $expired_date){
               ?>
 
             <button class="btn btn-orange btn-sm mt-2 btn-bayar" 
@@ -86,7 +86,7 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
           <div class="text-end">
             <div class="fw-bold">Rp 600,000</div>
             <?php
-            if ($today >= $expired_date){
+            if ($todaySeminggu >= $expired_date){
               ?>
             <button class="btn btn-orange btn-sm mt-2 btn-bayar" 
             data-amount="600000" data-periode="24">Bayar Iuran</button>
@@ -103,7 +103,7 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
           <div class="text-end">
             <div class="fw-bold">Rp 75,000</div>
             <?php
-            if ($today >= $expired_date){
+            if ($todaySeminggu >= $expired_date){
               ?>
             <button class="btn btn-orange btn-sm mt-2 btn-bayar"
             data-amount="75000"  data-periode="lainnya">Bayar Iuran</button>

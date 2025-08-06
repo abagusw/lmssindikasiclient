@@ -59,6 +59,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->get('materi/konten/(:segment)', 'Materi::konten/$1');
 	$routes->post('materi/selesai_baca', 'Materi::selesai_baca');
 	$routes->post('materi/cekMateriSelesai', 'Materi::cekMateriSelesai');
+	$routes->get('materi/materi_selesai', 'Materi::materi_selesai');
 	
 
 
