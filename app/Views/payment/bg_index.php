@@ -21,9 +21,8 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
 
       <div class="list-group">
         <!-- Iuran 3 Bulan (Active) -->
-        <label class="list-group-item d-flex justify-content-between align-items-center active-card">
+        <label class="list-group-item d-flex justify-content-between align-items-center">
           <div>
-            <input class="form-check-input me-2" type="radio" name="paket" checked>
             <strong>Iuran 3 Bulan</strong>
             <div class="text-muted small">Full features, highest limits and priority support</div>
           </div>
@@ -42,7 +41,6 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
         <!-- Paket lainnya -->
         <label class="list-group-item d-flex justify-content-between align-items-center">
           <div>
-            <input class="form-check-input me-2" type="radio" name="paket">
             <strong>Iuran 6 Bulan</strong>
             <div class="text-muted small">Full features, highest limits and priority support</div>
           </div>
@@ -60,7 +58,6 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
 
         <label class="list-group-item d-flex justify-content-between align-items-center">
           <div>
-            <input class="form-check-input me-2" type="radio" name="paket">
             <strong>Iuran 12 Bulan</strong>
             <div class="text-muted small">Full features, highest limits and priority support</div>
           </div>
@@ -79,7 +76,6 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
 
         <label class="list-group-item d-flex justify-content-between align-items-center">
           <div>
-            <input class="form-check-input me-2" type="radio" name="paket">
             <strong>Iuran 24 Bulan</strong>
             <div class="text-muted small">Full features, highest limits and priority support</div>
           </div>
@@ -96,7 +92,6 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
 
         <label class="list-group-item d-flex justify-content-between align-items-center">
           <div>
-            <input class="form-check-input me-2" type="radio" name="paket">
             <strong>Iuran lainnya</strong>
             <div class="text-muted small">Full features, highest limits and priority support</div>
           </div>
