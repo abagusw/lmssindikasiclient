@@ -174,6 +174,83 @@
   color: #333;
 }
 
+
+/* Responsive iframe (embed YouTube, etc.) */
+.ghost-post-content .kg-embed-card iframe {
+  width: 100%;
+  height: 315px;
+  max-width: 100%;
+  border: none;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+/* Gambar dalam image card */
+.ghost-post-content .kg-image-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+/* Embed caption */
+.ghost-post-content figure.kg-card-hascaption figcaption {
+  font-style: italic;
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Callout Card - accent (footer message) */
+.ghost-post-content .kg-callout-card-accent {
+  background-color: #e6f4ff;
+  border-left: 5px solid #0077cc;
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 2rem 0;
+  color: #003355;
+}
+
+/* Ordered & Unordered Lists */
+.ghost-post-content ul,
+.ghost-post-content ol {
+  margin: 1rem 0 1.5rem 1.5rem;
+  padding-left: 1rem;
+}
+
+.ghost-post-content li {
+  margin-bottom: 0.5rem;
+}
+
+/* Blockquote */
+.ghost-post-content blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #555;
+  margin: 1.5rem 0;
+  background: #f9f9f9;
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+}
+
+/* Horizontal rule */
+.ghost-post-content hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 2rem 0;
+}
+
+/* H2 support */
+.ghost-post-content h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  color: #c1121f;
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .ghost-post-content .kg-bookmark-container {
