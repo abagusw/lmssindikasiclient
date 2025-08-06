@@ -440,14 +440,14 @@
             success: function(response) {
               if(response.respCode == 0){
                 $('#modalSelesai').modal('show');
-                $.ambiance({message: "Materi Dasar telah selesai",
+                $.ambiance({message: "Lesson telah selesai",
                   type: "success",
                   fade: false});
               }else{
                 $.ambiance({message: response.respMessage,
                   type: "error",
                   fade: false});
-                location.reload();
+                top.location.href="<?= base_url() ?>materi/konten/"+response.nextLessonId;
               }
 
             }

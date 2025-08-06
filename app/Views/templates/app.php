@@ -132,8 +132,8 @@
 
         <!-- Icons -->
           <div class="d-flex align-items-center">
-            <i class="bi bi-gear mx-3 fs-5"></i>
-            <i class="bi bi-bell mx-3 fs-5"></i>
+<!--             <i class="bi bi-gear mx-3 fs-5"></i>
+            <i class="bi bi-bell mx-3 fs-5"></i> -->
 
             <!-- User Dropdown -->
             <div class="dropdown">

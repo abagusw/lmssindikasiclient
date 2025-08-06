@@ -47,7 +47,8 @@
       }
 
       $perTahap1 = $jumlahPartisipasi / count($dataLesson);
-      $persen = $perTahap1 * 100; 
+      $persens = $perTahap1 * 100; 
+      $persen = floor($persens * 100) / 100;
   ?>
 
   <!-- Progress -->

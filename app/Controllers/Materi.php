@@ -226,14 +226,18 @@ class Materi extends BaseController
 
             $update = $this->memberModel->update(session()->get('id'),$data);
 
+            $nextCourseId = $course_lesson_id;
 
+        }else{
+            $dataLessonNext = $this->masterCourseLesson->where('course_id',$course_id)->where('id >', $course_lesson_id)->first();
 
+            $nextCourseId = $dataLessonNext['id'];
         }
 
         if($sisa == 0){
-            $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Materi Dasar telah selesai"));
+            $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Materi Dasar telah selesai",'nextLessonId' => $nextCourseId));
         }else{
-            $jsonResp = json_encode(array('respCode'=>1,'respMessage'=>"Materi Dasar belum selesai"));
+            $jsonResp = json_encode(array('respCode'=>1,'respMessage'=>"Materi Dasar belum selesai",'nextLessonId' => $nextCourseId));
         }
 
         echo $jsonResp;
