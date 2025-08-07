@@ -202,6 +202,7 @@ class Materi extends BaseController
         $course_lesson_id = $this->request->getPost('course_lesson_id');
         $course_id = $this->request->getPost('course_id');
         $session = \Config\Services::session();
+        $dataCourse = $this->masterCourseModel->where('id',$course_id)->first();
         $dataLesson = $this->masterCourseLesson->where('course_id',$course_id)->findAll();
         $totalCourse = count($dataLesson);
 
@@ -210,6 +211,13 @@ class Materi extends BaseController
 
         $sisa = $totalCourse - $totalCourseParticipant; 
 
+        if($dataCourse['kategori'] == 0){
+            $lblPendikan = "Pendidikan Dasar Serikat";
+            $lblJenis = "Dasar";
+        }else{
+            $lblPendikan = $dataCourse['judul'];
+            $lblJenis = $dataCourse['judul'];
+        }
         if($sisa == 0){
             $getMemberByid = $this->userModel->findWithCity(session()->get('id'));
 
@@ -235,9 +243,9 @@ class Materi extends BaseController
         }
 
         if($sisa == 0){
-            $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Materi Dasar telah selesai",'nextLessonId' => $nextCourseId));
+            $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Materi ".$lblJenis." telah selesai",'nextLessonId' => $nextCourseId,'lblPendidikan'=>$lblPendikan));
         }else{
-            $jsonResp = json_encode(array('respCode'=>1,'respMessage'=>"Materi Dasar belum selesai",'nextLessonId' => $nextCourseId));
+            $jsonResp = json_encode(array('respCode'=>1,'respMessage'=>"Materi ".$lblJenis." belum selesai",'nextLessonId' => $nextCourseId,'lblPendidikan'=>""));
         }
 
         echo $jsonResp;

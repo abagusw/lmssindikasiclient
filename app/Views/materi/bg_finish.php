@@ -40,7 +40,7 @@
 <!-- Header (opsional) -->
 <nav class="navbar bg-white border-bottom shadow-sm">
   <div class="container-fluid px-4">
-    <a class="navbar-brand fw-bold" href="#">kolektaria</a>
+    <a class="navbar-brand fw-bold" href="<?= base_url() ?>">kolektaria</a>
     <form class="d-flex d-none d-md-block" role="search" style="width: 300px;">
       <input class="form-control rounded-pill" type="search" placeholder="Search" aria-label="Search">
     </form>

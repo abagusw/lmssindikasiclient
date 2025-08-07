@@ -383,7 +383,7 @@
       <!-- Isi Konten -->
       <h5 class="fw-bold">Materi selesai!</h5>
       <p class="mb-1">Selamat! Kamu telah menyelesaikan</p>
-      <p class="fw-semibold">Pendidikan Dasar Serikat</p>
+      <p class="fw-semibold" id="lblPendidikan">Pendidikan Dasar Serikat</p>
 
       <!-- Tombol Unduh -->
       <a href="<?= base_url() ?>materi/materi_selesai" class="btn btn-orange mt-2">Unduh Kartu Tanda Anggota</a>
@@ -440,6 +440,7 @@
             success: function(response) {
               if(response.respCode == 0){
                 $('#modalSelesai').modal('show');
+                $('#lblPendidikan').html(response.lblPendidikan);
                 $.ambiance({message: "Lesson telah selesai",
                   type: "success",
                   fade: false});
