@@ -3,12 +3,18 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\MasterCityModel;
+use App\Models\MasterSubsektor;
+use App\Models\MasterJabatan;
 
 class User extends BaseController
 {
     public function __construct()
     {
         $this->userModel = new UserModel();
+        $this->masterCityModel = new MasterCityModel();
+        $this->masterSubsektor = new MasterSubsektor();
+        $this->masterJabatan = new MasterJabatan();
     }
 
     protected function _validation()
@@ -152,7 +158,11 @@ class User extends BaseController
         $data = [
             'title' => 'My Profile',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),
+            'getCityById' => $this->masterCityModel->where('id',$this->session->get('domisili'))->first(),
             'session' => \Config\Services::session(),
+            'getCity' => $this->masterCityModel->findAll(),
+            'getDataJabatan' => $this->masterJabatan->findAll(),
+            'getDataSubsektor' => $this->masterSubsektor->findAll(),
             'validation' => \Config\Services::validation()
         ];
 

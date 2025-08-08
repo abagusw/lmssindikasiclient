@@ -142,8 +142,8 @@
                 <img src="https://i.pravatar.cc/32" alt="User" class="rounded-circle" width="32" height="32">
               </a>
               <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser">
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="<?= base_url(); ?>user/profile">Profile</a></li>
+<!--                 <li><a class="dropdown-item" href="#">Settings</a></li> -->
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item text-danger" href="<?= base_url(); ?>auth/logout">Logout</a></li>
               </ul>

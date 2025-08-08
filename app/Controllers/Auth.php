@@ -68,6 +68,7 @@ class Auth extends BaseController
 	                'email' => $user['email'],
 	                'nama_lengkap' => $user['nama_lengkap'],
 	                'nama_panggilan' => $user['nama_panggilan'],
+                  'domisili' => $user['domisili'],
 	                'logged_in' => true
 	            ]);
 	            $now = new \DateTime();
