@@ -24,6 +24,11 @@ class Dashboard extends BaseController
 
     public function index()
     {
+
+        $getMemberById = $this->userModel->find(session()->get('id'));
+        if($getMemberById['nomor_anggota'] != ""){
+            return redirect()->to(base_url('linimasa/list'));
+        }
         //$dataCourseRow = $this->masterCourseModel->orderBy('id', 'DESC')->first();
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = Midtrans_ServerKey;

@@ -58,8 +58,8 @@
     Terima kasih telah menyelesaikan pendidikan dasar. Kini kamu telah menjadi anggota penuh Serikat Sindikasi—sebuah komunitas solidaritas pekerja yang saling mendukung dan memperjuangkan hak bersama.
   </p>
 
-  <div class="d-flex justify-content-center my-4">
-    <div class="kta-card">
+  <div  class="d-flex justify-content-center my-4">
+    <div class="kta-card" id="ktaArea">
       <div class="kta-image">
         <!-- Gambar header KTA -->
       </div>
@@ -71,7 +71,7 @@
   </div>
 
   <div class="mb-3">
-    <a href="#" class="btn btn-orange px-4">⬇ Unduh KTA</a>
+    <a href="#" id="downloadKTA" class="btn btn-orange px-4">⬇ Unduh KTA</a>
   </div>
 
   <a href="<?= base_url(); ?>" class="btn btn-outline-secondary">Kembali ke beranda</a>
@@ -79,5 +79,17 @@
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+document.getElementById("downloadKTA").addEventListener("click", function () {
+  html2canvas(document.getElementById("ktaArea")).then(function (canvas) {
+    const link = document.createElement('a');
+    link.download = 'kta.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+});
+</script>
 </body>
 </html>

@@ -37,7 +37,7 @@ class Course extends BaseController
             $this->masterCourseModel->where('kategori', $kategori);
         }
 
-        $data['courses'] = $this->masterCourseModel->paginate($limit);
+        $data['courses'] = $this->masterCourseModel->where('kategori !=',0)->paginate($limit);
         $data['pager'] = $this->masterCourseModel->pager;
         $data['kategori'] = $kategori;
         $data['request'] = $request;

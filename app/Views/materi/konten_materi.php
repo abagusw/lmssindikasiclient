@@ -7,7 +7,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
   <link href="<?=ASSETS_URL?>compo_notif/jquery.ambiance.css" rel="stylesheet">
-  <style>
+    <link rel="stylesheet" href="<?=URLGhost?>/assets/built/screen.css">
+<!--   <style>
     body {
       background-color: #f9fafb;
     }
@@ -267,7 +268,7 @@
   }
 }
 
-  </style>
+  </style> -->
 </head>
 <body>
 <?php
@@ -439,11 +440,16 @@
             dataType: 'JSON',
             success: function(response) {
               if(response.respCode == 0){
-                $('#modalSelesai').modal('show');
-                $('#lblPendidikan').html(response.lblPendidikan);
+                if(response.kategori != 0){
+                  top.location.href="<?= base_url() ?>course/list";
+                }else{
+                  $('#modalSelesai').modal('show');
+                  $('#lblPendidikan').html(response.lblPendidikan);
+                }
                 $.ambiance({message: "Lesson telah selesai",
                   type: "success",
                   fade: false});
+
               }else{
                 $.ambiance({message: response.respMessage,
                   type: "error",
