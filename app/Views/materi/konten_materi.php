@@ -302,7 +302,7 @@
 <div class="container-fluid">
   <div class="row">
     <!-- KONTEN -->
-    <div class="col-lg-9 p-4">
+    <div id="mainContent" class="col-lg-9 p-4">
       <div class="main-content">
         <p class="text-muted small">Materi 6 dari 6</p>
         <h4 class="fw-bold mb-4"><?= $getData['title']; ?></h4>
@@ -397,11 +397,20 @@
 <script>
   const toggleSidebar = document.getElementById('toggleSidebar');
   const sidebarBox = document.getElementById('sidebarBox');
+  const mainContent = document.getElementById('mainContent');
 
   toggleSidebar.addEventListener('click', function (e) {
     e.preventDefault();
     sidebarBox.classList.toggle('d-none');
-    toggleSidebar.textContent = sidebarBox.classList.contains('d-none') ? 'Tampilkan daftar materi' : 'Sembunyikan daftar materi';
+
+    const isHidden = sidebarBox.classList.contains('d-none');
+
+    // Ubah kelas col-lg-9 jadi col-lg-12 dan sebaliknya
+    mainContent.classList.remove(isHidden ? 'col-lg-9' : 'col-lg-12');
+    mainContent.classList.add(isHidden ? 'col-lg-12' : 'col-lg-9');
+
+    // Ganti teks tombol
+    toggleSidebar.textContent = isHidden ? 'Tampilkan daftar materi' : 'Sembunyikan daftar materi';
   });
 </script>
 
