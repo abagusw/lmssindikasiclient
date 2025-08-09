@@ -28,6 +28,13 @@
   $limitOptions = [5, 10, 15, 20];
   $selectedLimit = (int) ($request->getGet('limit') ?? 10);
   $sort = $request->getGet('sort') ?? 'desc';
+
+
+  use App\Models\MasterCourseParticipantModel;
+  use App\Models\MasterCourseLesson;
+  $coursePartModel = new MasterCourseParticipantModel();
+  $courseLesson = new MasterCourseLesson();
+  $user_id = session()->get('id');
 ?>
 <div class="container py-4">
   <h4 class="mb-3">Course</h4>
@@ -60,6 +67,14 @@
     <?php foreach ($courses as $c): ?>
       <?php
       $gb = urlAdmin."uploads/course/" . $c['cover'];
+      $countLesson = $courseLesson->where('course_id',$c['id'])->countAllResults();
+      $jumlahPartisipasi = $coursePartModel->where('user_id', $user_id)
+                                                  ->where('course_id', $c['id'])
+                                                  ->countAllResults();
+
+      $perTahap1 = $jumlahPartisipasi / $countLesson;
+      $persens = $perTahap1 * 100; 
+      $persen = floor($persens * 100) / 100;
       ?>
       <div class="col-12">
         <div class="course-card d-flex flex-column flex-md-row p-3 bg-white rounded shadow-sm">
@@ -71,7 +86,7 @@
             <p class="text-muted mb-2"><?= esc($c['deskripsi']) ?></p>
             <div class="mb-2">
               <div class="progress">
-                <div class="progress-bar bg-<?= $c['status'] == 'completed' ? 'success' : ($c['status'] == 'inprogress' ? 'info' : 'secondary') ?>" style="width: 100>%"></div>
+                <div class="progress-bar bg-success" style="width: <?= $persen; ?>%"><?= $persen; ?>%</div>
               </div>
             </div>
             <a href="<?= base_url('materi/dasar/'.$c['id'].'') ?>" class="btn btn-sm btn-outline-warning">Lihat materi →</a>

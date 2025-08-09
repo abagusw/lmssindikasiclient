@@ -1,8 +1,8 @@
     <!-- Sidebar -->
     <div class="col-md-2 sidebar d-none d-md-block">
-      <h5 class="text-center mb-3">🧩 kolektaria</h5>
+      <a href="<?= base_url() ?>"><h5 class="text-center mb-3">🧩 kolektaria</h5></a>
       <div class="d-grid">
-        <a href="#" class="btn btn-dark mx-3 mb-2">Mulai sekarang!</a>
+        <a href="<?= base_url() ?>" class="btn btn-dark mx-3 mb-2">Mulai sekarang!</a>
       </div>
 
       <div class="nav-label">LMS</div>
