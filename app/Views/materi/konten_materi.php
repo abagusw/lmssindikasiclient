@@ -7,7 +7,72 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
   <link href="<?=ASSETS_URL?>compo_notif/jquery.ambiance.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?=URLGhost?>/assets/built/screen.css">
+  <link rel="stylesheet" href="<?= URLGhost ?>/assets/built/screen.css?v=<?= time() ?>">
+
+  <script defer src="<?= URLGhost ?>/public/cards.min.js?v=<?= time() ?>"></script>
+  <link rel="stylesheet" href="<?= URLGhost ?>/public/cards.min.css?v=<?= time() ?>">
+<style>
+    body {
+      background-color: #f9fafb;
+    }
+
+    .topbar {
+      background-color: white;
+      border-bottom: 1px solid #ddd;
+      padding: 0.75rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .sidebar {
+      min-width: 260px;
+      max-width: 300px;
+      background-color: #fff;
+      border-left: 1px solid #e5e7eb;
+      height: 100vh;
+      padding: 1.5rem;
+      position: sticky;
+      top: 72px;
+      overflow-y: auto;
+    }
+
+    .main-content {
+      padding: 2rem;
+      background-color: #fff;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      margin-top: 2rem;
+    }
+
+    .text-orange {
+      color: #f97316;
+    }
+
+    .text-orange:hover {
+      color: #ea580c;
+    }
+
+    .btn-orange {
+      background-color: #f97316;
+      color: white;
+    }
+
+    .btn-orange:hover {
+      background-color: #ea580c;
+    }
+
+    .active-materi {
+      background-color: #f3f4f6;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    .btn-big-custom {
+    font-size: 1.5rem;  /* Perbesar teks */
+    padding: 1rem 2rem; /* Perbesar area klik */
+    }
+</style>
 <!--   <style>
     body {
       background-color: #f9fafb;
@@ -315,9 +380,9 @@
           <?php 
           if(!$cekCoursePart){
             ?>
-          <button class="btn btn-orange px-4 rounded-pill" type="button" onclick="selesaiBaca(<?php echo $course_id; ?>,<?php echo $getMsCourseLessonByid['course_id']; ?>)">Selesai dibaca</button>
+          <button class="btn btn-orange px-4 rounded-pill btn-big-custom" type="button" onclick="selesaiBaca(<?php echo $course_id; ?>,<?php echo $getMsCourseLessonByid['course_id']; ?>)">Selesai dibaca</button>
         <?php } else {?>
-          <button class="btn btn-success px-4 rounded-pill" type="button" disabled>Sudah Dibaca</button> <?php } ?>
+          <button class="btn btn-success px-4 rounded-pill btn-big-custom" type="button" disabled>Sudah Dibaca</button> <?php } ?>
 
         </div>
       </div>
