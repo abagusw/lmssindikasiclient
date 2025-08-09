@@ -32,6 +32,7 @@ class Payment extends BaseController
     public function index()
     {
         $getPaymentSukses = $this->paymentSuccessMemberModel->orderBy('id', 'DESC')->where('user_id',$this->session->get('id'));
+        $getCekPaymentSukses = $this->paymentSuccessMemberModel->orderBy('id', 'DESC')->where('user_id',$this->session->get('id'))->countAllResults();
         $rowData = $getPaymentSukses->first();
         $data = [
             'title' => 'Payment',
@@ -39,7 +40,8 @@ class Payment extends BaseController
             'memberActive' => $this->memberModel->countMemberByFlag(1),
             'memberAll' => $this->memberModel->countMemberAll(),
             'getData' => $this->memberModel->where('flag', '1')->findAll(),
-            'rowData' => $rowData
+            'rowData' => $rowData,
+            'getCekPaymentSukses' => $getCekPaymentSukses
         ];
 
         return view('payment/bg_index', $data);

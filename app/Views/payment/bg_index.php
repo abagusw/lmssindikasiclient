@@ -1,6 +1,23 @@
 <?= $this->extend('templates/app'); ?>
 
 <?= $this->section('content'); ?>
+
+<?php
+if($getCekPaymentSukses == 0){
+  ?>
+  <div id="lesson-empty-notification" class="alert alert-warning text-center mt-4" role="alert">
+    <i class="bi bi-exclamation-circle-fill me-2"></i>
+    <strong>Belum ada pembayaran</strong>
+    <div class="mt-3">
+      <a href="<?= base_url('dashboard'); ?>" class="btn btn-sm btn-secondary">
+        <i class="bi bi-arrow-left-circle me-1"></i> Kembali ke Dashboard
+      </a>
+    </div>
+  </div>
+  <?php
+}else{
+  ?>
+<div class="container py-5">
 <?php
 $today = date('Y-m-d');
 $todaySeminggu = date('Y-m-d', strtotime($today . ' +7 days'));
@@ -9,7 +26,6 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
 // echo $today."<br>";
 // echo $expired_date;
 ?>
-<div class="container py-5">
   <div class="row">
     <!-- Paket Pilihan -->
     <div class="col-lg-8 mb-4">
@@ -134,6 +150,7 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
     </div>
   </div>
 </div>
+<?php } ?>
 <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?= Midtrans_ClientKey ?>"></script>
 
 <script>
