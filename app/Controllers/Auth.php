@@ -47,7 +47,7 @@ class Auth extends BaseController
 	    $password = $this->request->getPost('password');
 
 	    $userModel = new UserModel;
-	    $user = $userModel->where('email', $email)->first();
+	    $user = $userModel->where('email', $email)->where('flag !=', 3)->first();
 
 	    $token = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
@@ -69,7 +69,8 @@ class Auth extends BaseController
 	                'nama_lengkap' => $user['nama_lengkap'],
 	                'nama_panggilan' => $user['nama_panggilan'],
                   'domisili' => $user['domisili'],
-	                'logged_in' => true
+	                'logged_in' => true,
+                  'nomor_anggota' => $user['nomor_anggota'],
 	            ]);
 	            $now = new \DateTime();
 				$now->modify('+1 hour');

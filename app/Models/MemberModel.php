@@ -105,6 +105,7 @@ class MemberModel extends Model
     public function getMemberByEmail($email){
         $builder = $this->db->table('tb_member');
         $builder->where('email', $email);
+        $builder->where('flag !=', 2);
         $query = $builder->get();
         return $query;
     }
