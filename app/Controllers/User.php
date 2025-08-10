@@ -162,6 +162,7 @@ class User extends BaseController
         $userId = session()->get('id');
         $expModel = new \App\Models\PengalamanModel();
         $eduModel = new \App\Models\PendidikanModel();
+        $member  = (new MemberModel())->find($userId);
         $experiences = $expModel
             ->where('user_id', $userId)
             ->orderBy('is_current', 'DESC') 
@@ -188,7 +189,8 @@ class User extends BaseController
             'getDataSubsektor' => $this->masterSubsektor->findAll(),
             'validation' => \Config\Services::validation(),
             'experiences' => $experiences,
-            'educations' => $educations
+            'educations' => $educations,
+            'member' => $member
         ];
 
         return view('user/profile', $data);

@@ -308,6 +308,10 @@
               <div class="tab-pane fade show active" id="list-personal" role="tabpanel">
                 <p>
                   <div class="section-header">📄 Data Pribadi</div>
+                  <?php
+                  function is_checked($arr, $val){ return in_array($val, (array)$arr) ? 'checked' : ''; }
+                  $member = $member ?? [];
+                  ?>
                   <div class="row g-3">
                         <div class="col-md-6">
                           <label class="form-label required">Nama lengkap</label>
@@ -316,7 +320,8 @@
                         </div>
                         <div class="col-md-6">
                           <label class="form-label">Nama panggilan <small>(opsional)</small></label>
-                          <input type="text" name="nama_panggilan" id="nama_panggilan" class="form-control">
+                          <input type="text" name="nama_panggilan" id="nama_panggilan" class="form-control"
+                          value="<?= esc(old('nama_panggilan', $user_logged_in['nama_panggilan'] ?? '')) ?>">
                         </div>
 
                         <div class="col-md-12">
@@ -335,95 +340,107 @@
                           <label class="form-label required">Nomor ponsel</label>
                           <div class="input-group">
                             <span class="input-group-text">+62</span>
-                            <input type="tel" name="telp" id="telp" class="form-control" placeholder="Type here" required>
+                            <input type="tel" name="telp" id="telp" class="form-control" required
+                          value="<?= esc(old('telp', ltrim($member['no_hp'] ?? '', '0'))) ?>">
                           </div>
                         </div>
 
                         <div class="col-md-4">
                           <label class="form-label required">Gender</label>
+                          <?php $jk = old('gender', $member['jenis_kelamin'] ?? ''); ?>
                           <select class="form-select" name="gender" id="gender" required>
-                            <option selected disabled>Pilih</option>
-                            <option value="1">Laki-laki</option>
-                            <option value="0">Perempuan</option>
+                            <option disabled <?= $jk===''?'selected':''; ?>>Pilih</option>
+                            <option value="1" <?= $jk==='1'?'selected':''; ?>>Laki-laki</option>
+                            <option value="0" <?= $jk==='0'?'selected':''; ?>>Perempuan</option>
+                            <option value="lain" <?= $jk==='lain'?'selected':''; ?>>Lainnya</option>
                           </select>
                         </div>
 
                         <div class="col-md-4">
                           <label class="form-label required">Kota kelahiran</label>
+                          <?php $kotaLahir = old('kota_kelahiran', $member['tempat_lahir'] ?? ''); ?>
                           <select class="form-select" name="kota_kelahiran" id="kota_kelahiran" required>
-                            <option selected disabled>Pilih</option>
-                          <?php 
-                              foreach($getCity as $city){
-                                echo"
-                              <option value=".$city['id'].">".$city['name']."</option>";}
-                          ?>
+                            <option disabled <?= $kotaLahir===''?'selected':''; ?>>Pilih</option>
+                            <?php foreach($getCity as $city): ?>
+                              <option value="<?= $city['id'] ?>" <?= ($kotaLahir==$city['id']?'selected':'') ?>>
+                                <?= esc($city['name']) ?>
+                              </option>
+                            <?php endforeach; ?>
                           </select>
                         </div>
 
                         <div class="col-md-4">
                           <label class="form-label required">Tanggal lahir</label>
-                          <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" required>
+                          <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" required
+                                 value="<?= esc(old('tanggal_lahir', $member['tanggal_lahir'] ?? '')) ?>">
                         </div>
 
                         <div class="col-md-6">
                           <label class="form-label required">Kota domisili</label>
+                          <?php $dom = old('kota_domisili', $member['domisili'] ?? ''); ?>
                           <select class="form-select" name="kota_domisili" id="kota_domisili" required>
-                            <option selected disabled>Pilih</option>
-                            <?php 
-                              foreach($getCity as $city){
-                                echo"
-                              <option value=".$city['id'].">".$city['name']."</option>";}
-                            ?>
+                            <option disabled <?= $dom===''?'selected':''; ?>>Pilih</option>
+                            <?php foreach($getCity as $city): ?>
+                              <option value="<?= $city['id'] ?>" <?= ($dom==$city['id']?'selected':'') ?>>
+                                <?= esc($city['name']) ?>
+                              </option>
+                            <?php endforeach; ?>
                           </select>
                         </div>
 
                         <div class="col-md-6">
                           <label class="form-label required">Pendidikan terakhir</label>
+                          <?php $pend = old('pendidikan_terakhir', $member['pendidikan_terakhir'] ?? ''); ?>
                           <select class="form-select" name="pendidikan_terakhir" id="pendidikan_terakhir" required>
-                            <option selected disabled>Pilih</option>
-                            <option value="SD">SD</option>
-                            <option value="SMP">SMP</option>
-                            <option value="SMA">SMA</option>
-                            <option value="D3">D3</option>
-                            <option value="S1">S1</option>
-                            <option value="S2">S2</option>
-                            <option value="S3">S3</option>
+                            <?php
+                              $opts = ['SD','SMP','SMA','D3','S1','S2','S3'];
+                              echo '<option disabled '.($pend===''?'selected':'').'>Pilih</option>';
+                              foreach($opts as $o){
+                                $sel = ($pend===$o)?'selected':'';
+                                echo "<option value=\"$o\" $sel>$o</option>";
+                              }
+                            ?>
                           </select>
                         </div>
 
                         <div class="col-md-12">
                           <label class="form-label required">Nama instansi pendidikan</label>
-                          <input type="text" name="nama_instansi_pendidikan" id="nama_instansi_pendidikan" class="form-control" placeholder="Ketik di sini" required>
+                           <input type="text" name="nama_instansi_pendidikan" id="nama_instansi_pendidikan" class="form-control"
+                          value="<?= esc(old('nama_instansi_pendidikan', $member['nama_instansi_pendidikan'] ?? '')) ?>" required>
                         </div>
 
                         <div class="col-md-12">
                           <label class="form-label">Pengalaman organisasi <small>(opsional)</small></label>
-                          <textarea name="pengalaman_organisasi" id="pengalaman_organisasi" class="form-control" rows="3" maxlength="200" placeholder="Tulis pengalaman organisasi jika ada"></textarea>
-                          <div class="form-text text-end"><small>0/200</small></div>
+                          <textarea name="pengalaman_organisasi" id="pengalaman_organisasi" class="form-control" rows="3" maxlength="200"
+                          ><?= esc(old('pengalaman_organisasi', $member['pengalaman_organisasi'] ?? '')) ?></textarea>
+                          <div class="form-text text-end"><small><?= strlen(old('pengalaman_organisasi', $member['pengalaman_organisasi'] ?? '')) ?>/200</small></div>
                         </div>
 
+                        <!-- Disabilitas -->
+                        <?php $disArr = $disabilitas ?? []; ?>
                         <div class="col-md-12">
                           <label class="form-label">Disabilitas <small>(opsional)</small></label>
                           <div class="row">
                             <div class="col-md-4">
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna netra" id="netra">Tuna Netra</div>
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna rungu" id="rungu">Tuna rungu</label></div>
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna grahita" id="grahita">Tuna grahita</label></div>
+                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna netra"  <?= is_checked($disArr,'Tuna netra') ?>> Tuna Netra</div>
+                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna rungu"  <?= is_checked($disArr,'Tuna rungu') ?>> Tuna Rungu</div>
+                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna grahita" <?= is_checked($disArr,'Tuna grahita') ?>> Tuna Grahita</div>
                             </div>
                             <div class="col-md-4">
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna laras" id="laras">Tuna laras</label></div>
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna wicara" id="wicara">Tuna wicara</label></div>
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Spektrum autisme" id="spektrum">Spektrum autisme</label></div>
+                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna laras"   <?= is_checked($disArr,'Tuna laras') ?>> Tuna Laras</div>
+                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna wicara"  <?= is_checked($disArr,'Tuna wicara') ?>> Tuna Wicara</div>
+                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Spektrum autisme" <?= is_checked($disArr,'Spektrum autisme') ?>> Spektrum Autisme</div>
                             </div>
                             <div class="col-md-4">
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Lainnya" id="lainnya">Lainnya</label></div>
+                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Lainnya" <?= is_checked($disArr,'Lainnya') ?>> Lainnya</div>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-md-12">
                           <label class="form-label">Jenis disabilitas lainnya</label>
-                          <input type="text" class="form-control" id="disabilitas_lainnya" name="disabilitas_lainnya" placeholder="Ketik di sini">
+                          <input type="text" class="form-control" id="disabilitas_lainnya" name="disabilitas_lainnya"
+                                 value="<?= esc(old('disabilitas_lainnya', $member['disabilitas_lainnya'] ?? '')) ?>" placeholder="Ketik di sini">
                         </div>
 
                   </div>
