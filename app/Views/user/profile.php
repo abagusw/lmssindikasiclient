@@ -755,15 +755,15 @@
                   <?= csrf_field() ?>
                   <div class="mb-3">
                     <label class="form-label">Kata kunci saat ini <span class="text-danger">*</span></label>
-                    <input type="password" id="current_password" class="form-control" required>
+                    <input type="password" id="current_password" class="form-control">
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Kata kunci baru <span class="text-danger">*</span></label>
-                    <input type="password" id="new_password" class="form-control" minlength="8" maxlength="72" required>
+                    <input type="password" id="new_password" class="form-control" minlength="8" maxlength="72">
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Ulangi kata kunci <span class="text-danger">*</span></label>
-                    <input type="password" id="new_password_confirm" class="form-control" required>
+                    <input type="password" id="new_password_confirm" class="form-control">
                     <div id="matchHelp" class="form-text"></div>
                   </div>
                   <button id="btnSavePwd" type="button" class="btn btn-primary">Simpan</button>
