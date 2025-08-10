@@ -343,25 +343,20 @@ class User extends BaseController
             return redirect()->back()->with('error','Kolom password tidak ditemukan pada data user.');
         }
 
-        // Deteksi apakah stored sudah hash modern
         $isHash = is_string($stored) && preg_match('/^\$(2y|2a|2b|argon2id|argon2i)\$/', $stored);
 
         $valid = false;
         if ($isHash) {
             $valid = password_verify($current, $stored);
         } else {
-            // legacy: plaintext/MD5/SHA1 —> ubah sesuai kondisi kamu
-            // contoh plaintext:
             $valid = hash_equals((string)$stored, $current);
-            // contoh jika dulu pakai md5:
-            // $valid = hash_equals((string)$stored, md5($current));
         }
 
         if (!$valid) {
             return redirect()->back()->withInput()->with('error', 'Kata kunci saat ini salah.');
         }
 
-        // Cegah reuse
+
         if ($isHash && password_verify($new, $stored)) {
             return redirect()->back()->withInput()->with('error', 'Kata kunci baru tidak boleh sama.');
         }
@@ -369,18 +364,16 @@ class User extends BaseController
             return redirect()->back()->withInput()->with('error', 'Kata kunci baru tidak boleh sama.');
         }
 
-        // Hash baru (modern)
+
         $newHash = password_hash($new, PASSWORD_DEFAULT);
 
-        // Simpan ke kolom yang kamu pakai (utamakan password_hash)
+
         $save = [];
         if (array_key_exists('password_hash', $user)) $save['password_hash'] = $newHash;
         else $save['password'] = $newHash;
 
         $model->update($userId, $save);
 
-        // Opsional: rehash otomatis jika hash lama
-        // if ($isHash && password_needs_rehash($stored, PASSWORD_DEFAULT)) { ... }
 
         return redirect()->back()->with('success','Kata kunci berhasil diperbarui.');
     }

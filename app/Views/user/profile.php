@@ -306,10 +306,11 @@
           </div>
 
           <div class="col-lg-9">
+            <form id="formProfil" action="<?= base_url('profile/save') ?>" method="post">
             <div class="tab-content" id="nav-tabContent">
+
                  <?= csrf_field() ?>
                 <div class="tab-pane fade show active" id="list-personal" role="tabpanel">
-                  <p>
                     <div class="section-header">📄 Data Pribadi</div>
                     <?php
                     function is_checked($arr, $val){ return in_array($val, (array)$arr) ? 'checked' : ''; }
@@ -329,7 +330,7 @@
 
                           <div class="col-md-12">
                             <label class="form-label">Nama anggota yang mereferensikan <small>(opsional)</small></label>
-                            <input type="text" name="referensi" id="referensi" class="form-control">
+                            <input type="text" name="referensi" id="referensi" class="form-control" value="<?= esc(old('referensi', $user_logged_in['referensi'] ?? '')) ?>">
                           </div>
 
                           <div class="col-md-6">
@@ -447,7 +448,6 @@
                           </div>
 
                     </div>
-                  </p>
                 </div>
 
                 <div class="tab-pane fade" id="list-profils" role="tabpanel">
@@ -750,23 +750,23 @@
               <div class="tab-pane fade" id="list-password" role="tabpanel">
                 <h5 class="mb-3">Atur Kata Kunci</h5>
 
-                <form id="formUbahPassword" action="<?= base_url('profile/update-password') ?>" method="post">
+                  <div id="alertPwd" class="alert d-none"></div>
+
                   <?= csrf_field() ?>
                   <div class="mb-3">
                     <label class="form-label">Kata kunci saat ini <span class="text-danger">*</span></label>
-                    <input type="password" name="current_password" class="form-control" required>
+                    <input type="password" id="current_password" class="form-control" required>
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Kata kunci baru <span class="text-danger">*</span></label>
-                    <input type="password" id="new_password" name="new_password" class="form-control" minlength="8" maxlength="72" required>
+                    <input type="password" id="new_password" class="form-control" minlength="8" maxlength="72" required>
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Ulangi kata kunci <span class="text-danger">*</span></label>
-                    <input type="password" id="new_password_confirm" name="new_password_confirm" class="form-control" required>
+                    <input type="password" id="new_password_confirm" class="form-control" required>
                     <div id="matchHelp" class="form-text"></div>
                   </div>
-                  <button id="btnSavePwd" type="submit" class="btn btn-primary">Simpan</button>
-                </form>
+                  <button id="btnSavePwd" type="button" class="btn btn-primary">Simpan</button>
               </div>
               <div class="tab-pane fade" id="list-otentikasi" role="tabpanel">
                   <div class="container">
@@ -812,6 +812,7 @@
                   </div>
               </div>
             </div>
+          </form>
           </div>
       </div>
   </div> 
@@ -1239,56 +1240,51 @@ document.getElementById('downloadKTA').addEventListener('click', function(){
 
 <!-- Ubah Password area -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const np = document.getElementById('new_password');
-  const nc = document.getElementById('new_password_confirm');
-  const mh = document.getElementById('matchHelp');
-  function checkMatch(){
-    if(!np.value || !nc.value){ mh.textContent=''; return; }
-    const ok = np.value === nc.value;
-    mh.textContent = ok ? 'Cocok.' : 'Tidak cocok.';
-    mh.className = 'form-text ' + (ok ? 'text-success' : 'text-danger');
-  }
-  np.addEventListener('input', checkMatch);
-  nc.addEventListener('input', checkMatch);
+const csrfNameChgPass = '<?= csrf_token() ?>';
+let   csrfHashChgPass = '<?= csrf_hash() ?>';
 
-  const form = document.getElementById('formUbahPassword');
-  const btn  = document.getElementById('btnSavePwd');
+document.getElementById('btnSavePwd').addEventListener('click', async () => {
+  const cur = document.getElementById('current_password').value.trim();
+  const np  = document.getElementById('new_password').value.trim();
+  const nc  = document.getElementById('new_password_confirm').value.trim();
+  const alertBox = document.getElementById('alertPwd');
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (np.value !== nc.value) { $.ambiance({message:'Konfirmasi tidak cocok', type:'error'}); return; }
+  if (!cur || !np || !nc) return show('Semua field wajib diisi.', true);
+  if (np.length < 8)      return show('Kata kunci baru minimal 8 karakter.', true);
+  if (np !== nc)          return show('Konfirmasi kata kunci tidak sama.', true);
 
-    btn.disabled = true;
-    const fd = new FormData(form); // sudah include CSRF dari <?= csrf_field() ?>
+  const fd = new FormData();
+  fd.append(csrfNameChgPass, csrfHashChgPass);
+  fd.append('current_password', cur);
+  fd.append('new_password', np);
+  fd.append('new_password_confirm', nc);
 
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
-        body: fd
-      });
-      const out = await res.json().catch(()=>null);
+  try {
+    const res = await fetch('<?= base_url('profile/update-password') ?>', {
+      method: 'POST',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      body: fd,
+      credentials: 'same-origin' 
+    });
 
-      if (!res.ok || (out && out.ok === false)) {
-        const msg = (out?.error) || (out?.errors ? Object.values(out.errors).join('<br>') : 'Gagal mengubah kata kunci');
-        $.ambiance({message: msg, type:'error', fade:false});
-        return;
-      }
+    const data = await res.json().catch(() => ({}));
+    if (data.token) csrfHash = data.token;
 
-      $.ambiance({message:'Kata kunci berhasil diperbarui', type:'success'});
-      form.reset(); checkMatch();
-
-      // tetap/aktifkan tab Area Kerja setelah sukses
-      const tabBtn = document.getElementById('tab-areakerja');
-      if (tabBtn) new bootstrap.Tab(tabBtn).show();
-    } catch (err) {
-      console.error(err);
-      $.ambiance({message:'Terjadi kesalahan jaringan', type:'error'});
-    } finally {
-      btn.disabled = false;
+    if (!res.ok || data.ok === false) {
+      const msg = data.error || (data.errors ? Object.values(data.errors).join('<br>') : 'Gagal memperbarui kata kunci.');
+      return show(msg, true);
     }
-  });
+
+    show(data.message || 'Kata kunci berhasil diperbarui.', false);
+  } catch (e) {
+    show('Terjadi kesalahan jaringan.', true);
+  }
+
+  function show(msg, isErr){
+    alertBox.className = 'alert ' + (isErr ? 'alert-danger' : 'alert-success');
+    alertBox.innerHTML = msg;
+    alertBox.classList.remove('d-none');
+  }
 });
 </script>
 
@@ -1324,8 +1320,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       $.ambiance({ message: 'Profil berhasil disimpan', type: "success" });
-      // contoh: tetap di tab sekarang, tidak perlu reload
-      // kalau mau reload list pengalaman/pendidikan via AJAX, panggil fungsi reload di sini
+  
     } catch (err) {
       console.error(err);
       $.ambiance({ message: 'Network error', type: "error" });
