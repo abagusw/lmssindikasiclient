@@ -384,4 +384,56 @@ class User extends BaseController
 
         return redirect()->back()->with('success','Kata kunci berhasil diperbarui.');
     }
+
+    public function saveProfile()
+{
+    if (!$this->request->isAJAX()) return $this->response->setStatusCode(400)->setJSON(['ok'=>false,'error'=>'Bad request']);
+
+    $userId = session()->get('id');
+    if (!$userId) return $this->response->setStatusCode(401)->setJSON(['ok'=>false,'error'=>'Unauthorized']);
+
+    $rules = [
+        'fullname' => 'required|min_length[3]',
+        'email'    => 'required|valid_email',
+        'telp'     => 'required',
+        'gender'   => 'required',
+        'kota_kelahiran' => 'required',
+        'tanggal_lahir'  => 'required|valid_date',
+        'kota_domisili'  => 'required',
+        'pendidikan_terakhir' => 'required',
+        'nama_instansi_pendidikan' => 'required',
+    ];
+    if (! $this->validate($rules)) {
+        return $this->response->setStatusCode(422)->setJSON(['ok'=>false,'errors'=>$this->validator->getErrors()]);
+    }
+
+    $disArr = $this->request->getPost('disabilitas') ?? [];
+    if (!is_array($disArr)) $disArr = [$disArr];
+
+    $data = [
+        'nama_lengkap'            => $this->request->getPost('fullname'),
+        'nama_panggilan'          => $this->request->getPost('nama_panggilan'),
+        'referensi'               => $this->request->getPost('referensi'),
+        'email'                   => $this->request->getPost('email'),
+        'no_hp'                   => $this->request->getPost('telp'),
+        'jenis_kelamin'           => $this->request->getPost('gender'),
+        'tempat_lahir'            => $this->request->getPost('kota_kelahiran'),
+        'tanggal_lahir'           => $this->request->getPost('tanggal_lahir'),
+        'domisili'                => $this->request->getPost('kota_domisili'),
+        'pendidikan_terakhir'     => $this->request->getPost('pendidikan_terakhir'),
+        'nama_instansi_pendidikan'=> $this->request->getPost('nama_instansi_pendidikan'),
+        'pengalaman_organisasi'   => $this->request->getPost('pengalaman_organisasi'),
+        'disabilitas'             => json_encode($disArr, JSON_UNESCAPED_UNICODE),
+        'disabilitas_lainnya'     => $this->request->getPost('disabilitas_lainnya'),
+        'link_instagram'          => $this->request->getPost('link_instagram'),
+        'link_twitter'            => $this->request->getPost('link_twitter'),
+        'link_facebook'           => $this->request->getPost('link_facebook'),
+        'link_linkedin'           => $this->request->getPost('link_linkedin'),
+    ];
+
+    $ok = (new \App\Models\MemberModel())->update($userId, $data);
+    if (!$ok) return $this->response->setStatusCode(500)->setJSON(['ok'=>false,'error'=>'Gagal menyimpan']);
+
+    return $this->response->setJSON(['ok'=>true,'token'=>csrf_hash()]);
+}
 }

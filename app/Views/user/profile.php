@@ -277,7 +277,9 @@
         <small class="text-muted"><?= $user_logged_in['profesi']." — ". $getCityById['name']." — Bergabung ".date('M Y', strtotime($user_logged_in['approval_date']))?></small>
       </div>
       <div class="ms-auto">
-        <button class="btn btn-warning btn-sm"> Simpan Profil</button>
+        <button type="submit" id="btnSaveProfil" form="formProfil" class="btn btn-warning btn-sm">
+          Simpan Profil
+        </button>
       </div>
     </div>
 
@@ -305,361 +307,371 @@
 
           <div class="col-lg-9">
             <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="list-personal" role="tabpanel">
-                <p>
-                  <div class="section-header">📄 Data Pribadi</div>
-                  <?php
-                  function is_checked($arr, $val){ return in_array($val, (array)$arr) ? 'checked' : ''; }
-                  $member = $member ?? [];
-                  ?>
-                  <div class="row g-3">
-                        <div class="col-md-6">
-                          <label class="form-label required">Nama lengkap</label>
-                          <input type="text" name="fullname" id="fullname" class="form-control" value="<?= $user_logged_in['nama_lengkap'] ?>" required>
-                          <div class="form-text-muted">Sesuai dengan yang tertera di KTP</div>
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label">Nama panggilan <small>(opsional)</small></label>
-                          <input type="text" name="nama_panggilan" id="nama_panggilan" class="form-control"
-                          value="<?= esc(old('nama_panggilan', $user_logged_in['nama_panggilan'] ?? '')) ?>">
-                        </div>
-
-                        <div class="col-md-12">
-                          <label class="form-label">Nama anggota yang mereferensikan <small>(opsional)</small></label>
-                          <input type="text" name="referensi" id="referensi" class="form-control">
-                        </div>
-
-                        <div class="col-md-6">
-                          <label class="form-label required">Alamat email</label>
-                          <input type="email" name="email" id="email" class="form-control" value="<?= $user_logged_in['email'] ?>" required>
-                          <div class="form-text-muted">Contoh: namakamu@gmail.com</div>
-                          <div class="form-text-muted text-warning">Pastikan anda menggunakan alamat email yang valid karena proses aktivasi akan dilakukan melalui email</div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <label class="form-label required">Nomor ponsel</label>
-                          <div class="input-group">
-                            <span class="input-group-text">+62</span>
-                            <input type="tel" name="telp" id="telp" class="form-control" required
-                          value="<?= esc(old('telp', ltrim($member['no_hp'] ?? '', '0'))) ?>">
+                 <?= csrf_field() ?>
+                <div class="tab-pane fade show active" id="list-personal" role="tabpanel">
+                  <p>
+                    <div class="section-header">📄 Data Pribadi</div>
+                    <?php
+                    function is_checked($arr, $val){ return in_array($val, (array)$arr) ? 'checked' : ''; }
+                    $member = $member ?? [];
+                    ?>
+                    <div class="row g-3">
+                          <div class="col-md-6">
+                            <label class="form-label required">Nama lengkap</label>
+                            <input type="text" name="fullname" id="fullname" class="form-control" value="<?= $user_logged_in['nama_lengkap'] ?>" required>
+                            <div class="form-text-muted">Sesuai dengan yang tertera di KTP</div>
                           </div>
-                        </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Nama panggilan <small>(opsional)</small></label>
+                            <input type="text" name="nama_panggilan" id="nama_panggilan" class="form-control"
+                            value="<?= esc(old('nama_panggilan', $user_logged_in['nama_panggilan'] ?? '')) ?>">
+                          </div>
 
-                        <div class="col-md-4">
-                          <label class="form-label required">Gender</label>
-                          <?php $jk = old('gender', $member['jenis_kelamin'] ?? ''); ?>
-                          <select class="form-select" name="gender" id="gender" required>
-                            <option disabled <?= $jk===''?'selected':''; ?>>Pilih</option>
-                            <option value="1" <?= $jk==='1'?'selected':''; ?>>Laki-laki</option>
-                            <option value="0" <?= $jk==='0'?'selected':''; ?>>Perempuan</option>
-                            <option value="lain" <?= $jk==='lain'?'selected':''; ?>>Lainnya</option>
-                          </select>
-                        </div>
+                          <div class="col-md-12">
+                            <label class="form-label">Nama anggota yang mereferensikan <small>(opsional)</small></label>
+                            <input type="text" name="referensi" id="referensi" class="form-control">
+                          </div>
 
-                        <div class="col-md-4">
-                          <label class="form-label required">Kota kelahiran</label>
-                          <?php $kotaLahir = old('kota_kelahiran', $member['tempat_lahir'] ?? ''); ?>
-                          <select class="form-select" name="kota_kelahiran" id="kota_kelahiran" required>
-                            <option disabled <?= $kotaLahir===''?'selected':''; ?>>Pilih</option>
-                            <?php foreach($getCity as $city): ?>
-                              <option value="<?= $city['id'] ?>" <?= ($kotaLahir==$city['id']?'selected':'') ?>>
-                                <?= esc($city['name']) ?>
-                              </option>
-                            <?php endforeach; ?>
-                          </select>
-                        </div>
+                          <div class="col-md-6">
+                            <label class="form-label required">Alamat email</label>
+                            <input type="email" name="email" id="email" class="form-control" value="<?= $user_logged_in['email'] ?>" required>
+                            <div class="form-text-muted">Contoh: namakamu@gmail.com</div>
+                            <div class="form-text-muted text-warning">Pastikan anda menggunakan alamat email yang valid karena proses aktivasi akan dilakukan melalui email</div>
+                          </div>
 
-                        <div class="col-md-4">
-                          <label class="form-label required">Tanggal lahir</label>
-                          <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" required
-                                 value="<?= esc(old('tanggal_lahir', $member['tanggal_lahir'] ?? '')) ?>">
-                        </div>
-
-                        <div class="col-md-6">
-                          <label class="form-label required">Kota domisili</label>
-                          <?php $dom = old('kota_domisili', $member['domisili'] ?? ''); ?>
-                          <select class="form-select" name="kota_domisili" id="kota_domisili" required>
-                            <option disabled <?= $dom===''?'selected':''; ?>>Pilih</option>
-                            <?php foreach($getCity as $city): ?>
-                              <option value="<?= $city['id'] ?>" <?= ($dom==$city['id']?'selected':'') ?>>
-                                <?= esc($city['name']) ?>
-                              </option>
-                            <?php endforeach; ?>
-                          </select>
-                        </div>
-
-                        <div class="col-md-6">
-                          <label class="form-label required">Pendidikan terakhir</label>
-                          <?php $pend = old('pendidikan_terakhir', $member['pendidikan_terakhir'] ?? ''); ?>
-                          <select class="form-select" name="pendidikan_terakhir" id="pendidikan_terakhir" required>
-                            <?php
-                              $opts = ['SD','SMP','SMA','D3','S1','S2','S3'];
-                              echo '<option disabled '.($pend===''?'selected':'').'>Pilih</option>';
-                              foreach($opts as $o){
-                                $sel = ($pend===$o)?'selected':'';
-                                echo "<option value=\"$o\" $sel>$o</option>";
-                              }
-                            ?>
-                          </select>
-                        </div>
-
-                        <div class="col-md-12">
-                          <label class="form-label required">Nama instansi pendidikan</label>
-                           <input type="text" name="nama_instansi_pendidikan" id="nama_instansi_pendidikan" class="form-control"
-                          value="<?= esc(old('nama_instansi_pendidikan', $member['nama_instansi_pendidikan'] ?? '')) ?>" required>
-                        </div>
-
-                        <div class="col-md-12">
-                          <label class="form-label">Pengalaman organisasi <small>(opsional)</small></label>
-                          <textarea name="pengalaman_organisasi" id="pengalaman_organisasi" class="form-control" rows="3" maxlength="200"
-                          ><?= esc(old('pengalaman_organisasi', $member['pengalaman_organisasi'] ?? '')) ?></textarea>
-                          <div class="form-text text-end"><small><?= strlen(old('pengalaman_organisasi', $member['pengalaman_organisasi'] ?? '')) ?>/200</small></div>
-                        </div>
-
-                        <!-- Disabilitas -->
-                        <?php $disArr = $disabilitas ?? []; ?>
-                        <div class="col-md-12">
-                          <label class="form-label">Disabilitas <small>(opsional)</small></label>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna netra"  <?= is_checked($disArr,'Tuna netra') ?>> Tuna Netra</div>
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna rungu"  <?= is_checked($disArr,'Tuna rungu') ?>> Tuna Rungu</div>
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna grahita" <?= is_checked($disArr,'Tuna grahita') ?>> Tuna Grahita</div>
-                            </div>
-                            <div class="col-md-4">
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna laras"   <?= is_checked($disArr,'Tuna laras') ?>> Tuna Laras</div>
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna wicara"  <?= is_checked($disArr,'Tuna wicara') ?>> Tuna Wicara</div>
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Spektrum autisme" <?= is_checked($disArr,'Spektrum autisme') ?>> Spektrum Autisme</div>
-                            </div>
-                            <div class="col-md-4">
-                              <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Lainnya" <?= is_checked($disArr,'Lainnya') ?>> Lainnya</div>
+                          <div class="col-md-6">
+                            <label class="form-label required">Nomor ponsel</label>
+                            <div class="input-group">
+                              <span class="input-group-text">+62</span>
+                              <input type="tel" name="telp" id="telp" class="form-control" required
+                            value="<?= esc(old('telp', ltrim($member['no_hp'] ?? '', '0'))) ?>">
                             </div>
                           </div>
-                        </div>
 
-                        <div class="col-md-12">
-                          <label class="form-label">Jenis disabilitas lainnya</label>
-                          <input type="text" class="form-control" id="disabilitas_lainnya" name="disabilitas_lainnya"
-                                 value="<?= esc(old('disabilitas_lainnya', $member['disabilitas_lainnya'] ?? '')) ?>" placeholder="Ketik di sini">
-                        </div>
+                          <div class="col-md-4">
+                            <label class="form-label required">Gender</label>
+                            <?php $jk = old('gender', $member['jenis_kelamin'] ?? ''); ?>
+                            <select class="form-select" name="gender" id="gender" required>
+                              <option disabled <?= $jk===''?'selected':''; ?>>Pilih</option>
+                              <option value="1" <?= $jk==='1'?'selected':''; ?>>Laki-laki</option>
+                              <option value="0" <?= $jk==='0'?'selected':''; ?>>Perempuan</option>
+                              <option value="lain" <?= $jk==='lain'?'selected':''; ?>>Lainnya</option>
+                            </select>
+                          </div>
 
-                  </div>
-                </p>
-              </div>
+                          <div class="col-md-4">
+                            <label class="form-label required">Kota kelahiran</label>
+                            <?php $kotaLahir = old('kota_kelahiran', $member['tempat_lahir'] ?? ''); ?>
+                            <select class="form-select" name="kota_kelahiran" id="kota_kelahiran" required>
+                              <option disabled <?= $kotaLahir===''?'selected':''; ?>>Pilih</option>
+                              <?php foreach($getCity as $city): ?>
+                                <option value="<?= $city['id'] ?>" <?= ($kotaLahir==$city['id']?'selected':'') ?>>
+                                  <?= esc($city['name']) ?>
+                                </option>
+                              <?php endforeach; ?>
+                            </select>
+                          </div>
 
-              <div class="tab-pane fade" id="list-profils" role="tabpanel">
-                  <div class="section-header">Data Profil</div>
-                  <div class="mb-3">
-                    <label for="bahasa" class="form-label">Bahasa yang dikuasai</label>
-                    <select id="bahasa" name="bahasa[]" multiple="multiple" style="width: 100%;" class="form-control">
-                        <option value="Afrikaans">Afrikaans</option>
-                        <option value="Albanian">Albanian</option>
-                        <option value="Amharic">Amharic</option>
-                        <option value="Arabic">Arabic</option>
-                        <option value="Armenian">Armenian</option>
-                        <option value="Azerbaijani">Azerbaijani</option>
-                        <option value="Basque">Basque</option>
-                        <option value="Belarusian">Belarusian</option>
-                        <option value="Bengali">Bengali</option>
-                        <option value="Bosnian">Bosnian</option>
-                        <option value="Bulgarian">Bulgarian</option>
-                        <option value="Burmese">Burmese</option>
-                        <option value="Catalan">Catalan</option>
-                        <option value="Cebuano">Cebuano</option>
-                        <option value="Chichewa">Chichewa</option>
-                        <option value="Chinese">Chinese</option>
-                        <option value="Corsican">Corsican</option>
-                        <option value="Croatian">Croatian</option>
-                        <option value="Czech">Czech</option>
-                        <option value="Danish">Danish</option>
-                        <option value="Dutch">Dutch</option>
-                        <option value="English">English</option>
-                        <option value="Esperanto">Esperanto</option>
-                        <option value="Estonian">Estonian</option>
-                        <option value="Filipino">Filipino</option>
-                        <option value="Finnish">Finnish</option>
-                        <option value="French">French</option>
-                        <option value="Frisian">Frisian</option>
-                        <option value="Galician">Galician</option>
-                        <option value="Georgian">Georgian</option>
-                        <option value="German">German</option>
-                        <option value="Greek">Greek</option>
-                        <option value="Gujarati">Gujarati</option>
-                        <option value="Haitian Creole">Haitian Creole</option>
-                        <option value="Hausa">Hausa</option>
-                        <option value="Hawaiian">Hawaiian</option>
-                        <option value="Hebrew">Hebrew</option>
-                        <option value="Hindi">Hindi</option>
-                        <option value="Hmong">Hmong</option>
-                        <option value="Hungarian">Hungarian</option>
-                        <option value="Icelandic">Icelandic</option>
-                        <option value="Igbo">Igbo</option>
-                        <option value="Indonesian">Indonesian</option>
-                        <option value="Irish">Irish</option>
-                        <option value="Italian">Italian</option>
-                        <option value="Japanese">Japanese</option>
-                        <option value="Javanese">Javanese</option>
-                        <option value="Kannada">Kannada</option>
-                        <option value="Kazakh">Kazakh</option>
-                        <option value="Khmer">Khmer</option>
-                        <option value="Kinyarwanda">Kinyarwanda</option>
-                        <option value="Korean">Korean</option>
-                        <option value="Kurdish">Kurdish</option>
-                        <option value="Kyrgyz">Kyrgyz</option>
-                        <option value="Lao">Lao</option>
-                        <option value="Latin">Latin</option>
-                        <option value="Latvian">Latvian</option>
-                        <option value="Lithuanian">Lithuanian</option>
-                        <option value="Luxembourgish">Luxembourgish</option>
-                        <option value="Macedonian">Macedonian</option>
-                        <option value="Malagasy">Malagasy</option>
-                        <option value="Malay">Malay</option>
-                        <option value="Malayalam">Malayalam</option>
-                        <option value="Maltese">Maltese</option>
-                        <option value="Maori">Maori</option>
-                        <option value="Marathi">Marathi</option>
-                        <option value="Mongolian">Mongolian</option>
-                        <option value="Nepali">Nepali</option>
-                        <option value="Norwegian">Norwegian</option>
-                        <option value="Odia">Odia</option>
-                        <option value="Pashto">Pashto</option>
-                        <option value="Persian">Persian</option>
-                        <option value="Polish">Polish</option>
-                        <option value="Portuguese">Portuguese</option>
-                        <option value="Punjabi">Punjabi</option>
-                        <option value="Romanian">Romanian</option>
-                        <option value="Russian">Russian</option>
-                        <option value="Samoan">Samoan</option>
-                        <option value="Scots Gaelic">Scots Gaelic</option>
-                        <option value="Serbian">Serbian</option>
-                        <option value="Sesotho">Sesotho</option>
-                        <option value="Shona">Shona</option>
-                        <option value="Sindhi">Sindhi</option>
-                        <option value="Sinhala">Sinhala</option>
-                        <option value="Slovak">Slovak</option>
-                        <option value="Slovenian">Slovenian</option>
-                        <option value="Somali">Somali</option>
-                        <option value="Spanish">Spanish</option>
-                        <option value="Sundanese">Sundanese</option>
-                        <option value="Swahili">Swahili</option>
-                        <option value="Swedish">Swedish</option>
-                        <option value="Tajik">Tajik</option>
-                        <option value="Tamil">Tamil</option>
-                        <option value="Tatar">Tatar</option>
-                        <option value="Telugu">Telugu</option>
-                        <option value="Thai">Thai</option>
-                        <option value="Turkish">Turkish</option>
-                        <option value="Turkmen">Turkmen</option>
-                        <option value="Ukrainian">Ukrainian</option>
-                        <option value="Urdu">Urdu</option>
-                        <option value="Uyghur">Uyghur</option>
-                        <option value="Uzbek">Uzbek</option>
-                        <option value="Vietnamese">Vietnamese</option>
-                        <option value="Welsh">Welsh</option>
-                        <option value="Xhosa">Xhosa</option>
-                        <option value="Yiddish">Yiddish</option>
-                        <option value="Yoruba">Yoruba</option>
-                        <option value="Zulu">Zulu</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Biografi</label>
-                    <textarea class="form-control" rows="3" placeholder="Tulis biografi singkat..."></textarea>
-                  </div>
-                  <!-- Keahlian -->
-                  <div class="section-card">
-                    <div class="section-title">Keahlian</div>
+                          <div class="col-md-4">
+                            <label class="form-label required">Tanggal lahir</label>
+                            <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" required
+                                   value="<?= esc(old('tanggal_lahir', $member['tanggal_lahir'] ?? '')) ?>">
+                          </div>
+
+                          <div class="col-md-6">
+                            <label class="form-label required">Kota domisili</label>
+                            <?php $dom = old('kota_domisili', $member['domisili'] ?? ''); ?>
+                            <select class="form-select" name="kota_domisili" id="kota_domisili" required>
+                              <option disabled <?= $dom===''?'selected':''; ?>>Pilih</option>
+                              <?php foreach($getCity as $city): ?>
+                                <option value="<?= $city['id'] ?>" <?= ($dom==$city['id']?'selected':'') ?>>
+                                  <?= esc($city['name']) ?>
+                                </option>
+                              <?php endforeach; ?>
+                            </select>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label class="form-label required">Pendidikan terakhir</label>
+                            <?php $pend = old('pendidikan_terakhir', $member['pendidikan_terakhir'] ?? ''); ?>
+                            <select class="form-select" name="pendidikan_terakhir" id="pendidikan_terakhir" required>
+                              <?php
+                                $opts = ['SD','SMP','SMA','D3','S1','S2','S3'];
+                                echo '<option disabled '.($pend===''?'selected':'').'>Pilih</option>';
+                                foreach($opts as $o){
+                                  $sel = ($pend===$o)?'selected':'';
+                                  echo "<option value=\"$o\" $sel>$o</option>";
+                                }
+                              ?>
+                            </select>
+                          </div>
+
+                          <div class="col-md-12">
+                            <label class="form-label required">Nama instansi pendidikan</label>
+                             <input type="text" name="nama_instansi_pendidikan" id="nama_instansi_pendidikan" class="form-control"
+                            value="<?= esc(old('nama_instansi_pendidikan', $member['nama_instansi_pendidikan'] ?? '')) ?>" required>
+                          </div>
+
+                          <div class="col-md-12">
+                            <label class="form-label">Pengalaman organisasi <small>(opsional)</small></label>
+                            <textarea name="pengalaman_organisasi" id="pengalaman_organisasi" class="form-control" rows="3" maxlength="200"
+                            ><?= esc(old('pengalaman_organisasi', $member['pengalaman_organisasi'] ?? '')) ?></textarea>
+                            <div class="form-text text-end"><small><?= strlen(old('pengalaman_organisasi', $member['pengalaman_organisasi'] ?? '')) ?>/200</small></div>
+                          </div>
+
+                          <!-- Disabilitas -->
+                          <?php $disArr = $disabilitas ?? []; ?>
+                          <div class="col-md-12">
+                            <label class="form-label">Disabilitas <small>(opsional)</small></label>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna netra"  <?= is_checked($disArr,'Tuna netra') ?>> Tuna Netra</div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna rungu"  <?= is_checked($disArr,'Tuna rungu') ?>> Tuna Rungu</div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna grahita" <?= is_checked($disArr,'Tuna grahita') ?>> Tuna Grahita</div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna laras"   <?= is_checked($disArr,'Tuna laras') ?>> Tuna Laras</div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna wicara"  <?= is_checked($disArr,'Tuna wicara') ?>> Tuna Wicara</div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Spektrum autisme" <?= is_checked($disArr,'Spektrum autisme') ?>> Spektrum Autisme</div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Lainnya" <?= is_checked($disArr,'Lainnya') ?>> Lainnya</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <label class="form-label">Jenis disabilitas lainnya</label>
+                            <input type="text" class="form-control" id="disabilitas_lainnya" name="disabilitas_lainnya"
+                                   value="<?= esc(old('disabilitas_lainnya', $member['disabilitas_lainnya'] ?? '')) ?>" placeholder="Ketik di sini">
+                          </div>
+
+                    </div>
+                  </p>
+                </div>
+
+                <div class="tab-pane fade" id="list-profils" role="tabpanel">
+                    <div class="section-header">Data Profil</div>
                     <div class="mb-3">
-                      <select id="keahlian" name="keahlian[]" multiple="multiple" style="width: 100%;" class="form-control">
-
+                      <label for="bahasa" class="form-label">Bahasa yang dikuasai</label>
+                      <select id="bahasa" name="bahasa[]" multiple="multiple" style="width: 100%;" class="form-control">
+                          <option value="Afrikaans">Afrikaans</option>
+                          <option value="Albanian">Albanian</option>
+                          <option value="Amharic">Amharic</option>
+                          <option value="Arabic">Arabic</option>
+                          <option value="Armenian">Armenian</option>
+                          <option value="Azerbaijani">Azerbaijani</option>
+                          <option value="Basque">Basque</option>
+                          <option value="Belarusian">Belarusian</option>
+                          <option value="Bengali">Bengali</option>
+                          <option value="Bosnian">Bosnian</option>
+                          <option value="Bulgarian">Bulgarian</option>
+                          <option value="Burmese">Burmese</option>
+                          <option value="Catalan">Catalan</option>
+                          <option value="Cebuano">Cebuano</option>
+                          <option value="Chichewa">Chichewa</option>
+                          <option value="Chinese">Chinese</option>
+                          <option value="Corsican">Corsican</option>
+                          <option value="Croatian">Croatian</option>
+                          <option value="Czech">Czech</option>
+                          <option value="Danish">Danish</option>
+                          <option value="Dutch">Dutch</option>
+                          <option value="English">English</option>
+                          <option value="Esperanto">Esperanto</option>
+                          <option value="Estonian">Estonian</option>
+                          <option value="Filipino">Filipino</option>
+                          <option value="Finnish">Finnish</option>
+                          <option value="French">French</option>
+                          <option value="Frisian">Frisian</option>
+                          <option value="Galician">Galician</option>
+                          <option value="Georgian">Georgian</option>
+                          <option value="German">German</option>
+                          <option value="Greek">Greek</option>
+                          <option value="Gujarati">Gujarati</option>
+                          <option value="Haitian Creole">Haitian Creole</option>
+                          <option value="Hausa">Hausa</option>
+                          <option value="Hawaiian">Hawaiian</option>
+                          <option value="Hebrew">Hebrew</option>
+                          <option value="Hindi">Hindi</option>
+                          <option value="Hmong">Hmong</option>
+                          <option value="Hungarian">Hungarian</option>
+                          <option value="Icelandic">Icelandic</option>
+                          <option value="Igbo">Igbo</option>
+                          <option value="Indonesian">Indonesian</option>
+                          <option value="Irish">Irish</option>
+                          <option value="Italian">Italian</option>
+                          <option value="Japanese">Japanese</option>
+                          <option value="Javanese">Javanese</option>
+                          <option value="Kannada">Kannada</option>
+                          <option value="Kazakh">Kazakh</option>
+                          <option value="Khmer">Khmer</option>
+                          <option value="Kinyarwanda">Kinyarwanda</option>
+                          <option value="Korean">Korean</option>
+                          <option value="Kurdish">Kurdish</option>
+                          <option value="Kyrgyz">Kyrgyz</option>
+                          <option value="Lao">Lao</option>
+                          <option value="Latin">Latin</option>
+                          <option value="Latvian">Latvian</option>
+                          <option value="Lithuanian">Lithuanian</option>
+                          <option value="Luxembourgish">Luxembourgish</option>
+                          <option value="Macedonian">Macedonian</option>
+                          <option value="Malagasy">Malagasy</option>
+                          <option value="Malay">Malay</option>
+                          <option value="Malayalam">Malayalam</option>
+                          <option value="Maltese">Maltese</option>
+                          <option value="Maori">Maori</option>
+                          <option value="Marathi">Marathi</option>
+                          <option value="Mongolian">Mongolian</option>
+                          <option value="Nepali">Nepali</option>
+                          <option value="Norwegian">Norwegian</option>
+                          <option value="Odia">Odia</option>
+                          <option value="Pashto">Pashto</option>
+                          <option value="Persian">Persian</option>
+                          <option value="Polish">Polish</option>
+                          <option value="Portuguese">Portuguese</option>
+                          <option value="Punjabi">Punjabi</option>
+                          <option value="Romanian">Romanian</option>
+                          <option value="Russian">Russian</option>
+                          <option value="Samoan">Samoan</option>
+                          <option value="Scots Gaelic">Scots Gaelic</option>
+                          <option value="Serbian">Serbian</option>
+                          <option value="Sesotho">Sesotho</option>
+                          <option value="Shona">Shona</option>
+                          <option value="Sindhi">Sindhi</option>
+                          <option value="Sinhala">Sinhala</option>
+                          <option value="Slovak">Slovak</option>
+                          <option value="Slovenian">Slovenian</option>
+                          <option value="Somali">Somali</option>
+                          <option value="Spanish">Spanish</option>
+                          <option value="Sundanese">Sundanese</option>
+                          <option value="Swahili">Swahili</option>
+                          <option value="Swedish">Swedish</option>
+                          <option value="Tajik">Tajik</option>
+                          <option value="Tamil">Tamil</option>
+                          <option value="Tatar">Tatar</option>
+                          <option value="Telugu">Telugu</option>
+                          <option value="Thai">Thai</option>
+                          <option value="Turkish">Turkish</option>
+                          <option value="Turkmen">Turkmen</option>
+                          <option value="Ukrainian">Ukrainian</option>
+                          <option value="Urdu">Urdu</option>
+                          <option value="Uyghur">Uyghur</option>
+                          <option value="Uzbek">Uzbek</option>
+                          <option value="Vietnamese">Vietnamese</option>
+                          <option value="Welsh">Welsh</option>
+                          <option value="Xhosa">Xhosa</option>
+                          <option value="Yiddish">Yiddish</option>
+                          <option value="Yoruba">Yoruba</option>
+                          <option value="Zulu">Zulu</option>
                       </select>
                     </div>
-<!--                     <div>
-                      <span class="tag">Product Design</span>
-                      <span class="tag">UX Design</span>
-                      <span class="tag">UI Design</span>
-                    </div> -->
-                  </div>
+                    <div class="mb-3">
+                      <label class="form-label">Biografi</label>
+                      <textarea class="form-control" rows="3" placeholder="Tulis biografi singkat..."></textarea>
+                    </div>
+                    <!-- Keahlian -->
+                    <div class="section-card">
+                      <div class="section-title">Keahlian</div>
+                      <div class="mb-3">
+                        <select id="keahlian" name="keahlian[]" multiple="multiple" style="width: 100%;" class="form-control">
 
-                  <!-- Pengalaman -->
-                  <div class="section-card">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                      <div class="section-title">Pengalaman</div>
-                      <button class="btn-add" data-bs-toggle="modal" data-bs-target="#pengalamanModal">+ Tambah pengalaman</button>
+                        </select>
+                      </div>
+  <!--                     <div>
+                        <span class="tag">Product Design</span>
+                        <span class="tag">UX Design</span>
+                        <span class="tag">UI Design</span>
+                      </div> -->
                     </div>
-                    <div id="experienceList">
-                      <?php if (!empty($experiences)): ?>
-                        <?php foreach ($experiences as $x): ?>
-                          <div class="experience-item mb-2">
-                            <strong><?= esc($x['role']) ?> - <?= esc($x['company']) ?></strong>
-                            <span class="text-muted">
-                              (<?= ($x['start_month']? date('M', mktime(0,0,0,$x['start_month'],1)) . ' ' : '') . esc($x['start_year']) ?>
-                              -
-                              <?= $x['is_current'] ? 'Sekarang' :
-                                  (($x['end_month']? date('M', mktime(0,0,0,$x['end_month'],1)).' ' : '') . esc($x['end_year'])) ?>)
-                            </span>
-                            <?php if (!empty($x['description'])): ?>
-                              <div class="small text-muted mt-1"><?= nl2br(esc($x['description'])) ?></div>
-                            <?php endif; ?>
-                          </div>
-                        <?php endforeach; ?>
-                      <?php else: ?>
-                        <div class="text-muted">Belum ada pengalaman.</div>
-                      <?php endif; ?>
-                    </div>
-                  </div>
 
-                  <!-- Pendidikan -->
-                  <div class="section-card">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                      <div class="section-title">Pendidikan</div>
-                      <button class="btn-add" data-bs-toggle="modal" data-bs-target="#pendidikanModal">+ Tambah pendidikan</button>
+                    <!-- Pengalaman -->
+                    <div class="section-card">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="section-title">Pengalaman</div>
+                        <button class="btn-add" data-bs-toggle="modal" data-bs-target="#pengalamanModal">+ Tambah pengalaman</button>
+                      </div>
+                      <div id="experienceList">
+                        <?php if (!empty($experiences)): ?>
+                          <?php foreach ($experiences as $x): ?>
+                            <div class="experience-item mb-2">
+                              <strong><?= esc($x['role']) ?> - <?= esc($x['company']) ?></strong>
+                              <span class="text-muted">
+                                (<?= ($x['start_month']? date('M', mktime(0,0,0,$x['start_month'],1)) . ' ' : '') . esc($x['start_year']) ?>
+                                -
+                                <?= $x['is_current'] ? 'Sekarang' :
+                                    (($x['end_month']? date('M', mktime(0,0,0,$x['end_month'],1)).' ' : '') . esc($x['end_year'])) ?>)
+                              </span>
+                              <?php if (!empty($x['description'])): ?>
+                                <div class="small text-muted mt-1"><?= nl2br(esc($x['description'])) ?></div>
+                              <?php endif; ?>
+                            </div>
+                          <?php endforeach; ?>
+                        <?php else: ?>
+                          <div class="text-muted">Belum ada pengalaman.</div>
+                        <?php endif; ?>
+                      </div>
                     </div>
-                    <div id="educationList">
-                      <?php if (!empty($educations)): ?>
-                        <?php foreach ($educations as $e): ?>
-                          <div class="education-item mb-2">
-                            <strong><?= esc($e['institution']) ?></strong> 
-                            <span class="text-muted"> - <?= esc($e['major']) ?></span>
-                            <span class="text-muted">
-                              (<?= ($e['start_month']? date('M', mktime(0,0,0,$e['start_month'],1)) . ' ' : '') . esc($e['start_year']) ?>
-                               -
-                              <?= $e['is_current'] ? 'Sekarang' :
-                                  (($e['end_month']? date('M', mktime(0,0,0,$e['end_month'],1)).' ' : '') . esc($e['end_year'])) ?>)
-                            </span>
-                          </div>
-                        <?php endforeach; ?>
-                      <?php else: ?>
-                        <div class="text-muted">Belum ada pendidikan.</div>
-                      <?php endif; ?>
-                    </div>
-                  </div>
 
-                  <!-- Media Sosial -->
-                  <div class="section-card">
-                    <div class="section-title">Media Sosial</div>
+                    <!-- Pendidikan -->
+                    <div class="section-card">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="section-title">Pendidikan</div>
+                        <button class="btn-add" data-bs-toggle="modal" data-bs-target="#pendidikanModal">+ Tambah pendidikan</button>
+                      </div>
+                      <div id="educationList">
+                        <?php if (!empty($educations)): ?>
+                          <?php foreach ($educations as $e): ?>
+                            <div class="education-item mb-2">
+                              <strong><?= esc($e['institution']) ?></strong> 
+                              <span class="text-muted"> - <?= esc($e['major']) ?></span>
+                              <span class="text-muted">
+                                (<?= ($e['start_month']? date('M', mktime(0,0,0,$e['start_month'],1)) . ' ' : '') . esc($e['start_year']) ?>
+                                 -
+                                <?= $e['is_current'] ? 'Sekarang' :
+                                    (($e['end_month']? date('M', mktime(0,0,0,$e['end_month'],1)).' ' : '') . esc($e['end_year'])) ?>)
+                              </span>
+                            </div>
+                          <?php endforeach; ?>
+                        <?php else: ?>
+                          <div class="text-muted">Belum ada pendidikan.</div>
+                        <?php endif; ?>
+                      </div>
+                    </div>
+
+                    <!-- Media Sosial -->
+                    <div class="section-card">
+                      <div class="section-title">Media Sosial</div>
+
                       <div class="row g-3">
                         <div class="col-md-6">
                           <label class="form-label">Link Instagram (pilihan)</label>
-                          <input type="text" id="link_instagram" name="link_instagram" class="form-control">
+                          <input type="text" id="link_instagram" name="link_instagram" class="form-control"
+                                 value="<?= esc(old('link_instagram', $member['link_instagram'] ?? '')) ?>">
                         </div>
+
                         <div class="col-md-6">
                           <label class="form-label">Link X (Twitter) (pilihan)</label>
-                          <input type="text" id="link_twitter" name="link_twitter" class="form-control">
+                          <input type="text" id="link_twitter" name="link_twitter" class="form-control"
+                                 value="<?= esc(old('link_twitter', $member['link_twitter'] ?? '')) ?>">
                         </div>
                       </div>
+
                       <div class="row g-3">
                         <div class="col-md-6">
                           <label class="form-label">Link Facebook (pilihan)</label>
-                          <input type="text" id="link_facebook" name="link_facebook" class="form-control">
+                          <input type="text" id="link_facebook" name="link_facebook" class="form-control"
+                                 value="<?= esc(old('link_facebook', $member['link_facebook'] ?? '')) ?>">
                         </div>
+
                         <div class="col-md-6">
                           <label class="form-label">Link LinkedIn (pilihan)</label>
-                          <input type="text" id="link_linkedin" name="link_linkedin" class="form-control">
+                          <input type="text" id="link_linkedin" name="link_linkedin" class="form-control"
+                                 value="<?= esc(old('link_linkedin', $member['link_linkedin'] ?? '')) ?>">
                         </div>
                       </div>
-                  </div>
-              </div>
+                    </div>
+
+                </div>
               <div class="tab-pane fade" id="list-tanda" role="tabpanel">
                   <div class="container py-4 py-lg-5">
                     <div class="row justify-content-center">
@@ -1273,6 +1285,50 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       console.error(err);
       $.ambiance({message:'Terjadi kesalahan jaringan', type:'error'});
+    } finally {
+      btn.disabled = false;
+    }
+  });
+});
+</script>
+
+<!-- funciton edit profil -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('formProfil');
+  const btn  = document.getElementById('btnSaveProfil');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+
+    const fd = new FormData(form);
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        body: fd
+      });
+      const out = await res.json().catch(()=>null);
+
+      if (!res.ok || (out && out.ok === false)) {
+        const msg = (out?.errors ? Object.values(out.errors).join('<br>') : (out?.error || 'Gagal menyimpan profil'));
+        $.ambiance({ message: msg, type: "error", fade: false });
+        return;
+      }
+
+      if (out?.token) {
+        const csrf = form.querySelector('input[name="<?= csrf_token() ?>"]');
+        if (csrf) csrf.value = out.token;
+      }
+
+      $.ambiance({ message: 'Profil berhasil disimpan', type: "success" });
+      // contoh: tetap di tab sekarang, tidak perlu reload
+      // kalau mau reload list pengalaman/pendidikan via AJAX, panggil fungsi reload di sini
+    } catch (err) {
+      console.error(err);
+      $.ambiance({ message: 'Network error', type: "error" });
     } finally {
       btn.disabled = false;
     }
