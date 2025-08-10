@@ -5,7 +5,7 @@ $nomor_anggota = session()->get('nomor_anggota');
     <!-- Sidebar -->
     <div class="col-md-2 sidebar d-none d-md-block">
       <a href="<?= base_url() ?>"><h5 class="text-center mb-3">🧩 kolektaria</h5></a>
-      <?php if($nomor_anggota != ""){
+      <?php if($nomor_anggota == ""){
         ?>
       <div class="d-grid">
         <a href="<?= base_url() ?>" class="btn btn-dark mx-3 mb-2">Mulai sekarang!</a>

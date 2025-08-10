@@ -229,7 +229,8 @@ class Materi extends BaseController
                 $data = [
                     'nomor_anggota' => $nomor_anggota,
                     'isfoundationalcoursecomplete' => 1,
-                    'flag_active' => 1
+                    'flag_active' => 1,
+                    'activation_date' => date('Y-m-d H:i:s')
                 ];
 
             $update = $this->memberModel->update(session()->get('id'),$data);
