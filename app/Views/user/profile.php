@@ -2,8 +2,142 @@
 <?= $this->extend('templates/app'); ?>
 
 <?= $this->section('content'); ?>
+  <style>
+   .profile-header {
+      background-image: url('<?= base_url("public/assets/images/keyboard.png"); ?>');
+      background-size: cover;
+      background-position: center;
+      height: 180px;
+      position: relative;
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid white;
+      position: absolute;
+      bottom: -50px;
+      left: 20px;
+    }
+
+    .profile-info {
+      margin-left: 140px;
+    }
+
+    .badge-role {
+      background-color: #6610f2;
+    }
+
+    .section-box {
+      background-color: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .section-header {
+      background-color: #333;
+      color: white;
+      padding: 10px 15px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .form-section {
+      margin-bottom: 40px;
+    }
+    .form-control:invalid {
+      /*border-color: #dc3545;*/
+    }
+    .form-text-error {
+      color: #dc3545;
+      font-size: 0.875em;
+    }
+    .section-box {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      background-color: #1f1f1f;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .section-title i {
+      margin-right: 10px;
+    }
+
+    .card-radio {
+      border: 1.5px solid #f97316;
+      border-radius: 12px;
+      padding: 15px 20px;
+      position: relative;
+      transition: 0.3s;
+      cursor: pointer;
+      height: 100%;
+    }
+
+    .card-radio:hover {
+      background-color: #fff8f0;
+    }
+
+    .card-radio input[type="radio"] {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      transform: scale(1.3);
+    }
+
+    .card-radio .title {
+      font-weight: bold;
+      color: #dc2626;
+    }
+
+    .required-note {
+      font-size: 0.85rem;
+      color: #dc2626;
+      margin-top: 5px;
+    }
+
+    .btn-orange-outline {
+      border: 2px solid #f97316;
+      color: #f97316;
+      background-color: white;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .btn-orange-outline:hover {
+      background-color: #fff3e0;
+      color: #f97316;
+    }
+
+    .btn-orange {
+      background-color: #f97316;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .btn-orange:hover {
+      background-color: #ea580c;
+    }
+  </style>
   <div class="profile-header">
-    <img src="user-avatar.png" class="profile-avatar" alt="Avatar">
+    <img src="<?= base_url() ?>public/assets/images/user.avif" class="profile-avatar" alt="Avatar">
   </div>
 
   <!-- Main Content -->
