@@ -719,33 +719,25 @@
                   </div>
               </div>
               <div class="tab-pane fade" id="list-password" role="tabpanel">
-                  <div class="card-body">
-                      <h5 class="card-title mb-4">Atur Kata Kunci</h5>
-                      <form>
-                          <div class="mb-3">
-                              <label for="currentPassword" class="form-label">
-                                  <span class="text-danger">*</span> Kata kunci saat ini
-                              </label>
-                              <input type="password" class="form-control" id="currentPassword" placeholder="">
-                          </div>
+                <h5 class="mb-3">Atur Kata Kunci</h5>
 
-                          <div class="mb-3">
-                              <label for="newPassword" class="form-label">
-                                  <span class="text-danger">*</span> Kata kunci baru
-                              </label>
-                              <input type="password" class="form-control" id="newPassword" placeholder="">
-                          </div>
-
-                          <div class="mb-3">
-                              <label for="confirmPassword" class="form-label">
-                                  <span class="text-danger">*</span> Ulangi kata kunci
-                              </label>
-                              <input type="password" class="form-control" id="confirmPassword" placeholder="">
-                          </div>
-
-                          <button type="submit" class="btn btn-primary">Simpan</button>
-                      </form>
+                <form id="formUbahPassword" action="<?= base_url('profile/update-password') ?>" method="post">
+                  <?= csrf_field() ?>
+                  <div class="mb-3">
+                    <label class="form-label">Kata kunci saat ini <span class="text-danger">*</span></label>
+                    <input type="password" name="current_password" class="form-control" required>
                   </div>
+                  <div class="mb-3">
+                    <label class="form-label">Kata kunci baru <span class="text-danger">*</span></label>
+                    <input type="password" id="new_password" name="new_password" class="form-control" minlength="8" maxlength="72" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Ulangi kata kunci <span class="text-danger">*</span></label>
+                    <input type="password" id="new_password_confirm" name="new_password_confirm" class="form-control" required>
+                    <div id="matchHelp" class="form-text"></div>
+                  </div>
+                  <button id="btnSavePwd" type="submit" class="btn btn-primary">Simpan</button>
+                </form>
               </div>
               <div class="tab-pane fade" id="list-otentikasi" role="tabpanel">
                   <div class="container">
@@ -1211,6 +1203,62 @@ document.getElementById('downloadKTA').addEventListener('click', function(){
     link.download = 'KTA.png';
     link.href = canvas.toDataURL("image/png");
     link.click();
+  });
+});
+</script>
+
+
+<!-- Ubah Password area -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const np = document.getElementById('new_password');
+  const nc = document.getElementById('new_password_confirm');
+  const mh = document.getElementById('matchHelp');
+  function checkMatch(){
+    if(!np.value || !nc.value){ mh.textContent=''; return; }
+    const ok = np.value === nc.value;
+    mh.textContent = ok ? 'Cocok.' : 'Tidak cocok.';
+    mh.className = 'form-text ' + (ok ? 'text-success' : 'text-danger');
+  }
+  np.addEventListener('input', checkMatch);
+  nc.addEventListener('input', checkMatch);
+
+  const form = document.getElementById('formUbahPassword');
+  const btn  = document.getElementById('btnSavePwd');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (np.value !== nc.value) { $.ambiance({message:'Konfirmasi tidak cocok', type:'error'}); return; }
+
+    btn.disabled = true;
+    const fd = new FormData(form); // sudah include CSRF dari <?= csrf_field() ?>
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        body: fd
+      });
+      const out = await res.json().catch(()=>null);
+
+      if (!res.ok || (out && out.ok === false)) {
+        const msg = (out?.error) || (out?.errors ? Object.values(out.errors).join('<br>') : 'Gagal mengubah kata kunci');
+        $.ambiance({message: msg, type:'error', fade:false});
+        return;
+      }
+
+      $.ambiance({message:'Kata kunci berhasil diperbarui', type:'success'});
+      form.reset(); checkMatch();
+
+      // tetap/aktifkan tab Area Kerja setelah sukses
+      const tabBtn = document.getElementById('tab-areakerja');
+      if (tabBtn) new bootstrap.Tab(tabBtn).show();
+    } catch (err) {
+      console.error(err);
+      $.ambiance({message:'Terjadi kesalahan jaringan', type:'error'});
+    } finally {
+      btn.disabled = false;
+    }
   });
 });
 </script>

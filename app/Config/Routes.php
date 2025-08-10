@@ -68,6 +68,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->post('profile/experience', 'User::saveExperience');
 	$routes->post('profile/education',  'User::saveEducation');
 	$routes->get('profile/experience/list', 'User::listExperience');
+	$routes->post('profile/update-password', 'User::updatePassword');
 
 	$routes->get('user/new', 'User::new');
 	$routes->post('user', 'User::create');
