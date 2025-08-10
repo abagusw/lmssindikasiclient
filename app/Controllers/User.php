@@ -6,6 +6,8 @@ use App\Models\UserModel;
 use App\Models\MasterCityModel;
 use App\Models\MasterSubsektor;
 use App\Models\MasterJabatan;
+use App\Models\PengalamanModel;
+use App\Models\PendidikanModel;
 
 class User extends BaseController
 {
@@ -155,6 +157,26 @@ class User extends BaseController
 
     public function profile()
     {
+        $this->session = \Config\Services::session();
+        $userId = session()->get('id');
+        $expModel = new \App\Models\PengalamanModel();
+        $eduModel = new \App\Models\PendidikanModel();
+        $experiences = $expModel
+            ->where('user_id', $userId)
+            ->orderBy('is_current', 'DESC') 
+            ->orderBy('start_year', 'DESC')
+            ->orderBy('start_month', 'DESC')
+            ->findAll();
+                        $db = \Config\Database::connect();
+            log_message('debug', 'LAST Q: '.$db->getLastQuery());
+
+        $educations = $eduModel
+            ->where('user_id', $userId)
+            ->orderBy('is_current', 'DESC') 
+            ->orderBy('start_year', 'DESC')
+            ->orderBy('start_month', 'DESC')
+            ->findAll();
+
         $data = [
             'title' => 'My Profile',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),
@@ -163,11 +185,94 @@ class User extends BaseController
             'getCity' => $this->masterCityModel->findAll(),
             'getDataJabatan' => $this->masterJabatan->findAll(),
             'getDataSubsektor' => $this->masterSubsektor->findAll(),
-            'validation' => \Config\Services::validation()
+            'validation' => \Config\Services::validation(),
+            'experiences' => $experiences,
+            'educations' => $educations
         ];
 
         return view('user/profile', $data);
     }
+
+
+    public function saveExperience()
+    {
+        if (!$this->request->isAJAX()) return $this->response->setStatusCode(400)->setJSON(['ok'=>false,'msg'=>'Bad request']);
+
+        $rules = [
+            'role'        => 'required',
+            'company'     => 'required',
+            'industry'    => 'required',
+            'start_month' => 'required|integer',
+            'start_year'  => 'required|integer',
+        ];
+        if (!$this->validate($rules)) {
+            return $this->response->setStatusCode(422)->setJSON(['ok'=>false,'errors'=>$this->validator->getErrors()]);
+        }
+
+        $isCurrent = (int) $this->request->getPost('is_current');
+        $data = [
+            'user_id'     => $this->session->get('id'),
+            'role'        => $this->request->getPost('role'),
+            'company'     => $this->request->getPost('company'),
+            'industry'    => $this->request->getPost('industry'),
+            'start_month' => (int)$this->request->getPost('start_month'),
+            'start_year'  => (int)$this->request->getPost('start_year'),
+            'end_month'   => $isCurrent ? null : (int)$this->request->getPost('end_month'),
+            'end_year'    => $isCurrent ? null : (int)$this->request->getPost('end_year'),
+            'is_current'  => $isCurrent,
+            'description' => $this->request->getPost('description'),
+        ];
+
+        $id = (new PengalamanModel())->insert($data, true);
+        return $this->response->setJSON(['ok'=>true, 'id'=>$id]);
+    }
+
+    public function listExperience()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setStatusCode(400)->setJSON(['ok'=>false]);
+        }
+        $userId = session()->get('user_id');
+        $rows = (new \App\Models\PengalamanModel())
+            ->where('user_id', $userId)
+            ->orderBy('is_current', 'DESC')
+            ->orderBy('start_year', 'DESC')
+            ->orderBy('start_month', 'DESC')
+            ->findAll();
+
+        return $this->response->setJSON(['ok'=>true,'data'=>$rows]);
+    }
+
+
+    public function saveEducation()
+    {
+        if (!$this->request->isAJAX()) return $this->response->setStatusCode(400)->setJSON(['ok'=>false,'msg'=>'Bad request']);
+
+        $rules = [
+            'institution' => 'required',
+            'major'       => 'required',
+            'start_month' => 'required|integer',
+            'start_year'  => 'required|integer',
+        ];
+        if (!$this->validate($rules)) {
+            return $this->response->setStatusCode(422)->setJSON(['ok'=>false,'errors'=>$this->validator->getErrors()]);
+        }
+
+        $isCurrent = (int) $this->request->getPost('is_current');
+        $data = [
+            'user_id'     => $this->session->get('id'),
+            'institution' => $this->request->getPost('institution'),
+            'major'       => $this->request->getPost('major'),
+            'start_month' => (int)$this->request->getPost('start_month'),
+            'start_year'  => (int)$this->request->getPost('start_year'),
+            'end_month'   => $isCurrent ? null : (int)$this->request->getPost('end_month'),
+            'end_year'    => $isCurrent ? null : (int)$this->request->getPost('end_year'),
+            'is_current'  => $isCurrent,
+        ];
+
+        $id = (new PendidikanModel())->insert($data, true);
+        return $this->response->setJSON(['ok'=>true, 'id'=>$id]);
+    }    
 
     public function changeProfile($id)
     {

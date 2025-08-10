@@ -208,6 +208,61 @@
         padding: 15px;
         background: #f8f9fa;
     }
+
+    .kta-card{border:1px solid #e7eaf0;border-radius:14px;background:#fff}
+    .cta-panel{border:1px solid #dce7ff;background:#f4f8ff;border-radius:12px}
+
+        .kta-background {
+        width: 260px;           
+        height: 400px;          
+        background-image: url('<?= base_url('public/assets/images/bg_kta.png') ?>');
+        background-size: cover;   
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 12px;
+        position: relative;
+        color: white;
+        font-family: sans-serif;
+      }
+
+      .kta-text {
+        position: absolute;
+        bottom: 80px;            
+        width: 100%;
+        text-align: center;
+      }
+
+      .kta-text .name {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 4%;
+        margin-left: 15%;
+      }
+
+      .kta-text .line {
+        width: 70%;
+        height: 1px;
+        background-color: white;
+        margin: 4px auto;
+      }
+
+      .kta-text .number {
+        font-size: 0.9rem;
+        margin-bottom: 15%;
+        margin-left: 15%;
+      }
+    .cta-title{font-weight:600}
+    .mock{width:230px;max-width:70vw;aspect-ratio:3/4;border-radius:14px;
+          background:linear-gradient(150deg,#1c1c1f,#2a2d33);box-shadow:0 14px 30px rgba(0,0,0,.15)}
+    .mock .brand{position:absolute;inset:auto 0 16px 16px;color:#fff;opacity:.9;font-size:.85rem}
+    .hr-soft{height:1px;background:linear-gradient(90deg,transparent,#e9eef7,transparent)}
+    @media (min-width:992px){
+      .wrap{padding:28px 28px 20px}
+    }
+
+    .form-hint{font-size:.875rem;color:#6c757d}
+    .char-counter{font-size:.75rem;color:#6c757d;text-align:right}
+    .modal-footer .btn{min-width:96px}
   </style>
   <div class="profile-header">
     <img src="<?= base_url() ?>public/assets/images/user.avif" class="profile-avatar" alt="Avatar">
@@ -378,8 +433,117 @@
               <div class="tab-pane fade" id="list-profils" role="tabpanel">
                   <div class="section-header">Data Profil</div>
                   <div class="mb-3">
-                    <label class="form-label">Bahasa yang dikuasai</label>
-                    <input type="text" class="form-control" placeholder="Contoh: Indonesia, English, French">
+                    <label for="bahasa" class="form-label">Bahasa yang dikuasai</label>
+                    <select id="bahasa" name="bahasa[]" multiple="multiple" style="width: 100%;" class="form-control">
+                        <option value="Afrikaans">Afrikaans</option>
+                        <option value="Albanian">Albanian</option>
+                        <option value="Amharic">Amharic</option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="Armenian">Armenian</option>
+                        <option value="Azerbaijani">Azerbaijani</option>
+                        <option value="Basque">Basque</option>
+                        <option value="Belarusian">Belarusian</option>
+                        <option value="Bengali">Bengali</option>
+                        <option value="Bosnian">Bosnian</option>
+                        <option value="Bulgarian">Bulgarian</option>
+                        <option value="Burmese">Burmese</option>
+                        <option value="Catalan">Catalan</option>
+                        <option value="Cebuano">Cebuano</option>
+                        <option value="Chichewa">Chichewa</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Corsican">Corsican</option>
+                        <option value="Croatian">Croatian</option>
+                        <option value="Czech">Czech</option>
+                        <option value="Danish">Danish</option>
+                        <option value="Dutch">Dutch</option>
+                        <option value="English">English</option>
+                        <option value="Esperanto">Esperanto</option>
+                        <option value="Estonian">Estonian</option>
+                        <option value="Filipino">Filipino</option>
+                        <option value="Finnish">Finnish</option>
+                        <option value="French">French</option>
+                        <option value="Frisian">Frisian</option>
+                        <option value="Galician">Galician</option>
+                        <option value="Georgian">Georgian</option>
+                        <option value="German">German</option>
+                        <option value="Greek">Greek</option>
+                        <option value="Gujarati">Gujarati</option>
+                        <option value="Haitian Creole">Haitian Creole</option>
+                        <option value="Hausa">Hausa</option>
+                        <option value="Hawaiian">Hawaiian</option>
+                        <option value="Hebrew">Hebrew</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Hmong">Hmong</option>
+                        <option value="Hungarian">Hungarian</option>
+                        <option value="Icelandic">Icelandic</option>
+                        <option value="Igbo">Igbo</option>
+                        <option value="Indonesian">Indonesian</option>
+                        <option value="Irish">Irish</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Javanese">Javanese</option>
+                        <option value="Kannada">Kannada</option>
+                        <option value="Kazakh">Kazakh</option>
+                        <option value="Khmer">Khmer</option>
+                        <option value="Kinyarwanda">Kinyarwanda</option>
+                        <option value="Korean">Korean</option>
+                        <option value="Kurdish">Kurdish</option>
+                        <option value="Kyrgyz">Kyrgyz</option>
+                        <option value="Lao">Lao</option>
+                        <option value="Latin">Latin</option>
+                        <option value="Latvian">Latvian</option>
+                        <option value="Lithuanian">Lithuanian</option>
+                        <option value="Luxembourgish">Luxembourgish</option>
+                        <option value="Macedonian">Macedonian</option>
+                        <option value="Malagasy">Malagasy</option>
+                        <option value="Malay">Malay</option>
+                        <option value="Malayalam">Malayalam</option>
+                        <option value="Maltese">Maltese</option>
+                        <option value="Maori">Maori</option>
+                        <option value="Marathi">Marathi</option>
+                        <option value="Mongolian">Mongolian</option>
+                        <option value="Nepali">Nepali</option>
+                        <option value="Norwegian">Norwegian</option>
+                        <option value="Odia">Odia</option>
+                        <option value="Pashto">Pashto</option>
+                        <option value="Persian">Persian</option>
+                        <option value="Polish">Polish</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Punjabi">Punjabi</option>
+                        <option value="Romanian">Romanian</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Samoan">Samoan</option>
+                        <option value="Scots Gaelic">Scots Gaelic</option>
+                        <option value="Serbian">Serbian</option>
+                        <option value="Sesotho">Sesotho</option>
+                        <option value="Shona">Shona</option>
+                        <option value="Sindhi">Sindhi</option>
+                        <option value="Sinhala">Sinhala</option>
+                        <option value="Slovak">Slovak</option>
+                        <option value="Slovenian">Slovenian</option>
+                        <option value="Somali">Somali</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Sundanese">Sundanese</option>
+                        <option value="Swahili">Swahili</option>
+                        <option value="Swedish">Swedish</option>
+                        <option value="Tajik">Tajik</option>
+                        <option value="Tamil">Tamil</option>
+                        <option value="Tatar">Tatar</option>
+                        <option value="Telugu">Telugu</option>
+                        <option value="Thai">Thai</option>
+                        <option value="Turkish">Turkish</option>
+                        <option value="Turkmen">Turkmen</option>
+                        <option value="Ukrainian">Ukrainian</option>
+                        <option value="Urdu">Urdu</option>
+                        <option value="Uyghur">Uyghur</option>
+                        <option value="Uzbek">Uzbek</option>
+                        <option value="Vietnamese">Vietnamese</option>
+                        <option value="Welsh">Welsh</option>
+                        <option value="Xhosa">Xhosa</option>
+                        <option value="Yiddish">Yiddish</option>
+                        <option value="Yoruba">Yoruba</option>
+                        <option value="Zulu">Zulu</option>
+                    </select>
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Biografi</label>
@@ -389,26 +553,42 @@
                   <div class="section-card">
                     <div class="section-title">Keahlian</div>
                     <div class="mb-3">
-                      <input type="text" class="form-control" placeholder="Tambahkan keahlian...">
+                      <select id="keahlian" name="keahlian[]" multiple="multiple" style="width: 100%;" class="form-control">
+
+                      </select>
                     </div>
-                    <div>
+<!--                     <div>
                       <span class="tag">Product Design</span>
                       <span class="tag">UX Design</span>
                       <span class="tag">UI Design</span>
-                    </div>
+                    </div> -->
                   </div>
 
                   <!-- Pengalaman -->
                   <div class="section-card">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                       <div class="section-title">Pengalaman</div>
-                      <button class="btn-add">+ Tambah pengalaman</button>
+                      <button class="btn-add" data-bs-toggle="modal" data-bs-target="#pengalamanModal">+ Tambah pengalaman</button>
                     </div>
-                    <div class="experience-item">
-                      <strong>Lead UI/UX Designer</strong> <span class="text-muted">(2020 - Sekarang)</span>
-                    </div>
-                    <div class="experience-item">
-                      <strong>Freelance UI/UX Designer</strong> <span class="text-muted">(2018 - 2020)</span>
+                    <div id="experienceList">
+                      <?php if (!empty($experiences)): ?>
+                        <?php foreach ($experiences as $x): ?>
+                          <div class="experience-item mb-2">
+                            <strong><?= esc($x['role']) ?> - <?= esc($x['company']) ?></strong>
+                            <span class="text-muted">
+                              (<?= ($x['start_month']? date('M', mktime(0,0,0,$x['start_month'],1)) . ' ' : '') . esc($x['start_year']) ?>
+                              -
+                              <?= $x['is_current'] ? 'Sekarang' :
+                                  (($x['end_month']? date('M', mktime(0,0,0,$x['end_month'],1)).' ' : '') . esc($x['end_year'])) ?>)
+                            </span>
+                            <?php if (!empty($x['description'])): ?>
+                              <div class="small text-muted mt-1"><?= nl2br(esc($x['description'])) ?></div>
+                            <?php endif; ?>
+                          </div>
+                        <?php endforeach; ?>
+                      <?php else: ?>
+                        <div class="text-muted">Belum ada pengalaman.</div>
+                      <?php endif; ?>
                     </div>
                   </div>
 
@@ -416,13 +596,25 @@
                   <div class="section-card">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                       <div class="section-title">Pendidikan</div>
-                      <button class="btn-add">+ Tambah pendidikan</button>
+                      <button class="btn-add" data-bs-toggle="modal" data-bs-target="#pendidikanModal">+ Tambah pendidikan</button>
                     </div>
-                    <div class="education-item">
-                      <strong>Sarjana - Teknik Informatika</strong> <span class="text-muted">(2015 - 2019)</span>
-                    </div>
-                    <div class="education-item">
-                      <strong>Diploma III - Engineering</strong> <span class="text-muted">(2012 - 2015)</span>
+                    <div id="educationList">
+                      <?php if (!empty($educations)): ?>
+                        <?php foreach ($educations as $e): ?>
+                          <div class="education-item mb-2">
+                            <strong><?= esc($e['institution']) ?></strong> 
+                            <span class="text-muted"> - <?= esc($e['major']) ?></span>
+                            <span class="text-muted">
+                              (<?= ($e['start_month']? date('M', mktime(0,0,0,$e['start_month'],1)) . ' ' : '') . esc($e['start_year']) ?>
+                               -
+                              <?= $e['is_current'] ? 'Sekarang' :
+                                  (($e['end_month']? date('M', mktime(0,0,0,$e['end_month'],1)).' ' : '') . esc($e['end_year'])) ?>)
+                            </span>
+                          </div>
+                        <?php endforeach; ?>
+                      <?php else: ?>
+                        <div class="text-muted">Belum ada pendidikan.</div>
+                      <?php endif; ?>
                     </div>
                   </div>
 
@@ -452,37 +644,79 @@
                   </div>
               </div>
               <div class="tab-pane fade" id="list-tanda" role="tabpanel">
-                <div class="container">
-                    <div class="text-center mb-4">
-                        <h4>Kartu Tanda Anggota (KTA)</h4>
-                    </div>
+                  <div class="container py-4 py-lg-5">
+                    <div class="row justify-content-center">
+                      <div class="col-12 col-lg-8">
+                        <div class="kta-card p-3 p-md-4">
+                          <h5 class="mb-3">Kartu Tanda Anggota (KTA)</h5>
 
-                    <div class="card-kta">
-                        <div class="side-text">SINDIKASI</div>
-                        <h6 class="mb-4">KARTU ANGGOTA</h6>
-                        <h5><?= $user_logged_in['nama_lengkap']; ?></h5>
-                        <p><?= $user_logged_in['nomor_anggota']; ?></p>
-                        <small>Sindikat Desain</small>
-                    </div>
+                          <!-- Kartu mockup -->
+                          <div class="d-flex justify-content-center my-3 position-relative">
+                            <!-- pakai <img> kalau sudah punya file kartu -->
+                            <!-- <img src="path/kartu-anda.png" class="img-fluid" style="max-width:260px;border-radius:14px"> -->
+                            <div class="mock position-relative d-flex align-items-center justify-content-center text-white">
+                              <div class="text-center">
+                               <!--  <div class="fw-semibold">KARTU ANGGOTA</div> -->
+                                <div id="ktaCard" class="kta-background">
+                                  <div class="kta-text">
+                                    <div class="name"><?= esc($user_logged_in['nama_lengkap']) ?></div>
+                                    <div class="number"><?= esc($user_logged_in['nomor_anggota']) ?></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="brand">SINDIKASI</div>
+                            </div>
+                          </div>
 
-                    <div class="info-box mt-4">
-                        <div class="d-flex align-items-start">
-                            <div class="me-2">
-                                <span class="text-primary fw-bold fs-5">📍</span>
+                          <div class="hr-soft my-3"></div>
+
+                          <!-- Panel informasi + tombol unduh -->
+                          <div class="cta-panel p-3 p-md-4">
+                            <div class="d-flex align-items-start">
+                              <div class="me-3">
+                                <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style="width:38px;height:38px">
+                                  <i class="bi bi-geo-alt-fill"></i>
+                                </div>
+                              </div>
+                              <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                  <div class="cta-title">Unduh Kartu Tanda Anggota (KTA) kamu di sini!</div>
+                                  <button class="btn btn-link text-muted p-0 ms-3" data-bs-toggle="collapse" data-bs-target="#ctaBody" aria-expanded="true" aria-controls="ctaBody">
+                                    <i class="bi bi-x-lg"></i>
+                                  </button>
+                                </div>
+
+                                <div id="ctaBody" class="collapse show">
+                                  <p class="text-secondary mb-2 small">
+                                    Kartu Tanda Anggota merupakan identitas resmi yang menandakan Anda sebagai bagian dari Serikat Sindikasi.
+                                  </p>
+                                  <ul class="small text-secondary mb-3">
+                                    <li>Digunakan untuk verifikasi identitas saat menghadiri kegiatan resmi.</li>
+                                    <li>Bisa ditunjukkan saat registrasi, workshop, rapat, dan kegiatan lain.</li>
+                                    <li>Mendukung verifikasi keanggotaan saat berkomunikasi dengan pengurus.</li>
+                                    <li>Arsipkan kartu digital ini di ponsel untuk akses cepat.</li>
+                                  </ul>
+
+                                  <div class="d-flex flex-wrap gap-2">
+                                    <a id="downloadKTA" href="#!" class="btn btn-primary">
+                                      <i class="bi bi-download me-1"></i> Unduh KTA (PNG)
+                                    </a>
+<!--                                     <a href="#" class="btn btn-outline-primary">
+                                      <i class="bi bi-filetype-pdf me-1"></i> Unduh PDF
+                                    </a>
+                                    <button class="btn btn-outline-secondary" onclick="window.print()">
+                                      <i class="bi bi-printer me-1"></i> Cetak
+                                    </button> -->
+                                  </div>
+                                  <div class="form-text mt-2">Pastikan Anda mengunduh dan menyimpan KTA digital dalam format yang sesuai untuk keperluan sehari-hari.</div>
+                                </div>
+                              </div>
                             </div>
-                            <div>
-                                <strong>Unduh Kartu Tanda Anggota (KTA) kamu di sini</strong>
-                                <p class="mb-2">Kartu Tanda Anggota merupakan identitas resmi yang menandakan Anda sebagai bagian dari Kartu Sindikasi.</p>
-                                <ul>
-                                    <li>Kartu dapat digunakan sebagai tanda resmi keanggotaan.</li>
-                                    <li>Anda bisa mencetaknya atau menyimpan versi digital di ponsel.</li>
-                                    <li>Pastikan informasi di kartu sesuai dengan data Anda.</li>
-                                </ul>
-                                <a href="#" class="btn btn-primary btn-sm">📥 Unduh KTA</a>
-                            </div>
+                          </div><!-- /cta-panel -->
                         </div>
+                      </div>
                     </div>
-                </div>
+                  </div>
               </div>
               <div class="tab-pane fade" id="list-password" role="tabpanel">
                   <div class="card-body">
@@ -560,7 +794,161 @@
           </div>
       </div>
   </div> 
+
+<!-- ========== MODAL: PENGALAMAN (dari sebelumnya) ========== -->
+<div class="modal fade" id="pengalamanModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header">
+        <h5 class="modal-title">Pengalaman</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+
+      <form id="formPengalaman">
+        <?= csrf_field() ?>
+        <div class="modal-body">
+          <p class="form-hint mb-4">Kamu bisa menambahkan daftar pengalaman yang sudah kamu miliki sampai saat ini.</p>
+
+          <div class="mb-3">
+            <label class="form-label">Role <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="role" placeholder="Contoh: Product Designer" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Nama Perusahaan <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="company" placeholder="Contoh: Kementrian Keuangan RI" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Industri <span class="text-danger">*</span></label>
+            <select class="form-select" name="industry" required>
+              <option value="" selected>Pilih</option>
+              <option>Teknologi Informasi</option>
+              <option>Keuangan</option>
+              <option>Pemerintahan</option>
+              <option>Kesehatan</option>
+              <option>Pendidikan</option>
+              <option>Lainnya</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Mulai <span class="text-danger">*</span></label>
+            <div class="row g-2 align-items-center">
+              <div class="col-6 col-md-3">
+                <select class="form-select" id="expStartMonth" required></select>
+              </div>
+              <div class="col-6 col-md-3">
+                <select class="form-select" id="expStartYear" required></select>
+              </div>
+              <div class="col-12 col-md-auto d-flex align-items-center gap-2 mt-2 mt-md-0">
+                <span class="form-hint">sampai</span>
+                <div class="form-check form-switch m-0">
+                  <input class="form-check-input" type="checkbox" id="expIsCurrent">
+                  <label class="form-check-label" for="expIsCurrent">Saat ini</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Berakhir <span class="text-danger">*</span></label>
+            <div class="row g-2">
+              <div class="col-6 col-md-3">
+                <select class="form-select" id="expEndMonth" required></select>
+              </div>
+              <div class="col-6 col-md-3">
+                <select class="form-select" id="expEndYear" required></select>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-2 d-flex align-items-center gap-2">
+            <label class="form-label m-0">Deskripsi pekerjaan</label>
+            <span class="form-hint">(pilihan)</span>
+          </div>
+          <div class="mb-1">
+            <textarea class="form-control" id="expDesc" rows="3" maxlength="400" placeholder="Ringkas tapi informatif (tanggung jawab, capaian, tools, dsb)"></textarea>
+          </div>
+          <div class="char-counter"><span id="expDescCount">0</span>/400</div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" id="btnSaveExp" class="btn btn-primary" disabled>Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ========== MODAL: PENDIDIKAN (baru) ========== -->
+<div class="modal fade" id="pendidikanModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header">
+        <h5 class="modal-title">Pendidikan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+
+      <form id="formPendidikan">
+        <?= csrf_field() ?>
+        <div class="modal-body">
+          <p class="form-hint mb-4">Kamu bisa menambahkan daftar pendidikan yang sudah kamu tempuh sampai saat ini.</p>
+
+          <div class="mb-3">
+            <label class="form-label">Nama Institusi <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="institution" placeholder="Contoh: Universitas Indonesia, dll" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Jenjang / Jurusan <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="major" placeholder="Contoh: S1 Teknik Informatika, dll" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Mulai <span class="text-danger">*</span></label>
+            <div class="row g-2 align-items-center">
+              <div class="col-6 col-md-3">
+                <select class="form-select" id="eduStartMonth" required></select>
+              </div>
+              <div class="col-6 col-md-3">
+                <select class="form-select" id="eduStartYear" required></select>
+              </div>
+              <div class="col-12 col-md-auto d-flex align-items-center gap-2 mt-2 mt-md-0">
+                <span class="form-hint">sampai</span>
+                <div class="form-check form-switch m-0">
+                  <input class="form-check-input" type="checkbox" id="eduIsCurrent">
+                  <label class="form-check-label" for="eduIsCurrent">Saat ini</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Berakhir <span class="text-danger">*</span></label>
+            <div class="row g-2">
+              <div class="col-6 col-md-3">
+                <select class="form-select" id="eduEndMonth" required></select>
+              </div>
+              <div class="col-6 col-md-3">
+                <select class="form-select" id="eduEndYear" required></select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" id="btnSaveEdu" class="btn btn-primary" disabled>Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <script>
 document.querySelectorAll('#list-tab a').forEach(link => {
   link.addEventListener('click', function(e) {
@@ -578,7 +966,252 @@ document.querySelectorAll('#list-tab a').forEach(link => {
     document.getElementById(targetId).style.display = 'block';
   });
 });
+
+  $('#bahasa').select2({
+      placeholder: "Pilih Bahasa...",
+      allowClear: true
+  });
+
+  $('#keahlian').select2({
+      placeholder: "Pilih Keahlian...",
+      allowClear: true
+  });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // ========= Shared helpers =========
+  const months = ["Bulan","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+
+  function fillMonths(sel){
+    if(!sel) return;
+    sel.innerHTML = ""; // penting: clear agar tidak dobel
+    months.forEach((m,i)=>{
+      const opt=document.createElement("option");
+      opt.value = i===0 ? "" : i;
+      opt.textContent=m;
+      if(i===0) opt.selected=true;
+      sel.appendChild(opt);
+    });
+  }
+  function fillYears(sel){
+    if(!sel) return;
+    sel.innerHTML = ""; // clear
+    const thisYear = new Date().getFullYear();
+    const first = thisYear - 50;
+    const ph = document.createElement("option");
+    ph.value=""; ph.textContent="Tahun"; ph.selected=true;
+    sel.appendChild(ph);
+    for(let y=thisYear; y>=first; y--){
+      const opt=document.createElement("option");
+      opt.value=y; opt.textContent=y; sel.appendChild(opt);
+    }
+  }
+  function setupDateFields(prefix){
+    fillMonths(document.getElementById(prefix+'StartMonth'));
+    fillMonths(document.getElementById(prefix+'EndMonth'));
+    fillYears(document.getElementById(prefix+'StartYear'));
+    fillYears(document.getElementById(prefix+'EndYear'));
+  }
+  function setupCurrentToggle(currentId, endMonthId, endYearId, onChange){
+    const cur  = document.getElementById(currentId);
+    const endM = document.getElementById(endMonthId);
+    const endY = document.getElementById(endYearId);
+    if(!cur || !endM || !endY){ console.warn('Toggle elemen tidak ditemukan:', currentId, endMonthId, endYearId); return ()=>{}; }
+
+    const apply = ()=>{
+      const dis = cur.checked;
+      [endM,endY].forEach(el=>{
+        el.disabled = dis;
+        el.required = !dis;
+        if(dis) el.value="";
+      });
+      onChange && onChange();
+    };
+    // Pastikan tidak double listener: hapus dulu kalau perlu
+    cur.onchange = apply;
+    apply();
+    return apply; // kembalikan agar bisa dipanggil ulang tanpa daftar listener baru
+  }
+  function enableIfValid(buttonEl, checks){
+    if(!buttonEl) return;
+    buttonEl.disabled = !checks.every(Boolean);
+  }
+
+  // ========= Pengalaman =========
+  setupDateFields('exp');
+  const expForm = document.getElementById('formPengalaman');
+  const btnSaveExp = document.getElementById('btnSaveExp');
+  const expDesc = document.getElementById('expDesc');
+  const expDescCount = document.getElementById('expDescCount');
+
+  function validateExp(){
+    if(!expForm) return;
+    const role = expForm.role?.value.trim();
+    const comp = expForm.company?.value.trim();
+    const ind  = expForm.industry?.value;
+    const sM = document.getElementById('expStartMonth')?.value;
+    const sY = document.getElementById('expStartYear')?.value;
+    const isCur = document.getElementById('expIsCurrent')?.checked;
+    const eM = document.getElementById('expEndMonth')?.value;
+    const eY = document.getElementById('expEndYear')?.value;
+    enableIfValid(btnSaveExp, [role,comp,ind,sM,sY,(isCur || (eM && eY))]);
+  }
+  const applyExpToggle = setupCurrentToggle('expIsCurrent','expEndMonth','expEndYear', validateExp);
+  expForm?.addEventListener('input', validateExp);
+  expDesc?.addEventListener('input',()=>{ if(expDescCount) expDescCount.textContent = expDesc.value.length; });
+  validateExp();
+
+  expForm?.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    btnSaveExp.disabled = true;
+    setTimeout(()=>{
+      $.ambiance({message: 'Pengalaman Berhasil disimpan !',
+                    type: "success",
+                    fade: false});
+      location.reload();
+      $('#list-profils-list').click();
+      bootstrap.Modal.getInstance(document.getElementById('pengalamanModal'))?.hide();
+      expForm.reset();
+      if(expDescCount) expDescCount.textContent='0';
+      applyExpToggle(); // cukup apply ulang, jangan register listener baru
+      validateExp();
+    }, 300);
+  });
+
+  // ========= Pendidikan =========
+  setupDateFields('edu');
+  const eduForm = document.getElementById('formPendidikan');
+  const btnSaveEdu = document.getElementById('btnSaveEdu');
+
+  function validateEdu(){
+    if(!eduForm) return;
+    // pastikan name di input HTML: name="institution" dan name="major"
+    const inst  = eduForm.institution?.value.trim();
+    const major = eduForm.major?.value.trim();
+    const sM = document.getElementById('eduStartMonth')?.value;
+    const sY = document.getElementById('eduStartYear')?.value;
+    const isCur = document.getElementById('eduIsCurrent')?.checked;
+    const eM = document.getElementById('eduEndMonth')?.value;
+    const eY = document.getElementById('eduEndYear')?.value;
+    enableIfValid(btnSaveEdu, [inst,major,sM,sY,(isCur || (eM && eY))]);
+  }
+  const applyEduToggle = setupCurrentToggle('eduIsCurrent','eduEndMonth','eduEndYear', validateEdu);
+  eduForm?.addEventListener('input', validateEdu);
+  validateEdu();
+
+  eduForm?.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    btnSaveEdu.disabled = true;
+    setTimeout(()=>{
+      $.ambiance({message: 'Pendidikan Berhasil disimpan !',
+                    type: "success",
+                    fade: false});
+      location.reload();
+      bootstrap.Modal.getInstance(document.getElementById('pendidikanModal'))?.hide();
+      eduForm.reset();
+      applyEduToggle();
+      validateEdu();
+    }, 300);
+  });
+});
+</script>
+<script>
+
+const csrfName = '<?= csrf_token() ?>';
+let   csrfHash = '<?= csrf_hash() ?>';
+
+
+async function postForm(url, fd){
+  // tambah csrf
+  fd.append(csrfName, csrfHash);
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {'X-Requested-With':'XMLHttpRequest'},
+    body: fd
+  });
+
+  const data = await res.json().catch(()=>({}));
+  if (data?.token) csrfHash = data.token; 
+  if (!res.ok || data.ok === false) throw data;
+  return data;
+}
+
+
+// ------- Pengalaman submit -------
+document.getElementById('formPengalaman').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const f = e.currentTarget;
+  const fd = new FormData();
+  fd.append('role',        f.role.value);
+  fd.append('company',     f.company.value);
+  fd.append('industry',    f.industry.value);
+  fd.append('start_month', document.getElementById('expStartMonth').value);
+  fd.append('start_year',  document.getElementById('expStartYear').value);
+
+  const isCur = document.getElementById('expIsCurrent').checked ? 1 : 0;
+  fd.append('is_current',  isCur);
+  if(!isCur){
+    fd.append('end_month', document.getElementById('expEndMonth').value);
+    fd.append('end_year',  document.getElementById('expEndYear').value);
+  }
+  fd.append('description', document.getElementById('expDesc').value);
+
+  try{
+    const out = await postForm('<?= base_url('profile/experience') ?>', fd);
+    //alert('Pengalaman tersimpan! ID: '+ out.id);
+    $.ambiance({message: 'Pengalaman Berhasil disimpan !',
+                    type: "success",
+                    fade: false});
+    bootstrap.Modal.getInstance(document.getElementById('pengalamanModal'))?.hide();
+    f.reset();
+  }catch(err){
+    console.error(err);
+    alert('Gagal simpan pengalaman');
+  }
+});
+
+// ------- Pendidikan submit -------
+document.getElementById('formPendidikan').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const f = e.currentTarget;
+  const fd = new FormData();
+  fd.append('institution', f.institution.value);
+  fd.append('major',       f.major.value);
+  fd.append('start_month', document.getElementById('eduStartMonth').value);
+  fd.append('start_year',  document.getElementById('eduStartYear').value);
+
+  const isCur = document.getElementById('eduIsCurrent').checked ? 1 : 0;
+  fd.append('is_current',  isCur);
+  if(!isCur){
+    fd.append('end_month', document.getElementById('eduEndMonth').value);
+    fd.append('end_year',  document.getElementById('eduEndYear').value);
+  }
+
+  try{
+    const out = await postForm('<?= base_url('profile/education') ?>', fd);
+    //alert('Pendidikan tersimpan! ID: '+ out.id);
+    $.ambiance({message: 'Pendidikan Berhasil disimpan !',
+                    type: "success",
+                    fade: false});
+    bootstrap.Modal.getInstance(document.getElementById('pendidikanModal'))?.hide();
+    f.reset();
+  }catch(err){
+    console.error(err);
+    alert('Gagal simpan pendidikan');
+  }
+});
 </script>
 
+<script>
+document.getElementById('downloadKTA').addEventListener('click', function(){
+  const ktaElement = document.getElementById('ktaCard');
 
+  html2canvas(ktaElement, {backgroundColor: null}).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'KTA.png';
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+});
+</script>
 <?= $this->endSection() ?>
