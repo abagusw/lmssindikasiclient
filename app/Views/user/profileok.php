@@ -263,13 +263,6 @@
     .form-hint{font-size:.875rem;color:#6c757d}
     .char-counter{font-size:.75rem;color:#6c757d;text-align:right}
     .modal-footer .btn{min-width:96px}
-
-.chip{
-  padding:5px 10px; border-radius:16px; background:#0d6efd; color:#fff; font-size:14px;
-  display:inline-flex; align-items:center; gap:6px;
-}
-.chip .x{ cursor:pointer; line-height:1; }
-
   </style>
   <div class="profile-header">
     <img src="<?= base_url() ?>public/assets/images/user.avif" class="profile-avatar" alt="Avatar">
@@ -457,63 +450,132 @@
                     </div>
                 </div>
 
-                <?php
-                $bahasaFromDb = [];
-                if (!empty($member['bahasa'])) {
-                    $tmp = json_decode($member['bahasa'], true);
-                    $bahasaFromDb = is_array($tmp) ? $tmp : [];
-                }
-
-               $allLanguages = [
-                    "Afrikaans","Albanian","Amharic","Arabic","Armenian","Azerbaijani","Basque","Belarusian",
-                    "Bengali","Bosnian","Bulgarian","Burmese","Catalan","Cebuano","Chichewa","Chinese",
-                    "Corsican","Croatian","Czech","Danish","Dutch","English","Esperanto","Estonian","Filipino",
-                    "Finnish","French","Frisian","Galician","Georgian","German","Greek","Gujarati",
-                    "Haitian Creole","Hausa","Hawaiian","Hebrew","Hindi","Hmong","Hungarian","Icelandic","Igbo",
-                    "Indonesian","Irish","Italian","Japanese","Javanese","Kannada","Kazakh","Khmer","Kinyarwanda",
-                    "Korean","Kurdish","Kyrgyz","Lao","Latin","Latvian","Lithuanian","Luxembourgish","Macedonian",
-                    "Malagasy","Malay","Malayalam","Maltese","Maori","Marathi","Mongolian","Nepali","Norwegian",
-                    "Odia","Pashto","Persian","Polish","Portuguese","Punjabi","Romanian","Russian","Samoan",
-                    "Scots Gaelic","Serbian","Sesotho","Shona","Sindhi","Sinhala","Slovak","Slovenian","Somali",
-                    "Spanish","Sundanese","Swahili","Swedish","Tajik","Tamil","Tatar","Telugu","Thai","Turkish",
-                    "Turkmen","Ukrainian","Urdu","Uyghur","Uzbek","Vietnamese","Welsh","Xhosa","Yiddish","Yoruba","Zulu"
-                ];
-                ?>
                 <div class="tab-pane fade" id="list-profils" role="tabpanel">
                     <div class="section-header">Data Profil</div>
                     <div class="mb-3">
                       <label for="bahasa" class="form-label">Bahasa yang dikuasai</label>
                       <select id="bahasa" name="bahasa[]" multiple="multiple" style="width: 100%;" class="form-control">
-                          <?php foreach ($allLanguages as $lang): ?>
-                            <option value="<?= esc($lang) ?>" <?= in_array($lang, $bahasaFromDb ?? []) ? 'selected' : '' ?>>
-                              <?= esc($lang) ?>
-                            </option>
-                          <?php endforeach; ?>
+                          <option value="Afrikaans">Afrikaans</option>
+                          <option value="Albanian">Albanian</option>
+                          <option value="Amharic">Amharic</option>
+                          <option value="Arabic">Arabic</option>
+                          <option value="Armenian">Armenian</option>
+                          <option value="Azerbaijani">Azerbaijani</option>
+                          <option value="Basque">Basque</option>
+                          <option value="Belarusian">Belarusian</option>
+                          <option value="Bengali">Bengali</option>
+                          <option value="Bosnian">Bosnian</option>
+                          <option value="Bulgarian">Bulgarian</option>
+                          <option value="Burmese">Burmese</option>
+                          <option value="Catalan">Catalan</option>
+                          <option value="Cebuano">Cebuano</option>
+                          <option value="Chichewa">Chichewa</option>
+                          <option value="Chinese">Chinese</option>
+                          <option value="Corsican">Corsican</option>
+                          <option value="Croatian">Croatian</option>
+                          <option value="Czech">Czech</option>
+                          <option value="Danish">Danish</option>
+                          <option value="Dutch">Dutch</option>
+                          <option value="English">English</option>
+                          <option value="Esperanto">Esperanto</option>
+                          <option value="Estonian">Estonian</option>
+                          <option value="Filipino">Filipino</option>
+                          <option value="Finnish">Finnish</option>
+                          <option value="French">French</option>
+                          <option value="Frisian">Frisian</option>
+                          <option value="Galician">Galician</option>
+                          <option value="Georgian">Georgian</option>
+                          <option value="German">German</option>
+                          <option value="Greek">Greek</option>
+                          <option value="Gujarati">Gujarati</option>
+                          <option value="Haitian Creole">Haitian Creole</option>
+                          <option value="Hausa">Hausa</option>
+                          <option value="Hawaiian">Hawaiian</option>
+                          <option value="Hebrew">Hebrew</option>
+                          <option value="Hindi">Hindi</option>
+                          <option value="Hmong">Hmong</option>
+                          <option value="Hungarian">Hungarian</option>
+                          <option value="Icelandic">Icelandic</option>
+                          <option value="Igbo">Igbo</option>
+                          <option value="Indonesian">Indonesian</option>
+                          <option value="Irish">Irish</option>
+                          <option value="Italian">Italian</option>
+                          <option value="Japanese">Japanese</option>
+                          <option value="Javanese">Javanese</option>
+                          <option value="Kannada">Kannada</option>
+                          <option value="Kazakh">Kazakh</option>
+                          <option value="Khmer">Khmer</option>
+                          <option value="Kinyarwanda">Kinyarwanda</option>
+                          <option value="Korean">Korean</option>
+                          <option value="Kurdish">Kurdish</option>
+                          <option value="Kyrgyz">Kyrgyz</option>
+                          <option value="Lao">Lao</option>
+                          <option value="Latin">Latin</option>
+                          <option value="Latvian">Latvian</option>
+                          <option value="Lithuanian">Lithuanian</option>
+                          <option value="Luxembourgish">Luxembourgish</option>
+                          <option value="Macedonian">Macedonian</option>
+                          <option value="Malagasy">Malagasy</option>
+                          <option value="Malay">Malay</option>
+                          <option value="Malayalam">Malayalam</option>
+                          <option value="Maltese">Maltese</option>
+                          <option value="Maori">Maori</option>
+                          <option value="Marathi">Marathi</option>
+                          <option value="Mongolian">Mongolian</option>
+                          <option value="Nepali">Nepali</option>
+                          <option value="Norwegian">Norwegian</option>
+                          <option value="Odia">Odia</option>
+                          <option value="Pashto">Pashto</option>
+                          <option value="Persian">Persian</option>
+                          <option value="Polish">Polish</option>
+                          <option value="Portuguese">Portuguese</option>
+                          <option value="Punjabi">Punjabi</option>
+                          <option value="Romanian">Romanian</option>
+                          <option value="Russian">Russian</option>
+                          <option value="Samoan">Samoan</option>
+                          <option value="Scots Gaelic">Scots Gaelic</option>
+                          <option value="Serbian">Serbian</option>
+                          <option value="Sesotho">Sesotho</option>
+                          <option value="Shona">Shona</option>
+                          <option value="Sindhi">Sindhi</option>
+                          <option value="Sinhala">Sinhala</option>
+                          <option value="Slovak">Slovak</option>
+                          <option value="Slovenian">Slovenian</option>
+                          <option value="Somali">Somali</option>
+                          <option value="Spanish">Spanish</option>
+                          <option value="Sundanese">Sundanese</option>
+                          <option value="Swahili">Swahili</option>
+                          <option value="Swedish">Swedish</option>
+                          <option value="Tajik">Tajik</option>
+                          <option value="Tamil">Tamil</option>
+                          <option value="Tatar">Tatar</option>
+                          <option value="Telugu">Telugu</option>
+                          <option value="Thai">Thai</option>
+                          <option value="Turkish">Turkish</option>
+                          <option value="Turkmen">Turkmen</option>
+                          <option value="Ukrainian">Ukrainian</option>
+                          <option value="Urdu">Urdu</option>
+                          <option value="Uyghur">Uyghur</option>
+                          <option value="Uzbek">Uzbek</option>
+                          <option value="Vietnamese">Vietnamese</option>
+                          <option value="Welsh">Welsh</option>
+                          <option value="Xhosa">Xhosa</option>
+                          <option value="Yiddish">Yiddish</option>
+                          <option value="Yoruba">Yoruba</option>
+                          <option value="Zulu">Zulu</option>
                       </select>
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Biografi</label>
-                      <textarea name="biografi" id="biografi" class="form-control" rows="3" placeholder="Tulis biografi singkat..."><?= $member['biografi']; ?></textarea>
+                      <textarea class="form-control" rows="3" placeholder="Tulis biografi singkat..."></textarea>
                     </div>
-
-                    <?php
-                    $skillsFromDb = [];
-                    if (!empty($member['keahlian'])) {
-                        $tmp = json_decode($member['keahlian'], true);
-                        $skillsFromDb = is_array($tmp) ? $tmp : [];
-                    }
-                    ?>
                     <!-- Keahlian -->
                     <div class="section-card">
                       <div class="section-title">Keahlian</div>
                       <div class="mb-3">
-                        <div id="skillsWrapper" class="form-control d-flex flex-wrap" style="gap:6px; min-height:42px;">
-                          <input type="text" id="skillsInput" placeholder="Ketik lalu Enter / ,"
-                                 style="border:none; outline:none; flex:1;" autocomplete="off" enterkeyhint="done">
-                        </div>
-                          <input type="hidden" name="skills" id="skillsHidden">
-                          <div class="form-text">Tekan Enter atau koma untuk membuat chip.</div>
+                        <select id="keahlian" name="keahlian[]" multiple="multiple" style="width: 100%;" class="form-control">
 
+                        </select>
                       </div>
   <!--                     <div>
                         <span class="tag">Product Design</span>
@@ -526,7 +588,7 @@
                     <div class="section-card">
                       <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="section-title">Pengalaman</div>
-                        <a href="#!" class="btn-add" data-bs-toggle="modal" data-bs-target="#pengalamanModal">+ Tambah pengalaman</a>
+                        <button class="btn-add" data-bs-toggle="modal" data-bs-target="#pengalamanModal">+ Tambah pengalaman</button>
                       </div>
                       <div id="experienceList">
                         <?php if (!empty($experiences)): ?>
@@ -554,7 +616,7 @@
                     <div class="section-card">
                       <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="section-title">Pendidikan</div>
-                        <a href="#!" class="btn-add" data-bs-toggle="modal" data-bs-target="#pendidikanModal">+ Tambah pendidikan</a>
+                        <button class="btn-add" data-bs-toggle="modal" data-bs-target="#pendidikanModal">+ Tambah pendidikan</button>
                       </div>
                       <div id="educationList">
                         <?php if (!empty($educations)): ?>
@@ -717,7 +779,7 @@
                         <!-- Email -->
                         <div class="mb-3">
                           <label for="email" class="form-label">Alamat email <span class="text-danger">*</span></label>
-                          <input type="email" id="email" class="form-control" value="<?= $user_logged_in['email']; ?>" disabled>
+                          <input type="email" id="email" class="form-control" value="<?= $user_logged_in['email']; ?>" readonly>
                         </div>
 
                         <!-- Nomor Ponsel -->
@@ -725,7 +787,7 @@
                           <label for="phone" class="form-label">Nomor ponsel <span class="text-danger">*</span></label>
                           <div class="input-group">
                             <span class="input-group-text">+62</span>
-                            <input type="text" id="phone" class="form-control" value="<?= $user_logged_in['no_hp']; ?>">
+                            <input type="text" id="phone" class="form-control" value="<?= $user_logged_in['no_hp']; ?>" readonly>
                           </div>
                           <small class="text-muted">Nomor aktif yang terhubung dengan WhatsApp</small>
                         </div>
@@ -835,7 +897,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" id="btnSaveExp" class="btn btn-primary" data-bs-dismiss="modal">Simpan</button>
+          <button type="submit" id="btnSaveExp" class="btn btn-primary" disabled>Simpan</button>
         </div>
       </form>
     </div>
@@ -900,7 +962,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" id="btnSaveEdu" class="btn btn-primary" data-bs-dismiss="modal">Simpan</button>
+          <button type="submit" id="btnSaveEdu" class="btn btn-primary" disabled>Simpan</button>
         </div>
       </form>
     </div>
@@ -944,7 +1006,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function fillMonths(sel){
     if(!sel) return;
-    sel.innerHTML = "";
+    sel.innerHTML = ""; // penting: clear agar tidak dobel
     months.forEach((m,i)=>{
       const opt=document.createElement("option");
       opt.value = i===0 ? "" : i;
@@ -987,9 +1049,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       onChange && onChange();
     };
+    // Pastikan tidak double listener: hapus dulu kalau perlu
     cur.onchange = apply;
     apply();
-    return apply; 
+    return apply; // kembalikan agar bisa dipanggil ulang tanpa daftar listener baru
   }
   function enableIfValid(buttonEl, checks){
     if(!buttonEl) return;
@@ -1002,7 +1065,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnSaveExp = document.getElementById('btnSaveExp');
   const expDesc = document.getElementById('expDesc');
   const expDescCount = document.getElementById('expDescCount');
-  if (btnSaveExp) btnSaveExp.disabled = false;
 
   function validateExp(){
     if(!expForm) return;
@@ -1014,7 +1076,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isCur = document.getElementById('expIsCurrent')?.checked;
     const eM = document.getElementById('expEndMonth')?.value;
     const eY = document.getElementById('expEndYear')?.value;
-  //  enableIfValid(btnSaveExp, [role,comp,ind,sM,sY,(isCur || (eM && eY))]);
+    enableIfValid(btnSaveExp, [role,comp,ind,sM,sY,(isCur || (eM && eY))]);
   }
   const applyExpToggle = setupCurrentToggle('expIsCurrent','expEndMonth','expEndYear', validateExp);
   expForm?.addEventListener('input', validateExp);
@@ -1023,18 +1085,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   expForm?.addEventListener('submit', (e)=>{
     e.preventDefault();
-  //  btnSaveExp.disabled = true;
+    btnSaveExp.disabled = true;
     setTimeout(()=>{
-      // $.ambiance({message: 'Pengalaman Berhasil disimpan !',
-      //               type: "success",
-      //               fade: false});
-      // location.reload();
+      $.ambiance({message: 'Pengalaman Berhasil disimpan !',
+                    type: "success",
+                    fade: false});
+      location.reload();
       $('#list-profils-list').click();
-   //   bootstrap.Modal.getInstance(document.getElementById('pengalamanModal'))?.hide();
-      closeModalById('pengalamanModal');
+      bootstrap.Modal.getInstance(document.getElementById('pengalamanModal'))?.hide();
       expForm.reset();
       if(expDescCount) expDescCount.textContent='0';
-      applyExpToggle(); 
+      applyExpToggle(); // cukup apply ulang, jangan register listener baru
+      validateExp();
     }, 300);
   });
 
@@ -1042,7 +1104,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupDateFields('edu');
   const eduForm = document.getElementById('formPendidikan');
   const btnSaveEdu = document.getElementById('btnSaveEdu');
-  if (btnSaveEdu) btnSaveEdu.disabled = false;
 
   function validateEdu(){
     if(!eduForm) return;
@@ -1054,7 +1115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isCur = document.getElementById('eduIsCurrent')?.checked;
     const eM = document.getElementById('eduEndMonth')?.value;
     const eY = document.getElementById('eduEndYear')?.value;
-    //enableIfValid(btnSaveEdu, [inst,major,sM,sY,(isCur || (eM && eY))]);
+    enableIfValid(btnSaveEdu, [inst,major,sM,sY,(isCur || (eM && eY))]);
   }
   const applyEduToggle = setupCurrentToggle('eduIsCurrent','eduEndMonth','eduEndYear', validateEdu);
   eduForm?.addEventListener('input', validateEdu);
@@ -1062,14 +1123,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   eduForm?.addEventListener('submit', (e)=>{
     e.preventDefault();
- //   btnSaveEdu.disabled = true;
+    btnSaveEdu.disabled = true;
     setTimeout(()=>{
-      // $.ambiance({message: 'Pendidikan Berhasil disimpan !',
-      //               type: "success",
-      //               fade: false});
-      // location.reload();
-     // bootstrap.Modal.getInstance(document.getElementById('pendidikanModal'))?.hide();
-      closeModalById('pendidikanModal');
+      $.ambiance({message: 'Pendidikan Berhasil disimpan !',
+                    type: "success",
+                    fade: false});
+      location.reload();
+      bootstrap.Modal.getInstance(document.getElementById('pendidikanModal'))?.hide();
       eduForm.reset();
       applyEduToggle();
       validateEdu();
@@ -1078,185 +1138,89 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <script>
-// ====== Konstanta key localStorage ======
-const LS_EXP = 'pending_experiences';
-const LS_EDU = 'pending_educations';
 
-// ====== Util localStorage ======
-function lsGet(key){
-  try { return JSON.parse(localStorage.getItem(key) || '[]'); }
-  catch(e){ return []; }
-}
-function lsSet(key, val){
-  localStorage.setItem(key, JSON.stringify(val));
-}
-function addPending(key, obj){
-  const arr = lsGet(key);
-  arr.push(obj);
-  lsSet(key, arr);
-}
+const csrfName = '<?= csrf_token() ?>';
+let   csrfHash = '<?= csrf_hash() ?>';
 
-// ====== Render helper ======
-const MONTHS = ["","Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
-function fmtPeriod(x){
-  const s = (x.start_month ? MONTHS[parseInt(x.start_month)]+' ' : '') + (x.start_year||'');
-  const e = String(x.is_current)==='1' ? 'Sekarang'
-          : ((x.end_month ? MONTHS[parseInt(x.end_month)]+' ' : '') + (x.end_year||''));
-  return `${s} - ${e}`;
-}
-function escapeHtml(s){
-  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-function renderPendingExperiences(){
-  const list = document.getElementById('experienceList');
-  if(!list) return;
-  // hapus badge "baru" lama dulu biar nggak dobel
-  list.querySelectorAll('.exp-pending').forEach(el=>el.remove());
-  const arr = lsGet(LS_EXP);
-  arr.slice().reverse().forEach(x=>{
-    const html = `
-      <div class="experience-item mb-2 border-warning exp-pending">
-        <strong>${escapeHtml(x.role)} - ${escapeHtml(x.company)}</strong>
-        <span class="text-muted">(${fmtPeriod(x)})</span>
-        ${x.description ? `<div class="small text-muted mt-1">${escapeHtml(x.description).replace(/\n/g,'<br>')}</div>` : ``}
-        <div class="small text-warning mt-1">(baru • belum disimpan)</div>
-      </div>`;
-    list.insertAdjacentHTML('afterbegin', html);
+
+async function postForm(url, fd){
+  // tambah csrf
+  fd.append(csrfName, csrfHash);
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {'X-Requested-With':'XMLHttpRequest'},
+    body: fd
   });
-}
-function renderPendingEducations(){
-  const list = document.getElementById('educationList');
-  if(!list) return;
-  list.querySelectorAll('.edu-pending').forEach(el=>el.remove());
-  const arr = lsGet(LS_EDU);
-  arr.slice().reverse().forEach(x=>{
-    const html = `
-      <div class="education-item mb-2 border-warning edu-pending">
-        <strong>${escapeHtml(x.institution)}</strong>
-        <span class="text-muted"> - ${escapeHtml(x.major)}</span>
-        <span class="text-muted">(${fmtPeriod(x)})</span>
-        <div class="small text-warning mt-1">(baru • belum disimpan)</div>
-      </div>`;
-    list.insertAdjacentHTML('afterbegin', html);
-  });
+
+  const data = await res.json().catch(()=>({}));
+  if (data?.token) csrfHash = data.token; 
+  if (!res.ok || data.ok === false) throw data;
+  return data;
 }
 
-// ====== Inisialisasi saat load ======
-document.addEventListener('DOMContentLoaded', () => {
-  renderPendingExperiences();
-  renderPendingEducations();
 
-  // ====== Pengalaman: submit ke localStorage, bukan DB ======
-  const expForm = document.getElementById('formPengalaman');
-  const btnSaveExp = document.getElementById('btnSaveExp');
-  const expDesc = document.getElementById('expDesc');
-  const expDescCount = document.getElementById('expDescCount');
+// ------- Pengalaman submit -------
+document.getElementById('formPengalaman').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const f = e.currentTarget;
+  const fd = new FormData();
+  fd.append('role',        f.role.value);
+  fd.append('company',     f.company.value);
+  fd.append('industry',    f.industry.value);
+  fd.append('start_month', document.getElementById('expStartMonth').value);
+  fd.append('start_year',  document.getElementById('expStartYear').value);
 
-  expForm?.addEventListener('submit', (e)=>{
-    e.preventDefault();
- //   btnSaveExp.disabled = true;
+  const isCur = document.getElementById('expIsCurrent').checked ? 1 : 0;
+  fd.append('is_current',  isCur);
+  if(!isCur){
+    fd.append('end_month', document.getElementById('expEndMonth').value);
+    fd.append('end_year',  document.getElementById('expEndYear').value);
+  }
+  fd.append('description', document.getElementById('expDesc').value);
 
-    const item = {
-      role:        expForm.role.value.trim(),
-      company:     expForm.company.value.trim(),
-      industry:    expForm.industry.value,
-      start_month: document.getElementById('expStartMonth').value,
-      start_year:  document.getElementById('expStartYear').value,
-      is_current:  document.getElementById('expIsCurrent').checked ? 1 : 0,
-      end_month:   document.getElementById('expIsCurrent').checked ? "" : document.getElementById('expEndMonth').value,
-      end_year:    document.getElementById('expIsCurrent').checked ? "" : document.getElementById('expEndYear').value,
-      description: expDesc.value
-    };
-
-    addPending(LS_EXP, item);
-    renderPendingExperiences();
-
-    $.ambiance?.({message:'Pengalaman ditambahkan (belum disimpan).', type:'success'});
+  try{
+    const out = await postForm('<?= base_url('profile/experience') ?>', fd);
+    //alert('Pengalaman tersimpan! ID: '+ out.id);
+    $.ambiance({message: 'Pengalaman Berhasil disimpan !',
+                    type: "success",
+                    fade: false});
     bootstrap.Modal.getInstance(document.getElementById('pengalamanModal'))?.hide();
+    f.reset();
+  }catch(err){
+    console.error(err);
+    alert('Gagal simpan pengalaman');
+  }
+});
 
-    expForm.reset();
-    if(expDescCount) expDescCount.textContent='0';
-   // btnSaveExp.disabled = false;
-  });
+// ------- Pendidikan submit -------
+document.getElementById('formPendidikan').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const f = e.currentTarget;
+  const fd = new FormData();
+  fd.append('institution', f.institution.value);
+  fd.append('major',       f.major.value);
+  fd.append('start_month', document.getElementById('eduStartMonth').value);
+  fd.append('start_year',  document.getElementById('eduStartYear').value);
 
-  // ====== Pendidikan: submit ke localStorage, bukan DB ======
-  const eduForm = document.getElementById('formPendidikan');
-  const btnSaveEdu = document.getElementById('btnSaveEdu');
+  const isCur = document.getElementById('eduIsCurrent').checked ? 1 : 0;
+  fd.append('is_current',  isCur);
+  if(!isCur){
+    fd.append('end_month', document.getElementById('eduEndMonth').value);
+    fd.append('end_year',  document.getElementById('eduEndYear').value);
+  }
 
-  eduForm?.addEventListener('submit', (e)=>{
-    e.preventDefault();
-  //  btnSaveEdu.disabled = true;
-
-    const item = {
-      institution: eduForm.institution.value.trim(),
-      major:       eduForm.major.value.trim(),
-      start_month: document.getElementById('eduStartMonth').value,
-      start_year:  document.getElementById('eduStartYear').value,
-      is_current:  document.getElementById('eduIsCurrent').checked ? 1 : 0,
-      end_month:   document.getElementById('eduIsCurrent').checked ? "" : document.getElementById('eduEndMonth').value,
-      end_year:    document.getElementById('eduIsCurrent').checked ? "" : document.getElementById('eduEndYear').value
-    };
-
-    addPending(LS_EDU, item);
-    renderPendingEducations();
-
-    $.ambiance?.({message:'Pendidikan ditambahkan (belum disimpan).', type:'success'});
+  try{
+    const out = await postForm('<?= base_url('profile/education') ?>', fd);
+    //alert('Pendidikan tersimpan! ID: '+ out.id);
+    $.ambiance({message: 'Pendidikan Berhasil disimpan !',
+                    type: "success",
+                    fade: false});
     bootstrap.Modal.getInstance(document.getElementById('pendidikanModal'))?.hide();
-
-    eduForm.reset();
-    btnSaveEdu.disabled = false;
-  });
-
-  // ====== Override submit Profil: kirim pending LS + form ======
-  const form = document.getElementById('formProfil');
-  const btn  = document.getElementById('btnSaveProfil');
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    btn.disabled = true;
-
-    // ambil pending dari LS dan append sebagai JSON ke FormData
-    const pendingExp = lsGet(LS_EXP);
-    const pendingEdu = lsGet(LS_EDU);
-
-    const fd = new FormData(form);
-    fd.append('experiences_json', JSON.stringify(pendingExp));
-    fd.append('educations_json', JSON.stringify(pendingEdu));
-
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
-        body: fd
-      });
-      const out = await res.json().catch(()=>null);
-
-      if (!res.ok || (out && out.ok === false)) {
-        const msg = (out?.errors ? Object.values(out.errors).join('<br>') : (out?.error || 'Gagal menyimpan profil'));
-        $.ambiance?.({ message: msg, type: "error", fade: false });
-        return;
-      }
-
-      // sukses -> bersihkan LS & badge pending
-      localStorage.removeItem(LS_EXP);
-      localStorage.removeItem(LS_EDU);
-      renderPendingExperiences();
-      renderPendingEducations();
-
-      if (out?.token) {
-        const csrf = form.querySelector('input[name="<?= csrf_token() ?>"]');
-        if (csrf) csrf.value = out.token;
-      }
-
-     // $.ambiance?.({ message: 'Profil & riwayat berhasil disimpan', type: "success" });
-    } catch (err) {
-      console.error(err);
-      $.ambiance?.({ message: 'Network error', type: "error" });
-    } finally {
-      btn.disabled = false;
-    }
-  });
+    f.reset();
+  }catch(err){
+    console.error(err);
+    alert('Gagal simpan pendidikan');
+  }
 });
 </script>
 
@@ -1350,16 +1314,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      localStorage.removeItem('draft_experiences');
-      localStorage.removeItem('draft_educations');
-
       if (out?.token) {
         const csrf = form.querySelector('input[name="<?= csrf_token() ?>"]');
         if (csrf) csrf.value = out.token;
       }
 
       $.ambiance({ message: 'Profil berhasil disimpan', type: "success" });
-      location.reload();
   
     } catch (err) {
       console.error(err);
@@ -1370,6 +1330,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
 <script>
   function closeModalById(id){
   const el = document.getElementById(id);
@@ -1380,65 +1341,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   modal.hide();
 }</script>
-
-
-
-<script>
-  window.__initialSkills = <?= json_encode($skillsFromDb, JSON_UNESCAPED_UNICODE) ?>;
-</script>
-
-<script>
-(function(){
-  const skillsWrapper = document.getElementById('skillsWrapper');
-  const skillsInput   = document.getElementById('skillsInput');
-  const skillsHidden  = document.getElementById('skillsHidden');
-
-  let skills = Array.isArray(window.__initialSkills) ? window.__initialSkills : [];
-
-  function syncHidden(){ skillsHidden.value = JSON.stringify(skills); }
-  function render(){
-    [...skillsWrapper.querySelectorAll('.chip')].forEach(el => el.remove());
-    skills.forEach((t,i)=>{
-      const chip = document.createElement('span');
-      chip.className = 'chip';
-      chip.innerHTML = `${t}<span class="x" data-i="${i}">&times;</span>`;
-      skillsWrapper.insertBefore(chip, skillsInput);
-    });
-    syncHidden();
-  }
-  function addFromInput(){
-    const val = skillsInput.value.trim();
-    if(!val) return;
-    if(!skills.includes(val)) skills.push(val);
-    skillsInput.value = '';
-    render();
-  }
-
-  skillsInput.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter' || e.key === ','){
-      e.preventDefault(); e.stopPropagation(); addFromInput();
-    }
-  });
-  skillsInput.addEventListener('paste', (e)=>{
-    const text = (e.clipboardData || window.clipboardData).getData('text');
-    if(text.includes(',')){
-      e.preventDefault();
-      text.split(',').map(s=>s.trim()).filter(Boolean).forEach(s=>{
-        if(!skills.includes(s)) skills.push(s);
-      });
-      render();
-    }
-  });
-  skillsWrapper.addEventListener('click', (e)=>{
-    if(e.target.classList.contains('x')){
-      const i = +e.target.dataset.i;
-      skills.splice(i,1); render();
-    }
-  });
-  skillsInput.addEventListener('blur', addFromInput);
-
-  render(); // <- sekarang render pakai __initialSkills yang sudah ada
-})();
-</script>
-
 <?= $this->endSection() ?>

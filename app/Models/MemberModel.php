@@ -10,8 +10,8 @@ class MemberModel extends Model
     protected $protectFields = false;
         //protected $allowedFields = ['name', 'email', 'age']; // Kolom yang boleh diisi
     protected $useTimestamps = true;
-    protected $columnOrder = [null, 'nama_lengkap','nama_panggilan','email','create_at','instansi','password']; // Fields for ordering
-    protected $columnSearch = ['nama_lengkap','nama_panggilan','email','create_at','instansi','password']; // Fields for search
+    protected $columnOrder = [null, 'nama_lengkap','nama_panggilan','email','create_at','instansi','password','keahlian']; // Fields for ordering
+    protected $columnSearch = ['nama_lengkap','nama_panggilan','email','create_at','instansi','password','keahlian']; // Fields for search
     protected $order = ['id' => 'DESC']; // Default order
 
     protected $db;
