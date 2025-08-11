@@ -70,6 +70,8 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->get('profile/experience/list', 'User::listExperience');
 	$routes->post('profile/update-password', 'User::updatePassword');
 	$routes->post('profile/save', 'User::saveProfile');
+	$routes->post('profile/deactivate', 'User::deactiveProfile');
+	
 	
 
 	$routes->get('user/new', 'User::new');
@@ -79,6 +81,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->patch('user/(:segment)', 'User::update/$1');
 	$routes->delete('user/(:segment)', 'User::delete/$1');
 	$routes->patch('user/(:segment)/changestatus', 'User::changeStatus/$1');
+
 
 	//Routes member Reg//
 	$routes->get('member/user/(:any)','Member::index/$1');

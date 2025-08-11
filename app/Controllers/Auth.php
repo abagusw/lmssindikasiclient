@@ -51,6 +51,8 @@ class Auth extends BaseController
 
 	    $token = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
+      
+
 	 //    var_dump($password);                 // password yang dikirim user
 		// var_dump($user['password']);        // hash dari database
 		// var_dump(password_verify($password, $user['password']));
@@ -60,43 +62,50 @@ class Auth extends BaseController
 // var_dump(password_verify($password, $hash)); // Harusnya bool(true)
 
 		// exit; // hentikan dulu untuk lihat hasil
-	    if ($user) {
-	        if ($user && password_verify($password, $user['password'])) {
-	            // Password cocok
-	            session()->set([
-	                'id' => $user['id'],
-	                'email' => $user['email'],
-	                'nama_lengkap' => $user['nama_lengkap'],
-	                'nama_panggilan' => $user['nama_panggilan'],
-                  'domisili' => $user['domisili'],
-	                'logged_in' => true,
-                  'nomor_anggota' => $user['nomor_anggota'],
-	            ]);
-	            $now = new \DateTime();
-				$now->modify('+1 hour');
-	            $respMessage = "Login berhasil";
-                $respCode = "0";
-                $encrypter = new MyEncrypter();
-		        $data = json_encode([
-		            'email'    => $email,
-		        ]);
-		        $ciphertext = $encrypter->encrypt($data);
-                $rsp = $ciphertext;
-                $userModel->update($user['id'], [
-			        'token' => $token,
-			        'token_expired' => $now->format('Y-m-d H:i:s')
-			    ]);
-                $this->sendAsyncRequest($this->kirimEmailToken($email,$token,$now->format('Y-m-d H:i:s')));
-	        } else {
-	            $respMessage = "Password Salah";
-                $respCode = "1";
-                $rsp = '';
-	        }
-	    } else {
-	        	$respMessage = "Email tidak ditemukan";
-                $respCode = "99";
-                $rsp = '';
-	    }
+  	    if ($user) {
+  	        if ($user && password_verify($password, $user['password'])) {
+                if($user['flag_active'] == 2){
+                  $respMessage = "Akun deactivated !";
+                          $respCode = "99";
+                          $rsp = '';
+                }else{
+          	            // Password cocok
+          	            session()->set([
+          	                'id' => $user['id'],
+          	                'email' => $user['email'],
+          	                'nama_lengkap' => $user['nama_lengkap'],
+          	                'nama_panggilan' => $user['nama_panggilan'],
+                            'domisili' => $user['domisili'],
+          	                'logged_in' => true,
+                            'nomor_anggota' => $user['nomor_anggota'],
+          	            ]);
+          	            $now = new \DateTime();
+          				      $now->modify('+1 hour');
+          	            $respMessage = "Login berhasil";
+                          $respCode = "0";
+                          $encrypter = new MyEncrypter();
+            		        $data = json_encode([
+            		            'email'    => $email,
+            		        ]);
+          		        $ciphertext = $encrypter->encrypt($data);
+                          $rsp = $ciphertext;
+                          $userModel->update($user['id'], [
+          			        'token' => $token,
+          			        'token_expired' => $now->format('Y-m-d H:i:s')
+          			     ]);
+                
+                  $this->sendAsyncRequest($this->kirimEmailToken($email,$token,$now->format('Y-m-d H:i:s')));
+                }
+  	        } else {
+  	            $respMessage = "Password Salah";
+                  $respCode = "1";
+                  $rsp = '';
+  	        }
+  	    } else {
+  	        	$respMessage = "Email tidak ditemukan";
+                  $respCode = "99";
+                  $rsp = '';
+  	    }
 
 	    $resp =  json_encode([
             'respCode' => $respCode,

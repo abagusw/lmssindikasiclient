@@ -264,11 +264,18 @@
     .char-counter{font-size:.75rem;color:#6c757d;text-align:right}
     .modal-footer .btn{min-width:96px}
 
-.chip{
-  padding:5px 10px; border-radius:16px; background:#0d6efd; color:#fff; font-size:14px;
-  display:inline-flex; align-items:center; gap:6px;
-}
-.chip .x{ cursor:pointer; line-height:1; }
+    .chip{
+      padding:5px 10px; border-radius:16px; background:#0d6efd; color:#fff; font-size:14px;
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .chip .x{ cursor:pointer; line-height:1; }
+
+    .bg-light-subtle {
+      background: #f6f7f9!important;
+    }
+    .rounded-4 {
+      border-radius: 1rem!important;
+    }
 
   </style>
   <div class="profile-header">
@@ -741,7 +748,7 @@
                           Kamu tidak akan lagi memiliki akses ke kolektaria ini setelah kamu melakukannya. 
                           Akun Koletkaria Sindikasi kamu akan tetap aktif, memastikan akses ke komunitas lain yang berlangganan.
                         </p>
-                        <button class="btn btn-danger">
+                        <button class="btn btn-danger" type="button" onclick="openDeactivateModal('<?= $member['email'] ?>')">
                           Nonaktifkan akun saya
                         </button>
                       </div>
@@ -906,6 +913,39 @@
     </div>
   </div>
 </div>
+
+
+<!-- form modal konfirmasi deactivate -->
+<!-- Modal: Nonaktifkan Akun -->
+<div class="modal fade" id="deactivateModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-sm rounded-4">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-semibold">Nonaktifkan Akun Kolektaria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+
+      <div class="modal-body pt-2">
+        <p class="mb-3 text-secondary">
+          Apakah kamu yakin akan menonaktifkan akun ini? Anda dapat mengaktifkan kembali akun kapan saja
+          dengan masuk kembali menggunakan email dan kata sandi Anda.
+        </p>
+
+        <label class="form-label small text-muted mb-1">Akun</label>
+        <div class="form-control bg-light-subtle border-0 rounded-3 py-2 px-3">
+          <span id="deactivateEmail" class="fw-medium"></span>
+        </div>
+      </div>
+
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+        <button id="btnConfirmDeactivate" type="button" class="btn btn-orange">
+          <span class="me-1 align-middle">✓</span> Nonaktifkan akun
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -1046,7 +1086,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function validateEdu(){
     if(!eduForm) return;
-    // pastikan name di input HTML: name="institution" dan name="major"
     const inst  = eduForm.institution?.value.trim();
     const major = eduForm.major?.value.trim();
     const sM = document.getElementById('eduStartMonth')?.value;
@@ -1439,6 +1478,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
   render(); // <- sekarang render pakai __initialSkills yang sudah ada
 })();
+</script>
+
+<script>
+  // buka modal + inject email
+  function openDeactivateModal(email){
+    document.getElementById('deactivateEmail').textContent = email || '';
+    const m = new bootstrap.Modal(document.getElementById('deactivateModal'));
+    m.show();
+  }
+
+  // klik konfirmasi -> callback/AJAX
+  document.getElementById('btnConfirmDeactivate').addEventListener('click', async function(){
+    const email = document.getElementById('deactivateEmail').textContent.trim();
+
+    // ---- Kirim ke server CI4 ----
+    const fd = new FormData();
+    fd.append('email', email);
+    fd.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+
+    try {
+      const res = await fetch('<?= base_url('profile/deactivate') ?>', {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        body: fd
+      });
+      const out = await res.json();
+
+      if (out.ok) {
+        bootstrap.Modal.getInstance(document.getElementById('deactivateModal')).hide();
+        alert('Akun berhasil dinonaktifkan: ' + email);
+        $.ambiance({ message: 'Akun berhasil dinonaktifkan:' + email, type: "success" });
+        setTimeout(function(){
+            window.location.href = '<?= base_url('auth/logout') ?>';
+        }, 1500); // 1,5 detik
+      } else {
+        alert('Gagal menonaktifkan akun: ' + (out.error || 'Tidak diketahui'));
+        $.ambiance({ message: 'Gagal menonaktifkan akun' + (out.error || 'Tidak diketahui'), type: "error" });
+      }
+    } catch (e) {
+      $.ambiance({ message: 'Network error', type: "error" });
+    }
+  });
 </script>
 
 <?= $this->endSection() ?>

@@ -522,4 +522,21 @@ class User extends BaseController
 
             return $this->response->setJSON(['ok'=>true,'token'=>csrf_hash()]);
     }
+
+    public function deactiveProfile(){
+        $userId = session()->get('id');
+
+        $data = [
+                'flag_active'            => 2,
+        ];
+
+        $memberModel = new \App\Models\MemberModel();
+
+        if (! $memberModel->update($userId, $data)) {
+            $db->transRollback();
+            return $this->response->setStatusCode(500)->setJSON(['ok'=>false,'error'=>'Gagal menyimpan']);
+        }
+
+        return $this->response->setJSON(['ok'=>true,'token'=>csrf_hash()]);
+    }
 }
