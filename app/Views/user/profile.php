@@ -353,7 +353,7 @@
                             <div class="form-text-muted">Contoh: namakamu@gmail.com</div>
                             <div class="form-text-muted text-warning">Pastikan anda menggunakan alamat email yang valid karena proses aktivasi akan dilakukan melalui email</div>
                           </div>
-
+<!-- 
                           <div class="col-md-6">
                             <label class="form-label required">Nomor ponsel</label>
                             <div class="input-group">
@@ -361,9 +361,9 @@
                               <input type="tel" name="telp" id="telp" class="form-control" required
                             value="<?= esc(old('telp', ltrim($member['no_hp'] ?? '', '0'))) ?>">
                             </div>
-                          </div>
+                          </div> -->
 
-                          <div class="col-md-4">
+                          <div class="col-md-6">
                             <label class="form-label required">Gender</label>
                             <?php $jk = old('gender', $member['jenis_kelamin'] ?? ''); ?>
                             <select class="form-select" name="gender" id="gender" required>
@@ -374,7 +374,7 @@
                             </select>
                           </div>
 
-                          <div class="col-md-4">
+                          <div class="col-md-6">
                             <label class="form-label required">Kota kelahiran</label>
                             <?php $kotaLahir = old('kota_kelahiran', $member['tempat_lahir'] ?? ''); ?>
                             <select class="form-select" name="kota_kelahiran" id="kota_kelahiran" required>
@@ -387,7 +387,7 @@
                             </select>
                           </div>
 
-                          <div class="col-md-4">
+                          <div class="col-md-6">
                             <label class="form-label required">Tanggal lahir</label>
                             <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" required
                                    value="<?= esc(old('tanggal_lahir', $member['tanggal_lahir'] ?? '')) ?>">
@@ -462,10 +462,10 @@
                           </div>
 
                           <div class="col-md-12">
-                            <label for="phone" class="form-label">Nomor ponsel <span class="text-danger">*</span></label>
+                            <label for="telp" class="form-label">Nomor ponsel <span class="text-danger">*</span></label>
                             <div class="input-group">
                               <span class="input-group-text">+62</span>
-                              <input type="text" id="phone" name="phone" class="form-control" value="<?= $user_logged_in['no_hp']; ?>">
+                              <input type="text" id="telp" name="telp" class="form-control" value="<?= $user_logged_in['no_hp']; ?>">
                             </div>
                             <small class="text-muted">Nomor aktif yang terhubung dengan WhatsApp</small>
                         </div>
