@@ -445,6 +445,7 @@ class User extends BaseController
                 'keahlian'                => json_encode($clean, JSON_UNESCAPED_UNICODE),
                 'bahasa'                  => json_encode($bahasa, JSON_UNESCAPED_UNICODE),
                 'biografi'                => $this->request->getPost('biografi'),
+                'no_hp'                   => $this->request->getPost('phone'),
             ];
 
             $memberModel = new \App\Models\MemberModel();

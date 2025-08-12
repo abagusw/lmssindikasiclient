@@ -461,6 +461,15 @@
                                    value="<?= esc(old('disabilitas_lainnya', $member['disabilitas_lainnya'] ?? '')) ?>" placeholder="Ketik di sini">
                           </div>
 
+                          <div class="col-md-12">
+                            <label for="phone" class="form-label">Nomor ponsel <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                              <span class="input-group-text">+62</span>
+                              <input type="text" id="phone" name="phone" class="form-control" value="<?= $user_logged_in['no_hp']; ?>">
+                            </div>
+                            <small class="text-muted">Nomor aktif yang terhubung dengan WhatsApp</small>
+                        </div>
+
                     </div>
                 </div>
 
@@ -728,14 +737,7 @@
                         </div>
 
                         <!-- Nomor Ponsel -->
-                        <div>
-                          <label for="phone" class="form-label">Nomor ponsel <span class="text-danger">*</span></label>
-                          <div class="input-group">
-                            <span class="input-group-text">+62</span>
-                            <input type="text" id="phone" class="form-control" value="<?= $user_logged_in['no_hp']; ?>">
-                          </div>
-                          <small class="text-muted">Nomor aktif yang terhubung dengan WhatsApp</small>
-                        </div>
+
                       </div>
                     </div>
 
