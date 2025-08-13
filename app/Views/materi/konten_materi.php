@@ -398,10 +398,10 @@
     <span class="text-muted">Course</span>
     <a href="#" id="toggleSidebar" class="text-orange ms-4 small">Sembunyikan daftar materi</a>
   </div>
-  <div class="d-flex align-items-center gap-3">
+<!--   <div class="d-flex align-items-center gap-3">
     <input type="text" class="form-control form-control-lg" placeholder="Search" style="width: 200px;">
     <img src="<?= base_url('user-avatar.png') ?>" alt="avatar" class="rounded-circle" width="32" height="32">
-  </div>
+  </div> -->
 </div>
 
 
