@@ -354,7 +354,7 @@
           </div>
         </div>
 
-        <div class="form-section">
+<!--         <div class="form-section">
           <div class="section-header">Keanggotaan BPJS</div>
             <div class="mt-4">
               <label class="form-label">Status keanggotaan BPJSKS</label>
@@ -376,10 +376,10 @@
                 </div>
                 <div class="required-note">Kolom ini wajib diisi</div>
             </div>
-        </div>
+        </div> -->
 
         <!-- BPJSKS -->
-        <div class="mt-4">
+<!--         <div class="mt-4">
           <label class="form-label">Status keanggotaan BPJSKS</label>
           <div class="row g-3">
             <div class="col-md-6">
@@ -398,7 +398,7 @@
             </div>
           </div>
           <div class="required-note">Kolom ini wajib diisi</div>
-        </div>
+        </div> -->
 
 
         <div class="form-section">
