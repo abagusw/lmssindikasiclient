@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pendaftaran Member</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
   <style>
     .section-header {
       background-color: #333;
@@ -152,7 +155,7 @@
 
           <div class="col-md-4">
             <label class="form-label required">Gender</label>
-            <select class="form-select" name="gender" id="gender" required>
+            <select class="form-select select2" name="gender" id="gender" required>
               <option selected disabled>Pilih</option>
               <option value="1">Laki-laki</option>
               <option value="0">Perempuan</option>
@@ -161,7 +164,7 @@
 
           <div class="col-md-4">
             <label class="form-label required">Kota kelahiran</label>
-            <select class="form-select" name="kota_kelahiran" id="kota_kelahiran" required>
+            <select class="form-select select2" name="kota_kelahiran" id="kota_kelahiran" required>
               <option selected disabled>Pilih</option>
             <?php 
                 foreach($getCity as $city){
@@ -178,7 +181,7 @@
 
           <div class="col-md-6">
             <label class="form-label required">Kota domisili</label>
-            <select class="form-select" name="kota_domisili" id="kota_domisili" required>
+            <select class="form-select select2" name="kota_domisili" id="kota_domisili" required>
               <option selected disabled>Pilih</option>
               <?php 
                 foreach($getCity as $city){
@@ -190,7 +193,7 @@
 
           <div class="col-md-6">
             <label class="form-label required">Pendidikan terakhir</label>
-            <select class="form-select" name="pendidikan_terakhir" id="pendidikan_terakhir" required>
+            <select class="form-select select2" name="pendidikan_terakhir" id="pendidikan_terakhir" required>
               <option selected disabled>Pilih</option>
               <option value="SD">SD</option>
               <option value="SMP">SMP</option>
@@ -246,7 +249,7 @@
           <div class="row g-3">
             <div class="col-md-6">
               <label class="form-label required">Subsektor industri kreatif</label>
-                <select class="form-select" id="subsektor" name="subsektor" required>
+                <select class="form-select select2" id="subsektor" name="subsektor" required>
                   <option selected disabled>Pilih</option>
                   <?php 
                   foreach($getDataSubsektor as $subsektor){
@@ -261,7 +264,7 @@
 
             <div class="col-md-6">
               <label class="form-label required">Jabatan/profesi</label>
-                <select class="form-select" id="jabatan" name="jabatan" required>
+                <select class="form-select select2" id="jabatan" name="jabatan" required>
                   <option selected disabled>Pilih</option>
                   <?php 
                   foreach($getDataJabatan as $jabatan){
@@ -406,7 +409,7 @@
           <div class="row g-3">
             <div class="col-md-6">
               <label class="form-label required">Status keanggotaan BPJSTK</label>
-              <select class="form-select" id="status_anggota_bpjstk" name="status_anggota_bpjstk" required>
+              <select class="form-select select2" id="status_anggota_bpjstk" name="status_anggota_bpjstk" required>
                   <option value="" selected disabled>Pilih</option>
                   <option value="aktif">Aktif</option>
                   <option value="tidak_aktif">Tidak Aktif</option>
@@ -414,7 +417,7 @@
             </div>
             <div class="col-md-6">
               <label class="form-label required">Status keanggotaan BPJSKS</label>
-              <select class="form-select" id="status_anggota_bpjsks" name="status_anggota_bpjsks" required>
+              <select class="form-select select2" id="status_anggota_bpjsks" name="status_anggota_bpjsks" required>
                   <option value="" selected disabled>Pilih</option>
                   <option value="aktif">Aktif</option>
                   <option value="tidak_aktif">Tidak Aktif</option>
@@ -495,9 +498,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 </body>
 </html>
-
+<script>
+    $('.select2').select2({ // Biar sesuai lebar Bootstrap form
+    });
+</script>
 <script>
   function inputFormRegiser(){
       top.location.href="<?= base_url() ?>form-register";
@@ -668,3 +676,6 @@
 
 
 </script>
+
+
+
