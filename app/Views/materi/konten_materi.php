@@ -114,7 +114,14 @@
 }
 
   body{ font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+h4.fw-bold {
+  color: #212529; /* default light mode */
+}
 
+.fw-semibold {
+    font-weight: 600 !important;
+    color: #212529;
+}
 </style>
 <!--   <style>
     body {
