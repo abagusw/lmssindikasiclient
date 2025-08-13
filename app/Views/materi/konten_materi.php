@@ -95,10 +95,14 @@
 }
 
 /* kalau parent pakai efek yang bikin pudar */
-.brand-link {
+/*.brand-link {
   opacity: 1 !important;
   filter: none !important;
   mix-blend-mode: normal !important;
+}*/
+
+.brand-link {
+  color: rgb(33,37,41) !important; /* solid, tidak transparan */
 }
 
 /* kalau pakai mode gelap berbasis OS */
