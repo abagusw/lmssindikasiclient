@@ -331,6 +331,50 @@ class Materi extends BaseController
         return $nomorAnggota;
     }
 
+public function generateNomorAnggotaLLLL($cityId) //lock tabke
+{
+    $db = \Config\Database::connect();
+    $db->transStart(); // mulai transaksi
+
+    // Ambil kode kota dari ms_city
+    $city = $db->table('ms_city')
+               ->select('kode')
+               ->where('id', $cityId)
+               ->get()
+               ->getRow();
+
+    if (!$city) {
+        $db->transComplete();
+        return null; // Kota tidak ditemukan
+    }
+
+    $kodeKota = $city->kode;
+
+    // Ambil nomor terakhir berdasarkan domisili + kunci row terakhir
+    $lastMember = $db->query("
+        SELECT nomor_anggota
+        FROM tb_member
+        WHERE domisili = ?
+        ORDER BY id DESC
+        LIMIT 1
+        FOR UPDATE
+    ", [$cityId])->getRow();
+
+    if ($lastMember && preg_match('/SND\/(\d+)-/', $lastMember->nomor_anggota, $matches)) {
+        $lastNumber = intval($matches[1]);
+        $nomorUrut  = $lastNumber + 1;
+    } else {
+        $nomorUrut = 1;
+    }
+
+    // Format nomor: SND/00001-KODEKOTA
+    $nomorFormatted = str_pad($nomorUrut, 5, '0', STR_PAD_LEFT);
+    $nomorAnggota   = 'SND/' . $nomorFormatted . '-' . $kodeKota;
+
+    $db->transComplete(); // selesai transaksi
+
+    return $nomorAnggota;
+}
     public function linimasa(){
 
         $data = [

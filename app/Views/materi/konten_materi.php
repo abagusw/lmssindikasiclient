@@ -72,6 +72,31 @@
     font-size: 1.5rem;  /* Perbesar teks */
     padding: 1rem 2rem; /* Perbesar area klik */
     }
+
+    /* Matikan transform/filter yang bikin teks buram di area artikel */
+    .ghost-post-content,
+    .ghost-post-content * {
+      transform: none !important;
+      -webkit-transform: none !important;
+      filter: none !important;
+      backdrop-filter: none !important;
+      backface-visibility: visible !important;
+      will-change: auto !important;
+    }
+
+    /* Pastikan rendering teks normal */
+    .ghost-post-content {
+      -webkit-font-smoothing: auto !important; /* (Chrome macOS) */
+      text-rendering: optimizeLegibility;      /* hint ringan */
+    }
+
+    /* Kalau ada card Ghost yang discale/ditransform oleh theme */
+    .ghost-post-content .kg-card,
+    .ghost-post-content .kg-embed-card,
+    .ghost-post-content .kg-bookmark-card {
+      transform: none !important;
+      -webkit-transform: none !important;
+    }
 </style>
 <!--   <style>
     body {
