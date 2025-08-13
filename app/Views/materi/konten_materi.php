@@ -73,30 +73,17 @@
     padding: 1rem 2rem; /* Perbesar area klik */
     }
 
-    /* Matikan transform/filter yang bikin teks buram di area artikel */
-    .ghost-post-content,
-    .ghost-post-content * {
-      transform: none !important;
-      -webkit-transform: none !important;
-      filter: none !important;
-      backdrop-filter: none !important;
-      backface-visibility: visible !important;
-      will-change: auto !important;
-    }
+  .ghost-post-content, .ghost-post-content *{
+    opacity: 1 !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+    transform: none !important;
+    text-shadow: none !important;
+    color: #212529 !important; /* warna teks standar bootstrap */
+  }
 
-    /* Pastikan rendering teks normal */
-    .ghost-post-content {
-      -webkit-font-smoothing: auto !important; /* (Chrome macOS) */
-      text-rendering: optimizeLegibility;      /* hint ringan */
-    }
+  body{ font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
 
-    /* Kalau ada card Ghost yang discale/ditransform oleh theme */
-    .ghost-post-content .kg-card,
-    .ghost-post-content .kg-embed-card,
-    .ghost-post-content .kg-bookmark-card {
-      transform: none !important;
-      -webkit-transform: none !important;
-    }
 </style>
 <!--   <style>
     body {
