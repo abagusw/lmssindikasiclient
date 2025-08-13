@@ -109,7 +109,7 @@
 @media (prefers-color-scheme: dark) {
   .brand-link,
   .brand-link:link,
-  .brand-link:visited { color: #f1f3f5 !important; } /* terang di dark */
+  .brand-link:visited { color: #212529 !important; } /* terang di dark */
   .brand-link:hover   { color: #74c0fc !important; }
 }
 
