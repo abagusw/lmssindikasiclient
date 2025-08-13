@@ -245,6 +245,7 @@ class Materi extends BaseController
 
         if($sisa == 0){
             $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Materi ".$lblJenis." telah selesai",'nextLessonId' => $nextCourseId,'lblPendidikan'=>$lblPendikan,'kategori' => $dataCourse['kategori']));
+            session()->set('nomor_anggota', $nomor_anggota);
         }else{
             $jsonResp = json_encode(array('respCode'=>1,'respMessage'=>"Materi ".$lblJenis." belum selesai",'nextLessonId' => $nextCourseId,'lblPendidikan'=>"",'kategori' => $dataCourse['kategori']));
         }
