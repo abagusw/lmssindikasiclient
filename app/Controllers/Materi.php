@@ -257,6 +257,38 @@ class Materi extends BaseController
     }
 
 
+    // public function generateNomorAnggota($cityId)
+    // {
+    //     $db = \Config\Database::connect();
+
+    //     // Ambil kode kota dari ms_city
+    //     $city = $db->table('ms_city')
+    //                ->select('kode')
+    //                ->where('id', $cityId)
+    //                ->get()
+    //                ->getRow();
+
+    //     if (!$city) {
+    //         return null; // Kota tidak ditemukan
+    //     }
+
+    //     $kodeKota = $city->kode;
+
+    //     // Hitung jumlah member yang sudah ada di kota ini
+    //     $totalMemberCity = $db->table('tb_member')
+    //                           ->where('domisili', $cityId)
+    //                           ->countAllResults();
+
+    //     // Nomor urut baru: total + 1
+    //     $nomorUrut = $totalMemberCity + 1;
+
+    //     // Format nomor: SND/00001-D
+    //     $nomorFormatted = str_pad($nomorUrut, 5, '0', STR_PAD_LEFT);
+    //     $nomorAnggota = 'SND/' . $nomorFormatted . '-' . $kodeKota;
+
+    //     return $nomorAnggota;
+    // }
+
     public function generateNomorAnggota($cityId)
     {
         $db = \Config\Database::connect();
@@ -274,15 +306,25 @@ class Materi extends BaseController
 
         $kodeKota = $city->kode;
 
-        // Hitung jumlah member yang sudah ada di kota ini
-        $totalMemberCity = $db->table('tb_member')
-                              ->where('domisili', $cityId)
-                              ->countAllResults();
+        // Ambil nomor terakhir berdasarkan domisili
+        $lastMember = $db->table('tb_member')
+            ->select('nomor_anggota')
+            ->where('domisili', $cityId)
+            //->like('nomor_anggota', '-'.$kodeKota, 'before') // filter sesuai kode kota
+            ->orderBy('id', 'DESC') // urutkan dari terbaru
+            ->get()
+            ->getRow();
 
-        // Nomor urut baru: total + 1
-        $nomorUrut = $totalMemberCity + 1;
+        if ($lastMember) {
+            // Ambil angka urut dari format SND/00001-XX
+            preg_match('/SND\/(\d+)-/', $lastMember->nomor_anggota, $matches);
+            $lastNumber = isset($matches[1]) ? intval($matches[1]) : 0;
+            $nomorUrut = $lastNumber + 1;
+        } else {
+            $nomorUrut = 1;
+        }
 
-        // Format nomor: SND/00001-D
+        // Format nomor: SND/00001-KODEKOTA
         $nomorFormatted = str_pad($nomorUrut, 5, '0', STR_PAD_LEFT);
         $nomorAnggota = 'SND/' . $nomorFormatted . '-' . $kodeKota;
 
