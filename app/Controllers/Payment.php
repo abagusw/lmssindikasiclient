@@ -142,7 +142,7 @@ class Payment extends BaseController
         \Midtrans\Config::$isProduction = false;
         \Midtrans\Config::$isSanitized = true;
         \Midtrans\Config::$is3ds = true;
-        $order_id = uniqid()."|".session()->get('id')."|".$periode."";
+        $order_id = uniqid()."|".$this->session->get('id')."|".$periode."";
         $param = [
             'transaction_details' => [
                 'order_id' => $order_id,
