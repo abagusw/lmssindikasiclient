@@ -55,7 +55,7 @@ class Dashboard extends BaseController
             $IdbuttonPay = "failed-button";
         }
 
-        $order_id = uniqid()."|".session()->get('id')."|3";
+        $order_id = uniqid()."|".$this->session->get('id')."|3";
         $param = [
             'transaction_details' => [
                 'order_id' => $order_id,
