@@ -82,6 +82,33 @@
     color: #212529 !important; /* warna teks standar bootstrap */
   }
 
+.brand-link,
+.brand-link:link,
+.brand-link:visited {
+  color: #212529 !important;       /* hitam abu Bootstrap */
+  text-decoration: none;
+}
+
+.brand-link:hover,
+.brand-link:focus {
+  color: #0d6efd !important;       /* biru Bootstrap saat hover */
+}
+
+/* kalau parent pakai efek yang bikin pudar */
+.brand-link {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+/* kalau pakai mode gelap berbasis OS */
+@media (prefers-color-scheme: dark) {
+  .brand-link,
+  .brand-link:link,
+  .brand-link:visited { color: #f1f3f5 !important; } /* terang di dark */
+  .brand-link:hover   { color: #74c0fc !important; }
+}
+
   body{ font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
 
 </style>
@@ -363,7 +390,7 @@
 <div class="topbar d-flex justify-content-between align-items-center">
   <div class="d-flex align-items-center gap-3">
    <!--  <img src="<?= base_url('logo.png') ?>" alt="logo" height="32"> -->
-    <strong class="me-3"><a href="<?= base_url()?>dashboard">🧩 kolektaria</a></strong>
+    <strong class="me-3"><a class="brand-link" href="<?= base_url()?>dashboard">🧩 kolektaria</a></strong>
     <span class="text-muted">Course</span>
     <a href="#" id="toggleSidebar" class="text-orange ms-4 small">Sembunyikan daftar materi</a>
   </div>
