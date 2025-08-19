@@ -278,7 +278,13 @@
             </div>
             <div class="col-md-6">
               <label class="form-label required">Status ketenagakerjaan</label>
-              <input type="text" id="status_ketenagakerjaan" name="status_ketenagakerjaan" class="form-control" required>
+<!--               <input type="text" id="status_ketenagakerjaan" name="status_ketenagakerjaan" class="form-control" required> -->
+              <select class="form-select" name="status_ketenagakerjaan" id="status_ketenagakerjaan" required>
+                <option selected disabled>Pilih</option>
+                <option value="Tetap">Tetap</option>
+                <option value="Kontrak">Kontrak</option>
+                <option value="Magang">Magang</option>
+              </select>
             </div>      
             <div class="col-md-12">
               <label class="form-label">Deskripsi pekerjaan</label>
@@ -436,17 +442,18 @@
             <div class="col-md-12">
               <label class="form-label"><small>Centang semua untuk melanjutkan</small></label>
               <div class="row">
-                <div class="col-md-6">
-                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 1" id="pakta_integritas_point_1" required><label class="form-check-label" for="pakta_integritas_point_1">Pakta Integritas Point 1</label></div>
-                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 2" id="pakta_integritas_point_2" required>Pakta Integritas Point 2</label></div>
-                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 3" id="pakta_integritas_point_3" required>Pakta Integritas Point 3</label></div>
-                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 4" id="pakta_integritas_point_4" required><label class="form-check-label" for="pakta_integritas_point_4">Pakta Integritas Point 4</label></div>
-                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 5" id="pakta_integritas_point_5" required><label class="form-check-label" for="pakta_integritas_point_5">Pakta Integritas Point 5</label></div>
-                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 6" id="pakta_integritas_point_6" required><label class="form-check-label" for="pakta_integritas_point_6">Pakta Integritas Point 6</label></div>
+                <div class="col-md-12">
+                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 1" id="pakta_integritas_point_1" required><label class="form-check-label" for="pakta_integritas_point_1">Tidak akan melakukan kekerasan dan pelecehan seksual baik itu di dalam dan di luar organisasi.</label></div>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 2" id="pakta_integritas_point_2" required>Mendukung <strong>SINDIKASI</strong> mewujudkan lingkungan yang aman dan nyaman untuk semua orang dalam memperoleh hak untuk hidup tanpa diskriminasi, terutama kekerasan dan pelecehan seksual.</label></div>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 3" id="pakta_integritas_point_3" required>Bersikap aktif mendukung <strong>SINDIKASI</strong> membangun budaya toleransi nol untuk segala bentuk kekerasan dan pelecehan seksual.</li>
+                  </label></div>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 4" id="pakta_integritas_point_4" required><label class="form-check-label" for="pakta_integritas_point_4">Mematuhi dan melaksanakan kode etik dan pedoman perilaku <strong>SINDIKASI</strong> untuk memberikan rasa aman dan nyaman sesuai dengan peraturan organisasi.</label></div>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 5" id="pakta_integritas_point_5" required><label class="form-check-label" for="pakta_integritas_point_5">Menegakkan hak atas kebenaran serta mendukung upaya pencarian keadilan dan pemulihan bagi korban kekerasan dan pelecehan seksual.</label></div>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 6" id="pakta_integritas_point_6" required><label class="form-check-label" for="pakta_integritas_point_6">Apabila melanggar hal-hal yang dinyatakan dalam <strong>PAKTA INTEGRITAS</strong> ini, bersedia menerima sanksi sesuai dengan peraturan <strong>SINDIKASI</strong>.</label></div>
                 </div>
 
               </div>
-              <div class="mt-4">
+<!--               <div class="mt-4">
                 <h6 class="fw-bold">Isi Lengkap Pakta Integritas:</h6>
                 <ol class="ps-3">
                   <li>Tidak akan melakukan kekerasan dan pelecehan seksual baik itu di dalam dan di luar organisasi.</li>
@@ -456,7 +463,7 @@
                   <li>Menegakkan hak atas kebenaran serta mendukung upaya pencarian keadilan dan pemulihan bagi korban kekerasan dan pelecehan seksual.</li>
                   <li>Apabila melanggar hal-hal yang dinyatakan dalam <strong>PAKTA INTEGRITAS</strong> ini, bersedia menerima sanksi sesuai dengan peraturan <strong>SINDIKASI</strong>.</li>
                 </ol>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="required-note">Pilihan ini wajib diisi</div>
