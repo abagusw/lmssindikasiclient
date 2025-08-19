@@ -72,9 +72,20 @@
                                                   ->where('course_id', $c['id'])
                                                   ->countAllResults();
 
-      $perTahap1 = $jumlahPartisipasi / $countLesson;
-      $persens = $perTahap1 * 100; 
-      $persen = floor($persens * 100) / 100;
+      // $perTahap1 = $jumlahPartisipasi / $countLesson;
+      // $persens = $perTahap1 * 100; 
+      // $persen = floor($persens * 100) / 100;
+
+      if ($countLesson > 0) {
+          $perTahap1 = $jumlahPartisipasi / $countLesson;
+          $persens = $perTahap1 * 100; 
+          $persen = floor($persens * 100) / 100;
+      } else {
+          // Handle case when there are no lessons
+          $persen = 0;  // or some other default value
+          // You can also display a message or log it if necessary.
+          //echo "No lessons available for this course.";
+      }
       ?>
       <div class="col-12">
         <div class="course-card d-flex flex-column flex-md-row p-3 bg-white rounded shadow-sm">

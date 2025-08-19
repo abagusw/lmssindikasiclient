@@ -42,9 +42,12 @@ class Register extends BaseController
         $token = $this->request->getGet('accountregister');
         $token = str_replace(' ', '+', $token);
 
-        $ciphertext = $encrypter->decrypt($token);  
+        $ciphertext = $encrypter->decrypt($token); 
+
 
         $dataKey = json_decode($ciphertext);
+        // print_r($dataKey);
+        // die;
 
         $data = [
             'dataKey' => $dataKey,

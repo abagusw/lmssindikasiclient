@@ -62,7 +62,7 @@ abstract class BaseController extends Controller
         $sess = $this->session->get('session');
         $userId = session()->get('id');
         if ($userId) {
-        $userData = $this->userModel->find($userId);
+            $userData = $this->userModel->find($userId);
 
         // Kirim ke semua view
             \Config\Services::renderer()->setData(['user' => $userData], 'raw'); // 'raw' agar global

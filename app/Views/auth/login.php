@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Halaman Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Make sure to include this for Bootstrap Icons -->
   <link href="<?=ASSETS_URL?>compo_notif/jquery.ambiance.css" rel="stylesheet">
   <style>
     body {
@@ -49,6 +50,13 @@
     .btn-orange:hover {
       background-color: #ea580c;
     }
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -61,13 +69,16 @@
         <h5>Masuk ke akun member</h5>
     </center>
     <form id="loginForm">
-      <div class="mb-3 mt-4">
+      <div class="mb-3 mt-4 position-relative">
         <label for="email" class="form-label">Alamat email</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email Anda">
       </div>
-      <div class="mb-3">
+      <div class="mb-3 position-relative">
         <label for="password" class="form-label">Kata kunci</label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan kata kunci">
+        <div class="password-toggle" onclick="togglePassword()">
+          <i class="bi bi-eye" id="eyeIcon"></i>
+        </div>
         <div class="text-end mt-1">
           <a href="#" class="small-text text-decoration-none">Lupa kata kunci?</a>
         </div>
@@ -98,48 +109,52 @@
 
 <script>
   function isValidEmail(email) {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailPattern.test(email);
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
   }
-$('#loginForm').on('submit', function(e) {
+
+  function togglePassword() {
+    var passwordField = document.getElementById('password');
+    var eyeIcon = document.getElementById('eyeIcon');
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+      eyeIcon.classList.remove("bi-eye");
+      eyeIcon.classList.add("bi-eye-slash");
+    } else {
+      passwordField.type = "password";
+      eyeIcon.classList.remove("bi-eye-slash");
+      eyeIcon.classList.add("bi-eye");
+    }
+  }
+
+  $('#loginForm').on('submit', function(e) {
     e.preventDefault();
     var email = $('#email').val();
     var password = $('#password').val();
 
-    if(email == "" || password == ""){
-        $.ambiance({message: "Email atau password harus diisi !",
-                  type: "error",
-                  fade: false});
-    }else if (!isValidEmail(email)) {
-        $.ambiance({message: "Email tidak valid",
-                  type: "error",
-                  fade: false});
-    }else{  
-      $.ajax({
-          type: 'POST',
-          data: {email:email,password:password,'<?= csrf_token() ?>': '<?= csrf_hash() ?>'},
-          url: "<?php echo base_url('auth/cekLogin')?>",
-          dataType: 'json',
-          async: false,
-          success: function(data) {
-              //if(msg == 1){
-              if(data.respCode == 0){
-                  $.ambiance({message: data.respMessage,
-                  type: "success",
-                  fade: false});
-                  top.location.href="<?= base_url() ?>form-token-login?rsp="+data.rsp;
-              }else{
-                  $.ambiance({message: data.respMessage,
-                  type: "error",
-                  fade: false});
-              }
-              //}
-
-          }
-
-      });
+    if (email == "" || password == "") {
+        $.ambiance({message: "Email atau password harus diisi !", type: "error", fade: false});
+    } else if (!isValidEmail(email)) {
+        $.ambiance({message: "Email tidak valid", type: "error", fade: false});
+    } else {
+        $.ajax({
+            type: 'POST',
+            data: {email: email, password: password, '<?= csrf_token() ?>': '<?= csrf_hash() ?>'},
+            url: "<?php echo base_url('auth/cekLogin')?>",
+            dataType: 'json',
+            async: false,
+            success: function(data) {
+                if (data.respCode == 0) {
+                    $.ambiance({message: data.respMessage, type: "success", fade: false});
+                    top.location.href = "<?= base_url() ?>form-token-login?rsp=" + data.rsp;
+                } else {
+                    $.ambiance({message: data.respMessage, type: "error", fade: false});
+                }
+            }
+        });
     }
-});
+  });
 </script>
+
 </body>
 </html>

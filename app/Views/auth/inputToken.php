@@ -16,6 +16,7 @@
       margin: 60px auto;
       border-radius: 16px;
       text-align: center;
+      padding: 30px;
     }
     .logo {
       width: 50px;
@@ -45,6 +46,22 @@
     }
     .rounded-corner {
       border-radius: 20px;
+    }
+
+    /* Add padding to the input fields */
+    .form-control {
+      padding: 15px 20px; /* Added padding */
+      font-size: 1rem;
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    /* Adjust button size */
+    .btn-orange {
+      padding: 12px 20px;
+      font-size: 1rem;
     }
   </style>
 </head>
@@ -78,7 +95,7 @@
     <div class="alert-box mt-4 mb-4">
       <h6 class="fw-bold"><i class="bi bi-info-circle-fill text-primary"></i> Belum menerima token?</h6>
       <p class="mb-0">
-        Cek folder spam atau gunakan tombol di bawah ini untuk mengirim ulang token ke email <strong><?= $dataKey->email ?></strong>.
+        Cek folder spam atau gunakan tombol di bawah ini untuk mengirim ulang token ke email <strong><?= $dataKey->email ?></strong>.<br><br>
       </p>
       <form>
         <input type="hidden" name="email" value="<?= $dataKey->email ?>">
@@ -102,6 +119,7 @@
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(email);
   }
+
   function resendTokenLogin(){
         $.ajax({
             type: 'POST',
@@ -109,15 +127,10 @@
             url: "<?php echo base_url('resend-token-login')?>",
             async: false,
             success: function(data) {
-                //if(msg == 1){
                 $.ambiance({message: 'Token Berhasil dikirim !',
                     type: "success",
                     fade: false});
-                //location.reload();
-                //}
-
             }
-
         });
   }
 
@@ -140,9 +153,7 @@
                   type: "error",
                   fade: false});
               }
-
             }
-
         });
   }
 </script>

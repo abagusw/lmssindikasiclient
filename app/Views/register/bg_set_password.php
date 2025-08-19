@@ -71,7 +71,7 @@
           <input type="password" class="form-control" id="password" name="password">
           <i class="bi bi-eye input-icon" onclick="togglePassword('password', this)"></i>
         </div>
-
+        <div id="password-strength" class="mb-3"></div>
         <div class="mb-4 position-relative text-start">
           <label for="confirmPassword" class="form-label">Ulangi kata kunci</label>
           <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
@@ -96,6 +96,59 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <script>
+
+  function checkPasswordStrength(password) {
+    let strength = 0;
+    let strengthText = '';
+    let strengthColor = '';
+
+    // Minimal 8 karakter
+    if(password.length >= 8) strength++;
+
+    // Huruf besar
+    if(/[A-Z]/.test(password)) strength++;
+
+    // Huruf kecil
+    if(/[a-z]/.test(password)) strength++;
+
+    // Angka
+    if(/[0-9]/.test(password)) strength++;
+
+    // Simbol
+    if(/[^A-Za-z0-9]/.test(password)) strength++;
+
+    // Tentukan teks dan warna
+    switch(strength) {
+      case 0:
+      case 1:
+      case 2:
+        strengthText = 'Lemah';
+        strengthColor = 'red';
+        break;
+      case 3:
+      case 4:
+        strengthText = 'Sedang';
+        strengthColor = 'orange';
+        break;
+      case 5:
+        strengthText = 'Kuat';
+        strengthColor = 'green';
+        break;
+    }
+
+    $('#password-strength').html(
+      `<small style="color:${strengthColor}; font-weight:bold">Kekuatan Password: ${strengthText}</small>`
+    );
+
+    return strength;
+  }
+
+  // Cek kekuatan password saat mengetik
+  $('#password').on('input', function() {
+    const password = $(this).val();
+    checkPasswordStrength(password);
+  });
+
   $('#form').submit(function(e) {
     e.preventDefault();
 
