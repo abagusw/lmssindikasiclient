@@ -152,6 +152,13 @@ class Payment extends BaseController
                 'first_name' => session()->get('nama_lengkap'),
                 'last_name' => session()->get('nama_panggilan'),
                 'email' => session()->get('email'),
+            ],'item_details' => [
+                [
+                    'id' => 'iuran_'.$periode.'_bulan',
+                    'name' => 'Iuran Awal '.$periode.' Bulan', 
+                    'price' => (int)$grossAmount, 
+                    'quantity' => 1, 
+                ],
             ],
         ];
 

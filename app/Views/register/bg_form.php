@@ -235,7 +235,7 @@
             </div>
           </div>
 
-          <div class="col-md-12">
+          <div class="col-md-12" id="jenis_disabilitas_lainnya_container" style="display:none;">
             <label class="form-label">Jenis disabilitas lainnya</label>
             <input type="text" class="form-control" id="disabilitas_lainnya" name="disabilitas_lainnya" placeholder="Ketik di sini">
           </div>
@@ -262,7 +262,7 @@
               <input type="text" id="instansi" name="instansi" class="form-control" required>
             </div>
 
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <label class="form-label required">Jabatan/profesi</label>
                 <select class="form-select select2" id="jabatan" name="jabatan" required>
                   <option selected disabled>Pilih</option>
@@ -271,6 +271,10 @@
                     echo"
                   <option value=".$jabatan['id'].">".$jabatan['name']."</option>";}?>
                 </select>
+            </div> -->
+            <div class="col-md-6">
+              <label class="form-label required">Jabatan/profesi</label>
+                <input type="text" id="jabatan" name="jabatan" class="form-control" required>
             </div>
             <div class="col-md-6">
               <label class="form-label required">Status ketenagakerjaan</label>
@@ -321,13 +325,13 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" id="jenis_masalah_lainnya_container" style="display:none;">
               <label class="form-label">Jenis masalah lainnya</label>
               <input type="text" id="jenis_masalah_lainnya" name="jenis_masalah_lainnya" class="form-control">
             </div>
             <div class="col-md-12">
               <label class="form-label">Alasan bergabung Sindikasi</label>
-              <textarea class="form-control" rows="3" id="alasan_bergabung_sindikasi" name="alasan_bergabung_sindikasi" maxlength="200" placeholder="Jelaskan alasan anda ingin bergabung dengan sindikasi"></textarea>
+              <textarea class="form-control" rows="3" id="alasan_bergabung_sindikasi" name="alasan_bergabung_sindikasi" maxlength="350" placeholder="Jelaskan alasan anda ingin bergabung dengan sindikasi"></textarea>
             </div>
           </div>
         </div>
@@ -436,8 +440,6 @@
                   <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 1" id="pakta_integritas_point_1" required><label class="form-check-label" for="pakta_integritas_point_1">Pakta Integritas Point 1</label></div>
                   <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 2" id="pakta_integritas_point_2" required>Pakta Integritas Point 2</label></div>
                   <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 3" id="pakta_integritas_point_3" required>Pakta Integritas Point 3</label></div>
-                </div>
-                <div class="col-md-6">
                   <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 4" id="pakta_integritas_point_4" required><label class="form-check-label" for="pakta_integritas_point_4">Pakta Integritas Point 4</label></div>
                   <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 5" id="pakta_integritas_point_5" required><label class="form-check-label" for="pakta_integritas_point_5">Pakta Integritas Point 5</label></div>
                   <div class="form-check"><input class="form-check-input" type="checkbox" name="pakta_integritas[]" value="Point 6" id="pakta_integritas_point_6" required><label class="form-check-label" for="pakta_integritas_point_6">Pakta Integritas Point 6</label></div>
@@ -668,12 +670,25 @@
 
     $('#masalah_ketenagakerjaan_lainnya').change(function () {
       if ($(this).is(':checked')) {
+        $('#jenis_masalah_lainnya_container').show();
         $('#jenis_masalah_lainnya').attr('required', true);
       } else {
+        $('#jenis_masalah_lainnya_container').hide();
         $('#jenis_masalah_lainnya').removeAttr('required');
       }
     });
 
+    $('#lainnya').change(function () {
+      if ($(this).is(':checked')) {
+        // Menampilkan input jika checkbox dicentang
+        $('#jenis_disabilitas_lainnya_container').show();
+        $('#disabilitas_lainnya').attr('required', true);  // Menjadikan input wajib diisi
+      } else {
+        // Menyembunyikan input jika checkbox tidak dicentang
+        $('#jenis_disabilitas_lainnya_container').hide();
+        $('#disabilitas_lainnya').removeAttr('required');  // Menghilangkan kewajiban mengisi input
+      }
+    });
 
 </script>
 

@@ -65,6 +65,13 @@ class Dashboard extends BaseController
                 'first_name' => session()->get('nama_lengkap'),
                 'last_name' => session()->get('nama_panggilan'),
                 'email' => session()->get('email'),
+            ],'item_details' => [
+                [
+                    'id' => 'iuran_3_bulan', // ID untuk item, bisa disesuaikan
+                    'name' => 'Iuran Awal 3 Bulan', // Nama item yang dibayar
+                    'price' => 75000, // Harga untuk 3 bulan
+                    'quantity' => 1, // Jumlah item (hanya 1 untuk 3 bulan)
+                ],
             ],
         ];
         $dataCourseRow = $this->masterCourseModel->where('kategori',0)->orderBy('id', 'DESC')->first();
@@ -101,6 +108,14 @@ class Dashboard extends BaseController
                     'first_name' => session()->get('nama_lengkap'),
                     'last_name' => session()->get('nama_panggilan'),
                     'email' => session()->get('email'),
+                ],
+                'item_details' => [
+                    [
+                        'id' => 'iuran_3_bulan', // ID untuk item, bisa disesuaikan
+                        'name' => 'Iuran Awal 3 Bulan', // Nama item yang dibayar
+                        'price' => 75000, // Harga untuk 3 bulan
+                        'quantity' => 1, // Jumlah item (hanya 1 untuk 3 bulan)
+                    ],
                 ],
             ];
 
