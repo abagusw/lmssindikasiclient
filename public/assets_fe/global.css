@@ -1,0 +1,86 @@
+:root {
+  --color-background: #f4f4f5;
+  --color-surface: #ffffff;
+  --color-primary: #ea580c;
+  --color-text-primary: #27272a;
+  --color-text-secondary: #71717a;
+  --color-text-tertiary: #a1a1aa;
+  --color-text-on-dark: #ffffff;
+  --color-border: #e4e4e7;
+  --font-main: 'Inter', sans-serif;
+  --font-display: 'Calistoga', serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+@media (min-width: 1024px) {
+  .page-container {
+    display: grid;
+    grid-template-columns: 269px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "header header"
+      "main   main";
+    max-width: 1512px;
+    margin: 0 auto;
+  }
+  #header {
+    grid-area: header;
+  }
+  #main {
+    grid-area: main;
+  }
+}
+
+/* Varian tombol oranye */
+.btn-orange{
+  --bs-btn-color:#fff;
+  --bs-btn-bg:#f97316;
+  --bs-btn-border-color:#f97316;
+
+  --bs-btn-hover-color:#fff;
+  --bs-btn-hover-bg:#ea580c;
+  --bs-btn-hover-border-color:#ea580c;
+
+  --bs-btn-focus-shadow-rgb:249,115,22; /* rgb dari #f97316 */
+  --bs-btn-active-color:#fff;
+  --bs-btn-active-bg:#c2410c;
+  --bs-btn-active-border-color:#c2410c;
+
+  --bs-btn-disabled-color:#fff;
+  --bs-btn-disabled-bg:#f97316;
+  --bs-btn-disabled-border-color:#f97316;
+}
+
+

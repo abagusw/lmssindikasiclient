@@ -1,14 +1,13 @@
 <?= $this->extend('templates/app'); ?>
 
 <?= $this->section('content'); ?>
-  <div class="banner d-flex">
-    <img src="https://i.imgur.com/VZ2okQb.png" alt="emoji tangan" class="me-3" style="width: 80px; height: auto;">
-    <div>
-      <h5 class="fw-bold">Selamat bergabung, Kawan!</h5>
-      <p class="mb-0">Kamu resmi jadi bagian dari gerakan kolektif kita! Lakukan pembayaran awal, ikuti materi pelatihan dasar agar semakin paham tujuan kita bersama, dan nantinya kamu akan menerima ID anggota resmi.</p>
-      <p class="mb-0">Bersama kita kuat — ayo mulai perjalanan ini bersama!</p>
-    </div>
-  </div>
+    <section id="welcome-banner" class="welcome-banner">
+      <img src="<?= ASSETS_URL ?>assets_fe/images/fd3feb21b24afe6be4c58f8ca0b6efe733243138.png" alt="Welcome illustration" class="welcome-image">
+      <div class="welcome-text">
+        <h2>Selamat bergabung, Kawan!</h2>
+        <p>Kamu resmi jadi bagian dari gerakan kolektif kita! Langkah awalmu dimulai di sini. Lakukan pembayaran awal, ikuti materi pelatihan dasar agar semakin paham tujuan kita bersama, dan nantinya kamu akan menerima ID anggota resmi.<br><br>Bersama kita kuat — ayo mulai perjalanan ini bersama!</p>
+      </div>
+    </section>
   <?php
   if($user_logged_in['isregisterpaid'] == 1){
     $iconPaid = "bi bi-check-circle-fill text-success me-2";

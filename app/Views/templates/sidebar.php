@@ -3,34 +3,51 @@
 $nomor_anggota = session()->get('nomor_anggota');
 ?>
     <!-- Sidebar -->
-    <div class="col-md-2 sidebar d-none d-md-block">
-      <a href="<?= base_url() ?>"><h5 class="text-center mb-3">🧩 kolektaria</h5></a>
-      <?php if($nomor_anggota == ""){
-        ?>
-      <div class="d-grid">
-        <a href="<?= base_url() ?>" class="btn btn-dark mx-3 mb-2">Mulai sekarang!</a>
-      </div><?php } ?>
-
-      <div class="nav-label">LMS</div>
-      <a href="<?= base_url() ?>linimasa/list" class="nav-link">Lini Masa</a>
+  <aside class="sidebar">
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="<?= base_url() ?>linimasa/list"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_166561_208_27317_205_2607_204_2602.svg" alt="">Linimasa</a></li>
+        </ul>
+      </div>
       <?php if($nomor_anggota != ""){
         ?>
-
-      <a href="<?= base_url() ?>course/list" class="nav-link">Course</a>
+      <div class="nav-group">
+        <h3 class="nav-group-title">LMS</h3>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="<?= base_url() ?>course/list"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_166566_264_4496_208_27317_205_2607_204_2602.svg" alt="">Course</a></li>
+        </ul>
+      </div>
       <?php } ?>
-
       <?php if($nomor_anggota != ""){
         ?>
-      <div class="nav-label">Payment</div>
-      <a href="<?= base_url() ?>payment/index" class="nav-link">Pembayaran</a>
+      <div class="nav-group">
+        <h3 class="nav-group-title">Payment</h3>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="<?= base_url() ?>payment/index"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_166567_264_4496_208_27317_205_2607_204_2602.svg" alt="">Pembayaran</a></li>
+        </ul>
+      </div>
       <?php } ?>
-      <div class="nav-label">Event</div>
-      <a href="<?= base_url() ?>event/list" class="nav-link">Acara</a>
+      <div class="nav-group">
+        <h3 class="nav-group-title">Event</h3>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="<?= base_url() ?>event/list"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_166568_264_4496_208_27317_205_2607_204_2602.svg" alt="">Acara</a></li>
+        </ul>
+      </div>
+      <div class="nav-group">
+        <h3 class="nav-group-title">Membership</h3>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="<?= base_url() ?>anggota/list"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_166569_264_4496_208_27317_205_2607_204_2602.svg" alt="">Direktori Anggota</a></li>
+        </ul>
+      </div>
+      <div class="nav-group">
+        <h3 class="nav-group-title">Bantuan</h3>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_166570_264_4496_208_27317_205_2607_204_2602.svg" alt="">Dokumentasi</a></li>
+          <li class="nav-item"><a href="#"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_166570_264_4589_208_27317_205_2607_204_2602.svg" alt="">Panduan</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
 
-      <div class="nav-label">Membership</div>
-      <a href="<?= base_url() ?>anggota/list" class="nav-link">Direktori Anggota</a>
-
-      <div class="nav-label">Bantuan</div>
-      <a href="#" class="nav-link">Dokumentasi</a>
-      <a href="#" class="nav-link">Panduan</a>
-    </div>
+    
