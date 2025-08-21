@@ -537,10 +537,10 @@
     <input type="text" placeholder="Search" class="search-input">
   </div>
   <div class="user-actions">
-    <div class="action-icons">
+<!--     <div class="action-icons">
       <a href="#" aria-label="Chat"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_165838_208_27044.svg" alt="Chat"></a>
       <a href="#" aria-label="Notifications"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_165839_208_27044.svg" alt="Notifications"></a>
-    </div>
+    </div> -->
     <a href="#" aria-label="User Profile" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
       <img src="<?= ASSETS_URL ?>assets_fe/images/29c9e3543a0bc3d9befd55d562c0a441cf65ca65.png" alt="User Avatar" class="user-avatar">
     </a>
