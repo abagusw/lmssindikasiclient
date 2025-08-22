@@ -127,6 +127,19 @@
     top: 0px !important; 
 }
 
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+    .select2-container .select2-selection--single {
+        height: calc(1.75rem + 2px) !important;  /* Smaller height */
+        padding: 0.25rem 0.5rem !important;   /* Less padding */
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: calc(1.75rem + 2px) !important;  /* Adjust arrow height */
+    }
+}
+
+
   </style>
 </head>
 <body class="bg-light">
