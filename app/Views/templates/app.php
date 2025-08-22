@@ -27,6 +27,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+
+
   <style id="sections-styles">
 /* CSS for section section:header */
 .top-header {
@@ -519,11 +521,47 @@
     color:#ffffff;
   }
 
+
+
+
   </style>
+<style>
+  /* Sidebar rapi saat ≥ lg */
+  @media (min-width: 992px) {
+    #sidebarNav.offcanvas-lg {
+      position: static !important;
+      transform: none !important;
+      visibility: visible !important;
+      border-right: 1px solid rgba(0,0,0,.075);
+      width: 260px; /* Lebih sempit */
+      max-width: 260px;
+      background-color: #fff; /* Tambahkan background putih */
+    }
+
+}
+     /* Tambahkan background putih saat sidebar tertutup di mobile */
+
+     #sidebarNav.offcanvas-lg {
+    background-color: white !important;
+    }
+
+</style>
+
+
+
 </head>
 <body>
-
-<header id="header" class="top-header">
+<!-- <header class="border-bottom d-flex align-items-center justify-content-between px-3 py-2">
+  <button class="btn btn-outline-secondary d-lg-none" type="button"
+          data-bs-toggle="offcanvas" data-bs-target="#sidebarNav" aria-controls="sidebarNav" aria-label="Toggle menu">
+    ☰
+  </button>
+</header> -->
+<header id="header" class="top-header border-bottom d-flex align-items-center justify-content-between px-3 py-2">
+    <button class="btn btn-outline-secondary d-lg-none" type="button"
+          data-bs-toggle="offcanvas" data-bs-target="#sidebarNav" aria-controls="sidebarNav" aria-label="Toggle menu">
+    ☰
+  </button>
   <div class="logo-container">
     <a href="<?= base_url() ?>" class="logo-link">
       <img src="<?= ASSETS_URL ?>assets_fe/images/9fcd3c04308bf53c70c2817d1712d6f94b733228.png" 

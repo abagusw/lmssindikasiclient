@@ -3,7 +3,13 @@
 $nomor_anggota = session()->get('nomor_anggota');
 ?>
     <!-- Sidebar -->
-  <aside class="sidebar">
+ <aside class="offcanvas offcanvas-start offcanvas-lg" tabindex="-1" id="sidebarNav" aria-labelledby="sidebarLabel">
+    <div class="offcanvas-header d-lg-none">
+      <h5 id="sidebarLabel" class="offcanvas-title">Menu</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body p-0">
     <nav class="sidebar-nav">
       <div class="nav-group">
         <ul class="nav-list">
@@ -15,7 +21,7 @@ $nomor_anggota = session()->get('nomor_anggota');
       <div class="nav-group">
         <h3 class="nav-group-title">LMS</h3>
         <ul class="nav-list">
-          <li class="nav-item"><a href="<?= base_url() ?>course/list"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_166566_264_4496_208_27317_205_2607_204_2602.svg" alt="">Course</a></li>
+          <li class="nav-item"><a href="<?= base_url() ?>course/list"><img src="<?= ASSETS_URL ?>assets_fe/images/I1840_150488_264_4496_208_27317_205_2607_204_2602.svg" alt="">Course</a></li>
         </ul>
       </div>
       <?php } ?>

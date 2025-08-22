@@ -106,6 +106,27 @@
     .btn-orange:hover {
       background-color: #ea580c;
     }
+
+  /* Apply form-control styles to select2 dropdown */
+.select2-container .select2-selection--single {
+    height: calc(2.25rem + 2px) !important; 
+    padding: 0.375rem 0.75rem !important;  
+    font-size: 1rem !important; 
+    line-height: 1.5 !important; 
+    border: 1px solid #ced4da !important; 
+    border-radius: 0.25rem !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #495057 !important;
+    line-height: 1.5 !important; 
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: calc(2.25rem + 2px) !important; 
+    top: 0px !important; 
+}
+
   </style>
 </head>
 <body class="bg-light">
@@ -155,7 +176,7 @@
 
           <div class="col-md-4">
             <label class="form-label required">Gender</label>
-            <select class="form-select select2" name="gender" id="gender" required>
+            <select class="form-select" name="gender" id="gender" required>
               <option selected disabled>Pilih</option>
               <option value="1">Laki-laki</option>
               <option value="0">Perempuan</option>
@@ -193,7 +214,7 @@
 
           <div class="col-md-6">
             <label class="form-label required">Pendidikan terakhir</label>
-            <select class="form-select select2" name="pendidikan_terakhir" id="pendidikan_terakhir" required>
+            <select class="form-select" name="pendidikan_terakhir" id="pendidikan_terakhir" required>
               <option selected disabled>Pilih</option>
               <option value="SD">SD</option>
               <option value="SMP">SMP</option>
@@ -419,7 +440,7 @@
           <div class="row g-3">
             <div class="col-md-6">
               <label class="form-label required">Status keanggotaan BPJSTK</label>
-              <select class="form-select select2" id="status_anggota_bpjstk" name="status_anggota_bpjstk" required>
+              <select class="form-select" id="status_anggota_bpjstk" name="status_anggota_bpjstk" required>
                   <option value="" selected disabled>Pilih</option>
                   <option value="aktif">Aktif</option>
                   <option value="tidak_aktif">Tidak Aktif</option>
@@ -427,7 +448,7 @@
             </div>
             <div class="col-md-6">
               <label class="form-label required">Status keanggotaan BPJSKS</label>
-              <select class="form-select select2" id="status_anggota_bpjsks" name="status_anggota_bpjsks" required>
+              <select class="form-select" id="status_anggota_bpjsks" name="status_anggota_bpjsks" required>
                   <option value="" selected disabled>Pilih</option>
                   <option value="aktif">Aktif</option>
                   <option value="tidak_aktif">Tidak Aktif</option>
