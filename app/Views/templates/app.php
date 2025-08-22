@@ -183,13 +183,17 @@
     filter: brightness(0) invert(1);
   }
 
-  .content-area {
+.content-area {
     padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 24px;
     overflow-y: auto;
-  }
+    background-color: #f3f3f3; /* Add a white background */
+    border-radius: 8px; /* Optional: rounded corners */
+    border: 1px solid #ddd; /* Soft border to differentiate it */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
 
   .content-header {
     background-color: var(--color-surface);
