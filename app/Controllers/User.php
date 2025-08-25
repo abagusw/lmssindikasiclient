@@ -179,6 +179,11 @@ class User extends BaseController
             ->orderBy('start_month', 'DESC')
             ->findAll();
 
+        $disStr = (string) ($member['disabilitas'] ?? '');
+        $disArr = array_values(array_filter(array_map('trim', explode(',', $disStr))));
+
+
+
         $data = [
             'title' => 'My Profile',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),
@@ -190,7 +195,8 @@ class User extends BaseController
             'validation' => \Config\Services::validation(),
             'experiences' => $experiences,
             'educations' => $educations,
-            'member' => $member
+            'member' => $member,
+            'disArr' => $disArr
         ];
 
         return view('user/profile', $data);
@@ -436,7 +442,7 @@ class User extends BaseController
                 'pendidikan_terakhir'     => $this->request->getPost('pendidikan_terakhir'),
                 'nama_instansi_pendidikan'=> $this->request->getPost('nama_instansi_pendidikan'),
                 'pengalaman_organisasi'   => $this->request->getPost('pengalaman_organisasi'),
-                'disabilitas'             => json_encode($disArr, JSON_UNESCAPED_UNICODE),
+                'disabilitas'               => implode(',', $disArr),
                 'disabilitas_lainnya'     => $this->request->getPost('disabilitas_lainnya'),
                 'link_instagram'          => $this->request->getPost('link_instagram'),
                 'link_twitter'            => $this->request->getPost('link_twitter'),
@@ -520,6 +526,8 @@ class User extends BaseController
             if ($db->transStatus() === false) {
                 return $this->response->setStatusCode(500)->setJSON(['ok'=>false,'error'=>'Gagal menyimpan data pengalaman/pendidikan']);
             }
+
+            $this->session->set('domisili',$this->request->getPost('kota_domisili'));
 
             return $this->response->setJSON(['ok'=>true,'token'=>csrf_hash()]);
     }

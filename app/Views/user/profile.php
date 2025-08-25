@@ -277,9 +277,53 @@
       border-radius: 1rem!important;
     }
 
+  
+
+    .avatar-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    .avatar-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .avatar-wrapper:hover .avatar-overlay {
+      opacity: 1;
+    }
+
   </style>
   <div class="profile-header">
-    <img src="<?= base_url() ?>public/assets/images/user.avif" class="profile-avatar" alt="Avatar">
+    <!-- Klik gambar langsung buka file chooser -->
+    <label for="avatarInput">
+      <img id="avatarPreview"
+           src="<?= base_url() ?>public/assets/images/user.avif"
+           class="profile-avatar"
+           alt="Avatar">
+    </label>
+    <input type="file" id="avatarInput" name="avatar" accept="image/*" style="display:none;">
   </div>
 
   <!-- Main Content -->
@@ -370,7 +414,7 @@
                               <option disabled <?= $jk===''?'selected':''; ?>>Pilih</option>
                               <option value="1" <?= $jk==='1'?'selected':''; ?>>Laki-laki</option>
                               <option value="0" <?= $jk==='0'?'selected':''; ?>>Perempuan</option>
-                              <option value="lain" <?= $jk==='lain'?'selected':''; ?>>Lainnya</option>
+                              <option value="2" <?= $jk==='2'?'selected':''; ?>>Lainnya</option>
                             </select>
                           </div>
 
@@ -435,7 +479,7 @@
                           </div>
 
                           <!-- Disabilitas -->
-                          <?php $disArr = $disabilitas ?? []; ?>
+                          <?php $disArr = $disArr ?? []; ?>
                           <div class="col-md-12">
                             <label class="form-label">Disabilitas <small>(opsional)</small></label>
                             <div class="row">
@@ -1522,6 +1566,43 @@ document.addEventListener('DOMContentLoaded', () => {
       $.ambiance({ message: 'Network error', type: "error" });
     }
   });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const btnSave = document.getElementById('btnSaveProfil');
+  const tabLinks = document.querySelectorAll('#list-tab a[data-bs-toggle="list"]');
+
+  tabLinks.forEach(link => {
+    link.addEventListener('shown.bs.tab', function (e) {
+      const target = e.target.getAttribute('href'); // contoh: #list-personal
+      
+      if (target === '#list-personal') {
+        btnSave.style.display = 'inline-block'; // tampilkan tombol
+      } else {
+        btnSave.style.display = 'none'; // sembunyikan
+      }
+    });
+  });
+
+  // Set awal: hanya tampil kalau tab personal
+  if (!document.querySelector('#list-personal').classList.contains('show')) {
+    btnSave.style.display = 'none';
+  }
+});
+</script>
+
+<script>
+document.getElementById('avatarInput').addEventListener('change', function (e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (evt) {
+      document.getElementById('avatarPreview').src = evt.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
 </script>
 
 <?= $this->endSection() ?>
