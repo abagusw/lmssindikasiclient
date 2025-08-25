@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generated Page</title>
+  <title>LMS Sindikasi</title>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -555,6 +555,9 @@
 
 </head>
 <body>
+  <?php
+  $session = service('session');
+  ?>
 <!-- <header class="border-bottom d-flex align-items-center justify-content-between px-3 py-2">
   <button class="btn btn-outline-secondary d-lg-none" type="button"
           data-bs-toggle="offcanvas" data-bs-target="#sidebarNav" aria-controls="sidebarNav" aria-label="Toggle menu">
@@ -587,8 +590,18 @@
       <img src="<?= ASSETS_URL ?>assets_fe/images/29c9e3543a0bc3d9befd55d562c0a441cf65ca65.png" alt="User Avatar" class="user-avatar">
     </a>
     <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser">
+
+      <!-- Detail user -->
+      <li class="dropdown-header">
+        <strong><?= esc($session->get('nama_lengkap')); ?></strong><br>
+        <small class="text-muted"><?= esc($session->get('profesi')); ?></small>
+      </li>
+
+      <li><hr class="dropdown-divider"></li>
+
+      <!-- Menu -->
       <li><a class="dropdown-item" href="<?= base_url(); ?>user/profile">Profile</a></li>
-<!--                 <li><a class="dropdown-item" href="#">Settings</a></li> -->
+      <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
       <li><hr class="dropdown-divider"></li>
       <li><a class="dropdown-item text-danger" href="<?= base_url(); ?>auth/logout">Logout</a></li>
     </ul>

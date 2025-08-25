@@ -108,7 +108,8 @@
   </div>
 </div>
 <div class="mt-4">
-  <?= $pager->links('default', 'default_full') ?>
+  <?= $pager->links('default', 'bootstrap_full') ?>
+
 </div>
 
 <?= $this->endSection(); ?>

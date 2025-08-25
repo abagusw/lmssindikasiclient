@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Halaman Login</title>
+  <title>Halaman Lupa Password</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Make sure to include this for Bootstrap Icons -->
   <link href="<?=ASSETS_URL?>compo_notif/jquery.ambiance.css" rel="stylesheet">
@@ -66,25 +66,15 @@
   <div class="login-form">
     <center>
         <img src="<?= ASSETS_URL ?>login/logo_sindikasi.png" alt="Logo" width="120" class="mb-4">
-        <h5>Masuk ke akun member</h5>
+        <h5>Form Lupa Password</h5>
     </center>
-    <form id="loginForm">
+    <form id="forgotForm">
       <div class="mb-3 mt-4 position-relative">
         <label for="email" class="form-label">Alamat email</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email Anda">
       </div>
-      <div class="mb-3 position-relative">
-        <label for="password" class="form-label">Kata kunci</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan kata kunci">
-        <div class="password-toggle" onclick="togglePassword()">
-          <i class="bi bi-eye" id="eyeIcon"></i>
-        </div>
-        <div class="text-end mt-1">
-          <a href="<?= base_url() ?>forget-password" class="small-text text-decoration-none">Lupa kata kunci?</a>
-        </div>
-      </div>
       <div class="d-grid mt-4">
-        <button type="submit" class="btn btn-orange">Masuk</button>
+        <button type="submit" class="btn btn-orange">Kirim</button>
       </div>
     </form>
     <div class="mt-3 text-muted">
@@ -94,14 +84,10 @@
 
   <!-- Ilustrasi -->
   <div class="login-image">
-    <img src="<?= ASSETS_URL ?>login/logo_login.png" alt="Ilustrasi Login">
+    <img src="<?= ASSETS_URL ?>login/lupa_pass.png" alt="Ilustrasi Login">
   </div>
 </div>
 
-<!-- Footer -->
-<div class="text-center text-light small mt-4">
-  Dengan mengklik lanjutkan, Anda menyetujui <a href="#" class="text-decoration-none text-light">Persyaratan Layanan</a> dan <a href="#" class="text-decoration-none text-light">Kebijakan Privasi</a> kami
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -127,26 +113,23 @@
     }
   }
 
-  $('#loginForm').on('submit', function(e) {
+  $('#forgotForm').on('submit', function(e) {
     e.preventDefault();
     var email = $('#email').val();
-    var password = $('#password').val();
 
-    if (email == "" || password == "") {
-        $.ambiance({message: "Email atau password harus diisi !", type: "error", fade: false});
-    } else if (!isValidEmail(email)) {
+    if (!isValidEmail(email)) {
         $.ambiance({message: "Email tidak valid", type: "error", fade: false});
     } else {
         $.ajax({
             type: 'POST',
-            data: {email: email, password: password, '<?= csrf_token() ?>': '<?= csrf_hash() ?>'},
-            url: "<?php echo base_url('auth/cekLogin')?>",
+            data: {email: email, '<?= csrf_token() ?>': '<?= csrf_hash() ?>'},
+            url: "<?php echo base_url('auth/cekEmail')?>",
             dataType: 'json',
             async: false,
             success: function(data) {
                 if (data.respCode == 0) {
                     $.ambiance({message: data.respMessage, type: "success", fade: false});
-                    top.location.href = "<?= base_url() ?>form-token-login?rsp=" + data.rsp;
+                    top.location.href = "<?= base_url() ?>forget-password-success?account="+data.rsp;
                 } else {
                     $.ambiance({message: data.respMessage, type: "error", fade: false});
                 }

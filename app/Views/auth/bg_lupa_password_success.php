@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pendaftaran Berhasil</title>
+  <title>Reset Password Berhasil</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
@@ -51,29 +51,29 @@
 <div class="container">
   <div class="card-wrapper shadow rounded-corner">
 
-    <!-- Logo -->
-<!--     <img src="<?= ASSETS_URL ?>login/logo_sindikasi.png" alt="Logo Sindikasi" class="logo">
-    <br> -->
-
     <!-- Icon -->
-    <img src="<?= ASSETS_URL ?>login/regsuclogo.png" alt="Icon Megafon" class="icon-img">
+    <img src="<?= ASSETS_URL ?>login/regsuclogo.png" alt="Icon Reset Password" class="icon-img">
 
     <!-- Judul -->
-    <h3 class="fw-bold">Pendaftaran berhasil!</h3>
-    <p class="text-muted">Tim admin Sindikasi akan segera memproses permintaan Anda dalam kurun waktu <strong>maksimal 3 hari kerja</strong></p>
+    <h3 class="fw-bold">Permintaan Reset Password Berhasil!</h3>
+    <p class="text-muted">
+      Kami telah mengirimkan tautan reset password ke alamat email 
+      <strong><?= $dataKey->email ?></strong>.  
+      Silakan cek inbox atau folder spam untuk melanjutkan proses pengaturan ulang password Anda.
+    </p>
 
     <!-- Alert Box -->
     <div class="alert-box mt-4 mb-4">
-      <h6 class="fw-bold"><i class="bi bi-info-circle-fill text-primary"></i> Cara Aktivasi Akun</h6>
+      <h6 class="fw-bold"><i class="bi bi-info-circle-fill text-primary"></i> Petunjuk Selanjutnya</h6>
       <p class="mb-0">
-        Setelah admin memverifikasi permintaan Anda, tautan aktivasi akan dikirim ke alamat email 
-        <strong><?= $dataKey->email ?></strong> yang Anda daftarkan. Silakan cek alamat email tersebut secara reguler 
-        untuk dapat mengaktifkan akun dan mulai mengakses portal member Sindikasi.
+        Klik tautan yang ada di email untuk membuat password baru.  
+        Demi keamanan, tautan hanya berlaku selama <strong>24 jam</strong>.  
+        Jika Anda tidak menerima email, silakan coba lagi atau hubungi tim support.
       </p>
     </div>
 
     <!-- Tombol -->
-    <a href="<?= base_url('/') ?>" class="btn btn-orange w-100">Kembali ke situs Web Sindikasi</a>
+    <a href="<?= base_url('/') ?>" class="btn btn-orange w-100">Kembali ke Beranda</a>
   </div>
 </div>
 

@@ -23,6 +23,11 @@ $routes->get('register-success','Register::registerSuccess');
 $routes->get('set-password','Register::set_password');
 $routes->post('register/simpan-password','Register::simpanPassword');
 $routes->get('set-password-success','Register::setPassSuccess');
+$routes->get('forget-password','Auth::form_forget_password');
+$routes->post('auth/cekEmail', 'Auth::cekEmail');
+$routes->get('forget-password-success','Auth::lupa_password_sukses');
+
+
 
 
 
@@ -59,7 +64,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
 	$routes->get('materi/konten/(:segment)', 'Materi::konten/$1');
 	$routes->post('materi/selesai_baca', 'Materi::selesai_baca');
 	$routes->post('materi/cekMateriSelesai', 'Materi::cekMateriSelesai');
-	$routes->get('materi/materi_selesai', 'Materi::materi_selesai');
+	$routes->get('materi/materi_selesai/(:segment)', 'Materi::materi_selesai/$1');
 	
 
 

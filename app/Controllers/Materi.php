@@ -74,6 +74,8 @@ class Materi extends BaseController
         $getMsCourseLessonByid =  $this->masterCourseLesson->where('id',$course_id)->first();
 
         $dataLesson = $this->masterCourseLesson->where('course_id',$getMsCourseLessonByid['course_id'])->findAll();
+        $totalLesson = $this->masterCourseLesson->where('course_id', $getMsCourseLessonByid['course_id'])->countAllResults();
+
      //   dd($getMsCourseLessonByCourse, \Config\Database::connect()->getLastQuery());
 
 
@@ -129,10 +131,12 @@ class Materi extends BaseController
         }
 
 
-        // $ghostC = new \App\Controllers\GhostAdminService();
-        // $postC = $ghostC->getPostByUuid($uuid);
-        //         print_r($postC);
-        // die;
+        $lessons = $this->masterCourseLesson
+            ->where('course_id', $getMsCourseLessonByid['course_id'])
+            ->orderBy('sort','ASC')
+            ->findAll();
+
+        $currentIndex = array_search($getMsCourseLessonByid['id'], array_column($lessons, 'id')) + 1;
         $data = [
             'title' => 'Dashboard',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),
@@ -141,7 +145,9 @@ class Materi extends BaseController
             'dataLesson' => $dataLesson,
             'getData' => $post,
             'course_id' => $course_id,
-            'getMsCourseLessonByid' => $getMsCourseLessonByid
+            'getMsCourseLessonByid' => $getMsCourseLessonByid,
+            'currentIndex' => $currentIndex,
+            'totalLesson' => $totalLesson
         ];
 
 
@@ -154,9 +160,94 @@ class Materi extends BaseController
 
     public function materi_selesai()
     {
+                //$uuid = service('uri')->getSegment(3);
+
+        $course_id = service('uri')->getSegment(3);
+    //   $course_id ini course lesson id
+     //   print_r($course_id);
+       // $getCourseid = $dataLesson = $this->masterCourseLesson->where('uuid',$uuid)->first();
+        $dataCourseRow = $this->masterCourseModel->orderBy('id', 'DESC')->first();
+        
+   // dd($dataLesson, \Config\Database::connect()->getLastQuery());
+
+       // $getMsLessonByUuid =  $this->masterLesson->where('uuid',$uuid)->first();
+        $getMsCourseLessonByid =  $this->masterCourseLesson->where('id',$course_id)->first();
+
+        $dataLesson = $this->masterCourseLesson->where('course_id',$getMsCourseLessonByid['course_id'])->findAll();
+        $totalLesson = $this->masterCourseLesson->where('course_id', $getMsCourseLessonByid['course_id'])->countAllResults();
+
+     //   dd($getMsCourseLessonByCourse, \Config\Database::connect()->getLastQuery());
+
+
+        $getMsLessonByUuid =  $this->masterLesson->where('uuid',$getMsCourseLessonByid['uuid'])->first();
+        $uuid = $getMsCourseLessonByid['uuid'];
+        $apiKey = ApiKeyGhost;
+        $ghostUrl = URLGhost;
+
+        $url = "$ghostUrl/ghost/api/content/posts/slug/".$getMsLessonByUuid['slug']."/?key=$apiKey";
+
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $data = json_decode($response, true);
+        $post = $data['posts'][0] ?? null;
+        //         print_r($url);
+        // die;
+        if ($post) {
+            //echo "Title: " . $post['title'];
+        } else {
+           // echo "Post not found.";
+        }
+
+        $course_lesson_id = $getMsCourseLessonByid['course_id']; 
+        $session = \Config\Services::session();
+        $courseAnalytic = new MasterCourseAnalyticModel();
+
+        $data = $courseAnalytic->where('user_id', session()->get('id'))
+               ->where('course_id', $course_lesson_id)
+               ->where('course_lesson_id', $course_id)
+               ->findAll();
+        $count = count($data);
+
+        if($count <= 0){
+            $dataCourseAnalytic = [
+                'user_id'   => session()->get('id'),
+                'course_id'   => $course_lesson_id,
+                'course_lesson_id'   => $course_id
+            ];
+
+            $insert = $courseAnalytic->insert($dataCourseAnalytic);
+
+            if($insert){
+                $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Sukses Insert Data"));
+            }else{
+                $jsonResp = json_encode(array('respCode'=>1,'respMessage'=>"Gagal Insert Data"));
+            }
+        }else{
+            $jsonResp = json_encode(array('respCode'=>0,'respMessage'=>"Sukses Insert Data"));
+        }
+
+
+        $lessons = $this->masterCourseLesson
+            ->where('course_id', $getMsCourseLessonByid['course_id'])
+            ->orderBy('sort','ASC')
+            ->findAll();
+
+        $currentIndex = array_search($getMsCourseLessonByid['id'], array_column($lessons, 'id')) + 1;
         $data = [
             'title' => 'Dashboard',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),
+            'session' => \Config\Services::session(),
+            'dataCourseRow' => $dataCourseRow,
+            'dataLesson' => $dataLesson,
+            'getData' => $post,
+            'course_id' => $course_id,
+            'getMsCourseLessonByid' => $getMsCourseLessonByid,
+            'currentIndex' => $currentIndex,
+            'totalLesson' => $totalLesson
         ];
         return view('materi/bg_finish', $data);
     }

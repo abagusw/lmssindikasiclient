@@ -82,46 +82,78 @@
     color: #212529 !important; /* warna teks standar bootstrap */
   }
 
-.brand-link,
-.brand-link:link,
-.brand-link:visited {
-  color: #212529 !important;       /* hitam abu Bootstrap */
-  text-decoration: none;
-}
-
-.brand-link:hover,
-.brand-link:focus {
-  color: #0d6efd !important;       /* biru Bootstrap saat hover */
-}
-
-/* kalau parent pakai efek yang bikin pudar */
-/*.brand-link {
-  opacity: 1 !important;
-  filter: none !important;
-  mix-blend-mode: normal !important;
-}*/
-
-.brand-link {
-  color: rgb(33,37,41) !important; /* solid, tidak transparan */
-}
-
-/* kalau pakai mode gelap berbasis OS */
-@media (prefers-color-scheme: dark) {
   .brand-link,
   .brand-link:link,
-  .brand-link:visited { color: #212529 !important; } /* terang di dark */
-  .brand-link:hover   { color: #74c0fc !important; }
-}
+  .brand-link:visited {
+    color: #212529 !important;       /* hitam abu Bootstrap */
+    text-decoration: none;
+  }
 
-  body{ font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-h4.fw-bold {
-  color: #212529; /* default light mode */
-}
+  .brand-link:hover,
+  .brand-link:focus {
+    color: #0d6efd !important;       /* biru Bootstrap saat hover */
+  }
 
-.fw-semibold {
-    font-weight: 600 !important;
-    color: #212529;
-}
+  /* kalau parent pakai efek yang bikin pudar */
+  /*.brand-link {
+    opacity: 1 !important;
+    filter: none !important;
+    mix-blend-mode: normal !important;
+  }*/
+
+  .brand-link {
+    color: rgb(33,37,41) !important; /* solid, tidak transparan */
+  }
+
+  /* kalau pakai mode gelap berbasis OS */
+  @media (prefers-color-scheme: dark) {
+    .brand-link,
+    .brand-link:link,
+    .brand-link:visited { color: #212529 !important; } /* terang di dark */
+    .brand-link:hover   { color: #74c0fc !important; }
+  }
+
+    body{ font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  h4.fw-bold {
+    color: #212529; /* default light mode */
+  }
+
+  .fw-semibold {
+      font-weight: 600 !important;
+      color: #212529;
+  }
+
+  .list-group-item.active {
+    background-color: #e9ecef !important; /* abu-abu muda */
+    color: #000 !important;               /* teks hitam */
+    border-color: #dee2e6 !important;     /* border abu */
+  }
+
+  .modal-custom {
+  max-width: 900px;   /* ubah sesuai kebutuhan (misal 1000px) */
+  width: 90%;         /* biar responsif */
+  }
+
+  @media (max-width: 768px) {
+    .modal-custom {
+      max-width: 95%;   /* supaya tetap bagus di HP */
+    }
+  }
+  .btn-orange {
+    background-color: #ff6600;   /* warna sesuai selera */
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px 24px;          /* bikin tombol lebih tinggi & lebar dikit */
+    font-size: 1.1rem;           /* perbesar teks */
+    font-weight: 600;            /* agak tebal */
+    display: inline-block;       /* supaya tidak melebar full */
+  }
+
+  .btn-orange:hover {
+    background-color: #e65c00;   /* warna hover */
+    color: #fff;
+  }
+
 </style>
 <!--   <style>
     body {
@@ -419,7 +451,7 @@ h4.fw-bold {
     <!-- KONTEN -->
     <div id="mainContent" class="col-lg-9 p-4">
       <div class="main-content">
-        <p class="text-muted small">Materi 6 dari 6</p>
+        <p class="text-muted small">Materi <?= $currentIndex; ?> dari <?= $totalLesson; ?> </p>
         <h4 class="fw-bold mb-4"><?= $getData['title']; ?></h4>
 
         <img src="<?= $getData['feature_image']; ?>" class="img-fluid rounded mb-4" alt="Ilustrasi">
@@ -444,6 +476,7 @@ h4.fw-bold {
       <div class="list-group list-group-flush small">
         <?php
 
+        $currentLessonId = $getMsCourseLessonByid['id']; // materi yang sedang dibuka (misal ambil dari controller/URL)
 
       foreach($dataLesson as $lesson){
         $key = ApiKeyGhost; // Ganti dengan API key kamu
@@ -469,10 +502,12 @@ h4.fw-bold {
                                                   ->where('course_lesson_id', $lesson['id'])
                                                   ->countAllResults() > 0;
 
+            $activeClass = ($lesson['id'] == $currentLessonId) ? 'active' : '';
+
         ?>
 <!--         <i class="bi bi-circle text-muted me-2"></i> -->
 
-        <a href="<?= base_url()?>materi/konten/<?= $lesson['id'] ?>" class="list-group-item list-group-item-action">
+        <a href="<?= base_url()?>materi/konten/<?= $lesson['id'] ?>" class="list-group-item list-group-item-action <?= $activeClass ?>">
           <?php if ($isParticipated): ?>
             <i class="bi bi-check-circle-fill text-success me-2"></i>
           <?php else: ?>
@@ -487,7 +522,7 @@ h4.fw-bold {
 </div>
 
 <div class="modal fade" id="modalSelesai" tabindex="-1" aria-labelledby="modalSelesaiLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered modal-custom">
     <div class="modal-content text-center border-0 rounded-4 shadow-sm p-3">
       
       <!-- Tombol Close -->
@@ -502,12 +537,16 @@ h4.fw-bold {
       <p class="fw-semibold" id="lblPendidikan">Pendidikan Dasar Serikat</p>
 
       <!-- Tombol Unduh -->
-      <a href="<?= base_url() ?>materi/materi_selesai" class="btn btn-orange mt-2">Unduh Kartu Tanda Anggota</a>
+      <a href="<?= base_url() ?>materi/materi_selesai/<?= $course_id; ?>" class="btn btn-orange mt-2">Unduh Kartu Tanda Anggota</a>
     </div>
   </div>
 </div>
 
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?=ASSETS_URL?>compo_notif/jquery.ambiance.js"></script>
 <script>
   const toggleSidebar = document.getElementById('toggleSidebar');
@@ -539,9 +578,9 @@ h4.fw-bold {
             dataType: 'JSON',
             success: function(response) {
               if(response.respCode == 0){
-                $.ambiance({message: "Sukses disimpan",
-                  type: "success",
-                  fade: false});
+                // $.ambiance({message: "Sukses disimpan",
+                //   type: "success",
+                //   fade: false});
 
                 cekMateriSelesai(course_lesson_id,course_id);
               }else{
@@ -588,6 +627,5 @@ h4.fw-bold {
 
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

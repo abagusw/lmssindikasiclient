@@ -98,7 +98,7 @@
           <div class="card border rounded-4 p-3">
             <div class="mb-2">
               <h6 class="fw-semibold mb-1"><?= $dataCourseRow['judul']; ?></h6>
-              <small class="text-muted">by Sindikasi &nbsp;•&nbsp; 25 menit &nbsp;•&nbsp; <?= count($dataLesson); ?> materi</small>
+              <small class="text-muted">by Sindikasi &nbsp;•&nbsp; &nbsp;•&nbsp; <?= count($dataLesson); ?> materi</small>
             </div>
 
             <div class="mb-2">
@@ -164,9 +164,11 @@
       <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
 
       <!-- Icon -->
-      <div class="mb-3">
-        <img src="<?=ASSETS_URL?>assets/images/payment_success.png" alt="Icon Pembayaran" width="60">
-      </div>
+      <center>
+        <div class="mb-3">
+          <img src="<?=ASSETS_URL?>assets/images/payment_success.png" alt="Icon Pembayaran" width="60">
+        </div>
+      </center>
 
       <!-- Title -->
       <h5 class="fw-bold">Pembayaran berhasil!</h5>

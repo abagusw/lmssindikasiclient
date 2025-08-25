@@ -41,6 +41,11 @@ class Auth extends BaseController
 		return view('auth/login', $data);
 	}
 
+  public function form_forget_password(){
+
+    return view('auth/bg_lupa_password');    
+  }
+
 	public function cekLogin()
 	{
 	    $email = $this->request->getPost('email');
@@ -78,6 +83,7 @@ class Auth extends BaseController
                             'domisili' => $user['domisili'],
           	                'logged_in' => true,
                             'nomor_anggota' => $user['nomor_anggota'],
+                            'profesi' => $user['profesi'],
           	            ]);
           	            $now = new \DateTime();
           				      $now->modify('+1 hour');
@@ -122,6 +128,66 @@ class Auth extends BaseController
         return $resp;
 
 	}
+
+  public function cekEmail(){
+      $encrypter = new MyEncrypter();
+      $userModel = new UserModel;
+      $email = $this->request->getPost('email');
+      $user = $userModel->where('email', $email)->where('flag !=', 3)->first();
+
+      $now = new \DateTime();
+      $now->modify('+1 hour');
+      if ($user) {
+            $dataGenerate = json_encode([
+                'id' => $user['id'],
+                'fullname' => $user['nama_lengkap'],
+                'email'    => $user['email'],
+                'generateDate' => date('Y-m-d H:i:s'),
+            ]);
+            $ciphertext = $encrypter->encrypt($dataGenerate); 
+
+            $this->sendAsyncRequest($this->kirimEmailLupaPassword($email,$ciphertext,$now->format('Y-m-d H:i:s')));
+
+            $respMessage = "Sukses";
+                $respCode = "0";
+                $rsp = $ciphertext;
+
+      } else {
+            $respMessage = "Email tidak ditemukan";
+                $respCode = "99";
+                $rsp = '';
+      }     
+
+      $resp =  json_encode([
+          'respCode' => $respCode,
+          'respMessage'=>$respMessage,
+          'rsp' => $rsp 
+      ]);
+
+      return $resp;
+
+
+  }
+
+  public function lupa_password_sukses(){
+    $encrypter = new MyEncrypter();
+
+    $token = $this->request->getGet('account');
+    $token = str_replace(' ', '+', $token);
+
+    $ciphertext = $encrypter->decrypt($token); 
+
+
+    $dataKey = json_decode($ciphertext);
+    // print_r($dataKey);
+    // die;
+
+    $data = [
+        'dataKey' => $dataKey,
+    ];
+
+    return view('auth/bg_lupa_password_success',$data);  
+  }
 
 
 	public function logout()
@@ -201,10 +267,23 @@ class Auth extends BaseController
 		$data = [
             'exp_date' => $token_exp,
             'token' => $token
-        ];
-        $vw = view('auth/token', $data);
-        $this->konfigEmail($user['email'],'Token Login',$vw);
+    ];
+    $vw = view('auth/token', $data);
+    $this->konfigEmail($user['email'],'Token Login',$vw);
 	}
+
+  public function kirimEmailLupaPassword($email,$chiper,$token_exp){
+    $userModel = new UserModel;
+    $user = $userModel->where('email', $email)->first();
+    $data = [
+            'email'   => $user['email'],
+            'nama_lengkap'   => $user['nama_lengkap'],
+            'exp_date' => $token_exp,
+            'ciphertext' => $chiper
+    ];
+    $vw = view('auth/bg_email_lupa_password', $data);
+    $this->konfigEmail($user['email'],'Verifikasi Lupa Password',$vw);
+  }
 
     private function sendAsyncRequest($url)
     {

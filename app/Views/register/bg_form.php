@@ -127,6 +127,9 @@
     top: 0px !important; 
 }
 
+.select2-container + .form-text-error { display:block; }
+.select2-selection.is-invalid { border-color:#dc3545; }
+
 /* Responsive adjustments for mobile */
 @media (max-width: 768px) {
     .select2-container .select2-selection--single {
@@ -558,6 +561,7 @@
 <script>
   $(document).ready(function () {
     $('#formRegister').validate({
+      ignore: ':hidden:not(.select2-hidden-accessible)',
       rules: {
         fullname: {
           required: true,
@@ -643,10 +647,16 @@
         $(element).addClass('is-invalid');
       },
       unhighlight: function (element) {
-        $(element).removeClass('is-invalid');
+        if ($(element).hasClass('select2-hidden-accessible')) {
+          $(element).next('.select2').find('.select2-selection').addClass('is-invalid');
+        } else {
+          $(element).removeClass('is-invalid');
+        }
       },
       errorPlacement: function (error, element) {
-        if (element.parent('.input-group').length) {
+        if (element.hasClass('select2-hidden-accessible')) {
+          error.insertAfter(element.next('.select2'));
+        }else if (element.parent('.input-group').length) {
           error.insertAfter(element.parent());
         } else if (element.hasClass('form-check-input')) {
           error.appendTo(element.closest('.form-check'));
