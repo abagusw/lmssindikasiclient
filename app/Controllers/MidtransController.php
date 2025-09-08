@@ -93,6 +93,7 @@ class MidtransController extends BaseController
         $parts = explode("|", $notif->order_id);
         $id = $parts[1];
         $jenistrx = $parts[2];
+        $jenisFlag = $parts[3];//0:iurananggota; 1:bpjs
         $memberModel = new MemberModel();
         $getMemberById = $memberModel->find($id);
         $email = $getMemberById['email'];
@@ -164,7 +165,7 @@ class MidtransController extends BaseController
 
             $paymentSuccess = new PaymentSuccessMemberModel();
             $dataPaymentSuccess = [
-                'jenis'                 => '0',
+                'jenis'                 => $jenisFlag,
                 'user_id'               => $id,
                 'transaction_id'        => $notif->transaction_id,
                 'jenis_transaksi'       => $jenistrx,

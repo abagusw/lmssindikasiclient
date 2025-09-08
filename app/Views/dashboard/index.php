@@ -62,9 +62,11 @@
           </div>
 
           <?=  $tagihan; ?>
-          <button class="btn btn-outline-secondary w-100 mt-3 mb-3">
+<!--           <button class="btn btn-outline-secondary w-100 mt-3 mb-3">
             Lihat rincian
-          </button><?php }
+          </button> -->
+
+        <?php }
         else{
           ?>
           <?=  $tagihan; ?>

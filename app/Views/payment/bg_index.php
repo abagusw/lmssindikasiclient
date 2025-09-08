@@ -21,7 +21,7 @@ if($getCekPaymentSukses == 0){
 <?php
 $today = date('Y-m-d');
 $todaySeminggu = date('Y-m-d', strtotime($today . ' +7 days'));
-$expired_dateOri = $rowData['expired_date'];
+$expired_dateOri = $rowData->expired_date;
 $expired_date = date('Y-m-d', strtotime($expired_dateOri));
 // echo $today."<br>";
 // echo $expired_date;
@@ -31,11 +31,28 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
     <div class="col-lg-8 mb-4">
       <h5 class="mb-3">Pilih Paket Anda</h5>
       <div class="mb-3">
-        <button class="btn btn-outline-dark me-2 active">Iuran Anggota</button>
-        <button class="btn btn-outline-secondary">Iuran + BPJS TK</button>
+        <button class="btn btn-outline-dark me-2 active" id="iuranAnggota" onclick="setFlag(0)">Iuran Anggota</button>
+        <button class="btn btn-outline-secondary" id="bpjsTK" onclick="setFlag(1)">Iuran + BPJS TK</button>
       </div>
-
+        <input type="hidden" id="flagInput" value="0" />
       <div class="list-group">
+                <!-- Iuran 3 Bulan (Active) -->
+        <label class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>Pendataran Anggota + Iuran 2 Bulan</strong>
+            <div class="text-muted small">Full features, highest limits and priority support</div>
+          </div>
+          <div class="text-end">
+            <div class="fw-bold">Rp 50,000</div>
+            <?php
+            if ($todaySeminggu >= $expired_date){
+              ?>
+
+            <button class="btn btn-orange btn-sm mt-2 btn-bayar" 
+            data-amount="50000" data-periode="2">Bayar Iuran</button>
+            <?php } ?>
+          </div>
+        </label>
         <!-- Iuran 3 Bulan (Active) -->
         <label class="list-group-item d-flex justify-content-between align-items-center">
           <div>
@@ -106,7 +123,7 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
           </div>
         </label>
 
-        <label class="list-group-item d-flex justify-content-between align-items-center">
+<!--         <label class="list-group-item d-flex justify-content-between align-items-center">
           <div>
             <strong>Iuran lainnya</strong>
             <div class="text-muted small">Full features, highest limits and priority support</div>
@@ -120,7 +137,7 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
             data-amount="75000"  data-periode="lainnya">Bayar Iuran</button>
           <?php } ?>
           </div>
-        </label>
+        </label> -->
       </div>
     </div>
 
@@ -141,10 +158,17 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
       <div class="border p-3 rounded">
         <h6 class="mb-3">Riwayat Pembayaran</h6>
         <div class="mb-2">
+          <?php
+          if($rowData->jenis == 0){
+            $jnFlag = "[Iuran Anggota]";
+          }else{
+            $jnFlag = "[Iuran BPJS]";
+          }
+          ?>
           <span class="badge badge-success">Lunas</span>
-          <div class="fw-bold">Rp <?php echo number_format($rowData['gross_amount'], 0, ',', '.'); ?></div>
-          <div class="small text-muted">Pembayaran <?= $rowData['jenis_transaksi']; ?> bulan</div>
-          <div class="text-muted small"><?= date('d M Y H:i:s', strtotime($rowData['created_at'])); ?></div>
+          <div class="fw-bold">Rp <?php echo number_format($rowData->gross_amount, 0, ',', '.'); ?></div>
+          <div class="small text-muted">Pembayaran <?= $rowData->jenis_transaksi; ?> bulan <?= $jnFlag; ?></div>
+          <div class="text-muted small"><?= date('d M Y H:i:s', strtotime($rowData->created_at)); ?></div>
         </div>
       </div>
     </div>
@@ -158,6 +182,8 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
     button.addEventListener('click', function () {
       const amount = this.dataset.amount;
       const periode = this.dataset.periode;
+      const flag = document.getElementById('flagInput').value;  // Ambil nilai dari input hidden
+
 
       fetch("<?= base_url('payment/bayar') ?>", {
         method: "POST",
@@ -165,7 +191,7 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
           'Content-Type': 'application/x-www-form-urlencoded',
           // Jika kamu pakai CSRF di CI4, tambahkan token di sini juga
         },
-        body: `gross_amount=${amount}&periode=${encodeURIComponent(periode)}`
+        body: `gross_amount=${amount}&periode=${encodeURIComponent(periode)}&flag=${flag}`
       })
       .then(response => response.json())
       .then(data => {
@@ -181,5 +207,25 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
       });
     });
   });
+</script>
+
+<script>
+  // Fungsi untuk mengubah status tombol aktif dan menyetel flag
+  function setFlag(flag) {
+    // Hapus kelas 'active' dari kedua tombol
+    document.querySelectorAll('.btn').forEach(function(button) {
+      button.classList.remove('active');
+    });
+
+    // Tambahkan kelas 'active' pada tombol yang dipilih
+    if (flag === 0) {
+      document.getElementById('iuranAnggota').classList.add('active');
+    } else {
+      document.getElementById('bpjsTK').classList.add('active');
+    }
+
+    // Set nilai input flag sesuai pilihan tombol
+    document.getElementById('flagInput').value = flag;
+  }
 </script>
 <?= $this->endSection(); ?>

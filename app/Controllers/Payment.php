@@ -31,9 +31,9 @@ class Payment extends BaseController
 
     public function index()
     {
-        $getPaymentSukses = $this->paymentSuccessMemberModel->orderBy('id', 'DESC')->where('user_id',$this->session->get('id'));
+        $getPaymentSukses = $this->paymentSuccessMemberModel->orderBy('id', 'DESC')->where('user_id',$this->session->get('id'))->get();
         $getCekPaymentSukses = $this->paymentSuccessMemberModel->orderBy('id', 'DESC')->where('user_id',$this->session->get('id'))->countAllResults();
-        $rowData = $getPaymentSukses->first();
+        $rowData = $getPaymentSukses->getRow();
         $data = [
             'title' => 'Payment',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),
@@ -137,12 +137,13 @@ class Payment extends BaseController
     public function aksiBayar(){
         $grossAmount = $this->request->getPost('gross_amount');
         $periode = $this->request->getPost('periode');
+        $flag = $this->request->getPost('flag'); //jenis trx bpjs apa iuran
         
         \Midtrans\Config::$serverKey = Midtrans_ServerKey;
         \Midtrans\Config::$isProduction = false;
         \Midtrans\Config::$isSanitized = true;
         \Midtrans\Config::$is3ds = true;
-        $order_id = uniqid()."|".$this->session->get('id')."|".$periode."";
+        $order_id = uniqid()."|".$this->session->get('id')."|".$periode."|".$flag;
         $param = [
             'transaction_details' => [
                 'order_id' => $order_id,
