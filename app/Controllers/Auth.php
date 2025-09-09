@@ -75,16 +75,16 @@ class Auth extends BaseController
                           $rsp = '';
                 }else{
           	            // Password cocok
-          	            session()->set([
-          	                'id' => $user['id'],
-          	                'email' => $user['email'],
-          	                'nama_lengkap' => $user['nama_lengkap'],
-          	                'nama_panggilan' => $user['nama_panggilan'],
-                            'domisili' => $user['domisili'],
-          	                'logged_in' => true,
-                            'nomor_anggota' => $user['nomor_anggota'],
-                            'profesi' => $user['profesi'],
-          	            ]);
+          	            // session()->set([
+          	            //     'id' => $user['id'],
+          	            //     'email' => $user['email'],
+          	            //     'nama_lengkap' => $user['nama_lengkap'],
+          	            //     'nama_panggilan' => $user['nama_panggilan'],
+                       //      'domisili' => $user['domisili'],
+          	            //     'logged_in' => true,
+                       //      'nomor_anggota' => $user['nomor_anggota'],
+                       //      'profesi' => $user['profesi'],
+          	            // ]);
           	            $now = new \DateTime();
           				      $now->modify('+1 hour');
           	            $respMessage = "Login berhasil";
@@ -231,8 +231,19 @@ class Auth extends BaseController
        		$respCode = 1;
        		$respMessage = "Token expired ! silakan minta token baru.";
        	}else{
-			$respCode = 0;
+			   $respCode = 0;
        		$respMessage = "Login Sukses";
+
+          session()->set([
+              'id' => $user['id'],
+              'email' => $user['email'],
+              'nama_lengkap' => $user['nama_lengkap'],
+              'nama_panggilan' => $user['nama_panggilan'],
+              'domisili' => $user['domisili'],
+              'logged_in' => true,
+              'nomor_anggota' => $user['nomor_anggota'],
+              'profesi' => $user['profesi'],
+          ]);
        	}
 
        	$resp =  json_encode([

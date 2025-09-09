@@ -401,7 +401,6 @@ class Materi extends BaseController
         $lastMember = $db->table('tb_member')
             ->select('nomor_anggota')
             ->where('domisili', $cityId)
-            //->like('nomor_anggota', '-'.$kodeKota, 'before') // filter sesuai kode kota
             ->orderBy('id', 'DESC') // urutkan dari terbaru
             ->get()
             ->getRow();
@@ -409,8 +408,12 @@ class Materi extends BaseController
         if ($lastMember) {
             // Ambil angka urut dari format SND/00001-XX
             preg_match('/SND\/(\d+)-/', $lastMember->nomor_anggota, $matches);
-            $lastNumber = isset($matches[1]) ? intval($matches[1]) : 0;
-            $nomorUrut = $lastNumber + 1;
+            if (!empty($matches[1])) {
+                $lastNumber = (int) $matches[1];
+                $nomorUrut = $lastNumber + 1;
+            } else {
+                $nomorUrut = 1;
+            }
         } else {
             $nomorUrut = 1;
         }
@@ -421,6 +424,7 @@ class Materi extends BaseController
 
         return $nomorAnggota;
     }
+
 
 public function generateNomorAnggotaLLLL($cityId) //lock tabke
 {
