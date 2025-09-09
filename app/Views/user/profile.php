@@ -588,26 +588,48 @@
                         <div class="section-title">Pengalaman</div>
                         <a href="#!" class="btn-add" data-bs-toggle="modal" data-bs-target="#pengalamanModal">+ Tambah pengalaman</a>
                       </div>
-                      <div id="experienceList">
-                        <?php if (!empty($experiences)): ?>
-                          <?php foreach ($experiences as $x): ?>
-                            <div class="experience-item mb-2">
-                              <strong><?= esc($x['role']) ?> - <?= esc($x['company']) ?></strong>
-                              <span class="text-muted">
-                                (<?= ($x['start_month']? date('M', mktime(0,0,0,$x['start_month'],1)) . ' ' : '') . esc($x['start_year']) ?>
-                                -
-                                <?= $x['is_current'] ? 'Sekarang' :
-                                    (($x['end_month']? date('M', mktime(0,0,0,$x['end_month'],1)).' ' : '') . esc($x['end_year'])) ?>)
-                              </span>
-                              <?php if (!empty($x['description'])): ?>
-                                <div class="small text-muted mt-1"><?= nl2br(esc($x['description'])) ?></div>
-                              <?php endif; ?>
-                            </div>
-                          <?php endforeach; ?>
-                        <?php else: ?>
-                          <div class="text-muted">Belum ada pengalaman.</div>
-                        <?php endif; ?>
-                      </div>
+                        <div id="experienceList">
+                          <?php if (!empty($experiences)): ?>
+                            <?php foreach ($experiences as $x): ?>
+                              <div class="experience-item mb-2" 
+                                   data-src="db"
+                                   data-id="<?= (int)$x['id'] ?>"
+                                   data-role="<?= esc($x['role']) ?>"
+                                   data-company="<?= esc($x['company']) ?>"
+                                   data-industry="<?= esc($x['industry'] ?? '') ?>"
+                                   data-start_month="<?= esc($x['start_month']) ?>"
+                                   data-start_year="<?= esc($x['start_year']) ?>"
+                                   data-is_current="<?= (int)$x['is_current'] ?>"
+                                   data-end_month="<?= esc($x['end_month']) ?>"
+                                   data-end_year="<?= esc($x['end_year']) ?>"
+                                   data-description="<?= esc($x['description'] ?? '') ?>">
+                                <div class="d-flex justify-content-between">
+                                  <div>
+                                    <strong><?= esc($x['role']) ?> - <?= esc($x['company']) ?></strong>
+                                    <span class="text-muted">
+                                      (<?= ($x['start_month']? date('M', mktime(0,0,0,$x['start_month'],1)) . ' ' : '') . esc($x['start_year']) ?> -
+                                      <?= $x['is_current'] ? 'Sekarang' :
+                                          (($x['end_month']? date('M', mktime(0,0,0,$x['end_month'],1)).' ' : '') . esc($x['end_year'])) ?>)
+                                    </span>
+                                    <?php if (!empty($x['description'])): ?>
+                                      <div class="small text-muted mt-1"><?= nl2br(esc($x['description'])) ?></div>
+                                    <?php endif; ?>
+                                    <div class="small text-warning mt-1 d-none db-pending-label"></div>
+                                  </div>
+                                  <div class="ms-2 text-nowrap">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary me-1" 
+                                            data-action="db-exp-edit" data-id="<?= (int)$x['id'] ?>">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" 
+                                            data-action="db-exp-del" data-id="<?= (int)$x['id'] ?>">Hapus</button>
+                                  </div>
+                                </div>
+                              </div>
+                            <?php endforeach; ?>
+                          <?php else: ?>
+                            <div class="text-muted">Belum ada pengalaman.</div>
+                          <?php endif; ?>
+                        </div>
+
                     </div>
 
                     <!-- Pendidikan -->
@@ -616,24 +638,44 @@
                         <div class="section-title">Pendidikan</div>
                         <a href="#!" class="btn-add" data-bs-toggle="modal" data-bs-target="#pendidikanModal">+ Tambah pendidikan</a>
                       </div>
-                      <div id="educationList">
-                        <?php if (!empty($educations)): ?>
-                          <?php foreach ($educations as $e): ?>
-                            <div class="education-item mb-2">
-                              <strong><?= esc($e['institution']) ?></strong> 
-                              <span class="text-muted"> - <?= esc($e['major']) ?></span>
-                              <span class="text-muted">
-                                (<?= ($e['start_month']? date('M', mktime(0,0,0,$e['start_month'],1)) . ' ' : '') . esc($e['start_year']) ?>
-                                 -
-                                <?= $e['is_current'] ? 'Sekarang' :
-                                    (($e['end_month']? date('M', mktime(0,0,0,$e['end_month'],1)).' ' : '') . esc($e['end_year'])) ?>)
-                              </span>
-                            </div>
-                          <?php endforeach; ?>
-                        <?php else: ?>
-                          <div class="text-muted">Belum ada pendidikan.</div>
-                        <?php endif; ?>
-                      </div>
+                          <div id="educationList">
+                            <?php if (!empty($educations)): ?>
+                              <?php foreach ($educations as $e): ?>
+                                <div class="education-item mb-2"
+                                     data-src="db"
+                                     data-id="<?= (int)$e['id'] ?>"
+                                     data-institution="<?= esc($e['institution']) ?>"
+                                     data-major="<?= esc($e['major']) ?>"
+                                     data-start_month="<?= esc($e['start_month']) ?>"
+                                     data-start_year="<?= esc($e['start_year']) ?>"
+                                     data-is_current="<?= (int)$e['is_current'] ?>"
+                                     data-end_month="<?= esc($e['end_month']) ?>"
+                                     data-end_year="<?= esc($e['end_year']) ?>">
+                                  <div class="d-flex justify-content-between">
+                                    <div>
+                                      <strong><?= esc($e['institution']) ?></strong> 
+                                      <span class="text-muted"> - <?= esc($e['major']) ?></span>
+                                      <span class="text-muted">
+                                        (<?= ($e['start_month']? date('M', mktime(0,0,0,$e['start_month'],1)) . ' ' : '') . esc($e['start_year']) ?> -
+                                        <?= $e['is_current'] ? 'Sekarang' :
+                                            (($e['end_month']? date('M', mktime(0,0,0,$e['end_month'],1)).' ' : '') . esc($e['end_year'])) ?>)
+                                      </span>
+                                      <div class="small text-warning mt-1 d-none db-pending-label"></div>
+                                    </div>
+                                    <div class="ms-2 text-nowrap">
+                                      <button type="button" class="btn btn-sm btn-outline-secondary me-1" 
+                                              data-action="db-edu-edit" data-id="<?= (int)$e['id'] ?>">Edit</button>
+                                      <button type="button" class="btn btn-sm btn-outline-danger" 
+                                              data-action="db-edu-del" data-id="<?= (int)$e['id'] ?>">Hapus</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              <?php endforeach; ?>
+                            <?php else: ?>
+                              <div class="text-muted">Belum ada pendidikan.</div>
+                            <?php endif; ?>
+                          </div>
+
                     </div>
 
                     <!-- Media Sosial -->
@@ -996,36 +1038,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
+// ===============================
+// Select2 & Tab manual
+// ===============================
 document.querySelectorAll('#list-tab a').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault();
-
-    // hapus semua active
     document.querySelectorAll('#list-tab a').forEach(el => el.classList.remove('active'));
     this.classList.add('active');
-
-    // sembunyikan semua tab
     document.querySelectorAll('.tab-content-item').forEach(tab => tab.style.display = 'none');
-
-    // tampilkan tab yang dipilih
     const targetId = this.getAttribute('data-target');
     document.getElementById(targetId).style.display = 'block';
   });
 });
 
-  $('#bahasa').select2({
-      placeholder: "Pilih Bahasa...",
-      allowClear: true
-  });
+$('#bahasa').select2({ placeholder: "Pilih Bahasa...", allowClear: true });
+$('#keahlian').select2({ placeholder: "Pilih Keahlian...", allowClear: true });
 
-  $('#keahlian').select2({
-      placeholder: "Pilih Keahlian...",
-      allowClear: true
-  });
 </script>
+
 <script>
+// ===============================
+// Helper tanggal (bulan/tahun) untuk form pengalaman/pendidikan
+// ===============================
 document.addEventListener('DOMContentLoaded', () => {
-  // ========= Shared helpers =========
   const months = ["Bulan","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 
   function fillMonths(sel){
@@ -1041,7 +1077,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   function fillYears(sel){
     if(!sel) return;
-    sel.innerHTML = ""; // clear
+    sel.innerHTML = "";
     const thisYear = new Date().getFullYear();
     const first = thisYear - 50;
     const ph = document.createElement("option");
@@ -1063,7 +1099,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const endM = document.getElementById(endMonthId);
     const endY = document.getElementById(endYearId);
     if(!cur || !endM || !endY){ console.warn('Toggle elemen tidak ditemukan:', currentId, endMonthId, endYearId); return ()=>{}; }
-
     const apply = ()=>{
       const dis = cur.checked;
       [endM,endY].forEach(el=>{
@@ -1077,111 +1112,64 @@ document.addEventListener('DOMContentLoaded', () => {
     apply();
     return apply; 
   }
-  function enableIfValid(buttonEl, checks){
-    if(!buttonEl) return;
-    buttonEl.disabled = !checks.every(Boolean);
-  }
 
-  // ========= Pengalaman =========
+  // Init pengalaman
   setupDateFields('exp');
   const expForm = document.getElementById('formPengalaman');
-  const btnSaveExp = document.getElementById('btnSaveExp');
   const expDesc = document.getElementById('expDesc');
   const expDescCount = document.getElementById('expDescCount');
-  if (btnSaveExp) btnSaveExp.disabled = false;
-
-  function validateExp(){
-    if(!expForm) return;
-    const role = expForm.role?.value.trim();
-    const comp = expForm.company?.value.trim();
-    const ind  = expForm.industry?.value;
-    const sM = document.getElementById('expStartMonth')?.value;
-    const sY = document.getElementById('expStartYear')?.value;
-    const isCur = document.getElementById('expIsCurrent')?.checked;
-    const eM = document.getElementById('expEndMonth')?.value;
-    const eY = document.getElementById('expEndYear')?.value;
-  //  enableIfValid(btnSaveExp, [role,comp,ind,sM,sY,(isCur || (eM && eY))]);
-  }
-  const applyExpToggle = setupCurrentToggle('expIsCurrent','expEndMonth','expEndYear', validateExp);
-  expForm?.addEventListener('input', validateExp);
+  const applyExpToggle = setupCurrentToggle('expIsCurrent','expEndMonth','expEndYear', ()=>{});
   expDesc?.addEventListener('input',()=>{ if(expDescCount) expDescCount.textContent = expDesc.value.length; });
-  validateExp();
 
-  expForm?.addEventListener('submit', (e)=>{
-    e.preventDefault();
-  //  btnSaveExp.disabled = true;
-    setTimeout(()=>{
-      // $.ambiance({message: 'Pengalaman Berhasil disimpan !',
-      //               type: "success",
-      //               fade: false});
-      // location.reload();
-      $('#list-profils-list').click();
-   //   bootstrap.Modal.getInstance(document.getElementById('pengalamanModal'))?.hide();
-      closeModalById('pengalamanModal');
-      expForm.reset();
-      if(expDescCount) expDescCount.textContent='0';
-      applyExpToggle(); 
-    }, 300);
-  });
-
-  // ========= Pendidikan =========
+  // Init pendidikan
   setupDateFields('edu');
   const eduForm = document.getElementById('formPendidikan');
-  const btnSaveEdu = document.getElementById('btnSaveEdu');
-  if (btnSaveEdu) btnSaveEdu.disabled = false;
+  const applyEduToggle = setupCurrentToggle('eduIsCurrent','eduEndMonth','eduEndYear', ()=>{});
 
-  function validateEdu(){
-    if(!eduForm) return;
-    const inst  = eduForm.institution?.value.trim();
-    const major = eduForm.major?.value.trim();
-    const sM = document.getElementById('eduStartMonth')?.value;
-    const sY = document.getElementById('eduStartYear')?.value;
-    const isCur = document.getElementById('eduIsCurrent')?.checked;
-    const eM = document.getElementById('eduEndMonth')?.value;
-    const eY = document.getElementById('eduEndYear')?.value;
-    //enableIfValid(btnSaveEdu, [inst,major,sM,sY,(isCur || (eM && eY))]);
-  }
-  const applyEduToggle = setupCurrentToggle('eduIsCurrent','eduEndMonth','eduEndYear', validateEdu);
-  eduForm?.addEventListener('input', validateEdu);
-  validateEdu();
-
-  eduForm?.addEventListener('submit', (e)=>{
-    e.preventDefault();
- //   btnSaveEdu.disabled = true;
-    setTimeout(()=>{
-      // $.ambiance({message: 'Pendidikan Berhasil disimpan !',
-      //               type: "success",
-      //               fade: false});
-      // location.reload();
-     // bootstrap.Modal.getInstance(document.getElementById('pendidikanModal'))?.hide();
-      closeModalById('pendidikanModal');
-      eduForm.reset();
-      applyEduToggle();
-      validateEdu();
-    }, 300);
+  // Reset counter saat modal ditutup (biar flag edit tidak nyangkut)
+  ;['pengalamanModal','pendidikanModal'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener('hidden.bs.modal', ()=>{
+      window.__editingExpIndex = null;
+      window.__editingEduIndex = null;
+      window.__editingExpDbId = null;
+      window.__editingEduDbId = null;
+      expForm?.reset(); eduForm?.reset();
+      if(expDescCount) expDescCount.textContent='0';
+      applyExpToggle && applyExpToggle();
+      applyEduToggle && applyEduToggle();
+    });
   });
+
 });
 </script>
+
 <script>
-// ====== Konstanta key localStorage ======
-const LS_EXP = 'pending_experiences';
-const LS_EDU = 'pending_educations';
+// ===============================
+// LocalStorage utils & renderer
+// ===============================
+const LS_EXP = 'pending_experiences';           // draft baru pengalaman
+const LS_EDU = 'pending_educations';            // draft baru pendidikan
+const LS_EXP_UPDATES = 'pending_experience_updates'; // patch UPDATE pengalaman DB
+const LS_EXP_DELETES = 'pending_experience_deletes'; // patch DELETE pengalaman DB
+const LS_EDU_UPDATES = 'pending_education_updates';  // patch UPDATE pendidikan DB
+const LS_EDU_DELETES = 'pending_education_deletes';  // patch DELETE pendidikan DB
 
-// ====== Util localStorage ======
-function lsGet(key){
-  try { return JSON.parse(localStorage.getItem(key) || '[]'); }
-  catch(e){ return []; }
-}
-function lsSet(key, val){
-  localStorage.setItem(key, JSON.stringify(val));
-}
-function addPending(key, obj){
-  const arr = lsGet(key);
-  arr.push(obj);
-  lsSet(key, arr);
+function lsGet(key){ try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e){ return []; } }
+function lsSet(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
+function addPending(key, obj){ const arr = lsGet(key); arr.push(obj); lsSet(key, arr); }
+function lsUpdateAt(key, index, obj){ const arr = lsGet(key); if(index>=0 && index<arr.length){ arr[index]=obj; lsSet(key,arr);} }
+function lsRemoveAt(key, index){ const arr = lsGet(key); if(index>=0 && index<arr.length){ arr.splice(index,1); lsSet(key,arr);} }
+function lsPush(key, obj){ const a = lsGet(key); a.push(obj); lsSet(key,a); }
+function lsRemoveValue(key, val){ lsSet(key, lsGet(key).filter(v => String(v)!==String(val))); }
+function lsUpsertById(key, id, obj){
+  const a = lsGet(key);
+  const i = a.findIndex(x=> String(x.id)===String(id));
+  if(i>=0) a[i]=obj; else a.push(obj);
+  lsSet(key,a);
 }
 
-// ====== Render helper ======
 const MONTHS = ["","Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
 function fmtPeriod(x){
   const s = (x.start_month ? MONTHS[parseInt(x.start_month)]+' ' : '') + (x.start_year||'');
@@ -1193,87 +1181,242 @@ function escapeHtml(s){
   return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
+
 function renderPendingExperiences(){
   const list = document.getElementById('experienceList');
   if(!list) return;
-  // hapus badge "baru" lama dulu biar nggak dobel
   list.querySelectorAll('.exp-pending').forEach(el=>el.remove());
   const arr = lsGet(LS_EXP);
-  arr.slice().reverse().forEach(x=>{
+  arr.slice().reverse().forEach((x, revIdx)=>{
+    const origIdx = arr.length - 1 - revIdx;
     const html = `
       <div class="experience-item mb-2 border-warning exp-pending">
-        <strong>${escapeHtml(x.role)} - ${escapeHtml(x.company)}</strong>
-        <span class="text-muted">(${fmtPeriod(x)})</span>
-        ${x.description ? `<div class="small text-muted mt-1">${escapeHtml(x.description).replace(/\n/g,'<br>')}</div>` : ``}
-        <div class="small text-warning mt-1">(baru • belum disimpan)</div>
+        <div class="d-flex justify-content-between">
+          <div>
+            <strong>${escapeHtml(x.role)} - ${escapeHtml(x.company)}</strong>
+            <span class="text-muted">(${fmtPeriod(x)})</span>
+            ${x.description ? `<div class="small text-muted mt-1">${escapeHtml(x.description).replace(/\n/g,'<br>')}</div>` : ``}
+            <div class="small text-warning mt-1">(baru • belum disimpan)</div>
+          </div>
+          <div class="ms-2 text-nowrap">
+            <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-action="exp-edit" data-index="${origIdx}">Edit</button>
+            <button type="button" class="btn btn-sm btn-outline-danger" data-action="exp-del" data-index="${origIdx}">Hapus</button>
+          </div>
+        </div>
       </div>`;
     list.insertAdjacentHTML('afterbegin', html);
   });
 }
+
 function renderPendingEducations(){
   const list = document.getElementById('educationList');
   if(!list) return;
   list.querySelectorAll('.edu-pending').forEach(el=>el.remove());
   const arr = lsGet(LS_EDU);
-  arr.slice().reverse().forEach(x=>{
+  arr.slice().reverse().forEach((x, revIdx)=>{
+    const origIdx = arr.length - 1 - revIdx;
     const html = `
       <div class="education-item mb-2 border-warning edu-pending">
-        <strong>${escapeHtml(x.institution)}</strong>
-        <span class="text-muted"> - ${escapeHtml(x.major)}</span>
-        <span class="text-muted">(${fmtPeriod(x)})</span>
-        <div class="small text-warning mt-1">(baru • belum disimpan)</div>
+        <div class="d-flex justify-content-between">
+          <div>
+            <strong>${escapeHtml(x.institution)}</strong>
+            <span class="text-muted"> - ${escapeHtml(x.major)}</span>
+            <span class="text-muted">(${fmtPeriod(x)})</span>
+            <div class="small text-warning mt-1">(baru • belum disimpan)</div>
+          </div>
+          <div class="ms-2 text-nowrap">
+            <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-action="edu-edit" data-index="${origIdx}">Edit</button>
+            <button type="button" class="btn btn-sm btn-outline-danger" data-action="edu-del" data-index="${origIdx}">Hapus</button>
+          </div>
+        </div>
       </div>`;
     list.insertAdjacentHTML('afterbegin', html);
   });
 }
 
-// ====== Inisialisasi saat load ======
-document.addEventListener('DOMContentLoaded', () => {
+function markDbItemPending(containerEl, text){
+  if(!containerEl) return;
+  const label = containerEl.querySelector('.db-pending-label');
+  if(label){
+    label.textContent = text || '';
+    label.classList.toggle('d-none', !text);
+  }
+  containerEl.classList.add('border','border-warning','rounded-3','p-2');
+}
+
+// Render awal draft local
+document.addEventListener('DOMContentLoaded', ()=>{
   renderPendingExperiences();
   renderPendingEducations();
+});
+</script>
 
-  // ====== Pengalaman: submit ke localStorage, bukan DB ======
+<script>
+// ===============================
+// Flags mode edit
+// ===============================
+let __editingExpIndex = null; // draft pengalaman (index array LS_EXP)
+let __editingEduIndex = null; // draft pendidikan (index array LS_EDU)
+let __editingExpDbId  = null; // edit pengalaman dari DB (id)
+let __editingEduDbId  = null; // edit pendidikan dari DB (id)
+</script>
+
+<script>
+// ===============================
+// Delegasi klik tombol Edit/Hapus (draft & DB)
+// ===============================
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('button[data-action]');
+  if(!btn) return;
+  e.preventDefault(); e.stopPropagation();
+
+  const action = btn.getAttribute('data-action');
+  const idx    = btn.hasAttribute('data-index') ? parseInt(btn.getAttribute('data-index'), 10) : null;
+  const id     = btn.getAttribute('data-id');
+  const itemEl = btn.closest('[data-src="db"][data-id]');
+
+  // ------- DRAFT: Pengalaman -------
+  if(action === 'exp-edit' && idx !== null){
+    __editingExpDbId = null;
+    const arr = lsGet(LS_EXP); const it = arr[idx]; if(!it) return;
+    const f = document.getElementById('formPengalaman');
+    f.role.value = it.role || '';
+    f.company.value = it.company || '';
+    if(f.industry) f.industry.value = it.industry || '';
+    document.getElementById('expStartMonth').value = it.start_month || '';
+    document.getElementById('expStartYear').value  = it.start_year || '';
+    document.getElementById('expIsCurrent').checked = String(it.is_current)==='1';
+    document.getElementById('expEndMonth').value   = it.end_month || '';
+    document.getElementById('expEndYear').value    = it.end_year || '';
+    const d = document.getElementById('expDesc');
+    if(d){ d.value = it.description || ''; const c=document.getElementById('expDescCount'); if(c) c.textContent = d.value.length; }
+    document.getElementById('expIsCurrent').dispatchEvent(new Event('change'));
+    __editingExpIndex = idx;
+    new bootstrap.Modal(document.getElementById('pengalamanModal')).show();
+    return;
+  }
+  if(action === 'exp-del' && idx !== null){
+    if(confirm('Hapus pengalaman ini dari draft?')){ lsRemoveAt(LS_EXP, idx); renderPendingExperiences(); }
+    return;
+  }
+
+  // ------- DRAFT: Pendidikan -------
+  if(action === 'edu-edit' && idx !== null){
+    __editingEduDbId = null;
+    const arr = lsGet(LS_EDU); const it = arr[idx]; if(!it) return;
+    const f = document.getElementById('formPendidikan');
+    f.institution.value = it.institution || '';
+    f.major.value       = it.major || '';
+    document.getElementById('eduStartMonth').value = it.start_month || '';
+    document.getElementById('eduStartYear').value  = it.start_year || '';
+    document.getElementById('eduIsCurrent').checked = String(it.is_current)==='1';
+    document.getElementById('eduEndMonth').value   = it.end_month || '';
+    document.getElementById('eduEndYear').value    = it.end_year || '';
+    document.getElementById('eduIsCurrent').dispatchEvent(new Event('change'));
+    __editingEduIndex = idx;
+    new bootstrap.Modal(document.getElementById('pendidikanModal')).show();
+    return;
+  }
+  if(action === 'edu-del' && idx !== null){
+    if(confirm('Hapus pendidikan ini dari draft?')){ lsRemoveAt(LS_EDU, idx); renderPendingEducations(); }
+    return;
+  }
+
+  // ------- DB: Pengalaman -------
+  if(action === 'db-exp-edit' && id){
+    __editingExpIndex = null;
+    const role = itemEl?.dataset.role || '';
+    const company = itemEl?.dataset.company || '';
+    const industry = itemEl?.dataset.industry || '';
+    const sm = itemEl?.dataset.start_month || '';
+    const sy = itemEl?.dataset.start_year || '';
+    const ic = itemEl?.dataset.is_current === '1';
+    const em = itemEl?.dataset.end_month || '';
+    const ey = itemEl?.dataset.end_year || '';
+    const desc = itemEl?.dataset.description || '';
+    const f = document.getElementById('formPengalaman');
+    f.role.value = role; f.company.value = company; if(f.industry) f.industry.value = industry;
+    document.getElementById('expStartMonth').value = sm;
+    document.getElementById('expStartYear').value  = sy;
+    document.getElementById('expIsCurrent').checked = ic;
+    document.getElementById('expEndMonth').value   = ic ? '' : em;
+    document.getElementById('expEndYear').value    = ic ? '' : ey;
+    const d = document.getElementById('expDesc');
+    if(d){ d.value = desc; const c=document.getElementById('expDescCount'); if(c) c.textContent = d.value.length; }
+    document.getElementById('expIsCurrent').dispatchEvent(new Event('change'));
+    __editingExpDbId = id;
+    new bootstrap.Modal(document.getElementById('pengalamanModal')).show();
+    return;
+  }
+  if(action === 'db-exp-del' && id){
+    if(confirm('Tandai pengalaman ini untuk dihapus saat Simpan Profil?')){
+      const dels = lsGet(LS_EXP_DELETES);
+      if(!dels.includes(id)) lsPush(LS_EXP_DELETES, id);
+      lsSet(LS_EXP_UPDATES, lsGet(LS_EXP_UPDATES).filter(x=> String(x.id)!==String(id)));
+      markDbItemPending(itemEl, '(akan dihapus saat Simpan Profil)');
+    }
+    return;
+  }
+
+  // ------- DB: Pendidikan -------
+  if(action === 'db-edu-edit' && id){
+    __editingEduIndex = null;
+    const inst = itemEl?.dataset.institution || '';
+    const maj  = itemEl?.dataset.major || '';
+    const sm = itemEl?.dataset.start_month || '';
+    const sy = itemEl?.dataset.start_year || '';
+    const ic = itemEl?.dataset.is_current === '1';
+    const em = itemEl?.dataset.end_month || '';
+    const ey = itemEl?.dataset.end_year || '';
+    const f = document.getElementById('formPendidikan');
+    f.institution.value = inst; f.major.value = maj;
+    document.getElementById('eduStartMonth').value = sm;
+    document.getElementById('eduStartYear').value  = sy;
+    document.getElementById('eduIsCurrent').checked = ic;
+    document.getElementById('eduEndMonth').value   = ic ? '' : em;
+    document.getElementById('eduEndYear').value    = ic ? '' : ey;
+    document.getElementById('eduIsCurrent').dispatchEvent(new Event('change'));
+    __editingEduDbId = id;
+    new bootstrap.Modal(document.getElementById('pendidikanModal')).show();
+    return;
+  }
+  if(action === 'db-edu-del' && id){
+    if(confirm('Tandai pendidikan ini untuk dihapus saat Simpan Profil?')){
+      const dels = lsGet(LS_EDU_DELETES);
+      if(!dels.includes(id)) lsPush(LS_EDU_DELETES, id);
+      lsSet(LS_EDU_UPDATES, lsGet(LS_EDU_UPDATES).filter(x=> String(x.id)!==String(id)));
+      markDbItemPending(itemEl, '(akan dihapus saat Simpan Profil)');
+    }
+    return;
+  }
+});
+</script>
+
+<script>
+// ===============================
+// Submit modal Pengalaman & Pendidikan (prioritas: db-edit -> draft-edit -> add)
+// ===============================
+(function(){
   const expForm = document.getElementById('formPengalaman');
-  const btnSaveExp = document.getElementById('btnSaveExp');
   const expDesc = document.getElementById('expDesc');
   const expDescCount = document.getElementById('expDescCount');
+  const eduForm = document.getElementById('formPendidikan');
 
-  expForm?.addEventListener('submit', (e)=>{
-    e.preventDefault();
- //   btnSaveExp.disabled = true;
-
-    const item = {
+  function collectExp(){
+    return {
       role:        expForm.role.value.trim(),
       company:     expForm.company.value.trim(),
-      industry:    expForm.industry.value,
+      industry:    expForm.industry?.value ?? '',
       start_month: document.getElementById('expStartMonth').value,
       start_year:  document.getElementById('expStartYear').value,
       is_current:  document.getElementById('expIsCurrent').checked ? 1 : 0,
       end_month:   document.getElementById('expIsCurrent').checked ? "" : document.getElementById('expEndMonth').value,
       end_year:    document.getElementById('expIsCurrent').checked ? "" : document.getElementById('expEndYear').value,
-      description: expDesc.value
+      description: (expDesc?.value ?? '')
     };
-
-    addPending(LS_EXP, item);
-    renderPendingExperiences();
-
-    $.ambiance?.({message:'Pengalaman ditambahkan (belum disimpan).', type:'success'});
-    bootstrap.Modal.getInstance(document.getElementById('pengalamanModal'))?.hide();
-
-    expForm.reset();
-    if(expDescCount) expDescCount.textContent='0';
-   // btnSaveExp.disabled = false;
-  });
-
-  // ====== Pendidikan: submit ke localStorage, bukan DB ======
-  const eduForm = document.getElementById('formPendidikan');
-  const btnSaveEdu = document.getElementById('btnSaveEdu');
-
-  eduForm?.addEventListener('submit', (e)=>{
-    e.preventDefault();
-  //  btnSaveEdu.disabled = true;
-
-    const item = {
+  }
+  function collectEdu(){
+    return {
       institution: eduForm.institution.value.trim(),
       major:       eduForm.major.value.trim(),
       start_month: document.getElementById('eduStartMonth').value,
@@ -1282,32 +1425,138 @@ document.addEventListener('DOMContentLoaded', () => {
       end_month:   document.getElementById('eduIsCurrent').checked ? "" : document.getElementById('eduEndMonth').value,
       end_year:    document.getElementById('eduIsCurrent').checked ? "" : document.getElementById('eduEndYear').value
     };
+  }
 
-    addPending(LS_EDU, item);
-    renderPendingEducations();
+  if (expForm){
+    expForm.addEventListener('submit', (e)=>{
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      const item = collectExp();
 
-    $.ambiance?.({message:'Pendidikan ditambahkan (belum disimpan).', type:'success'});
-    bootstrap.Modal.getInstance(document.getElementById('pendidikanModal'))?.hide();
+      // 1) Edit DB?
+      if (__editingExpDbId){
+        lsUpsertById(LS_EXP_UPDATES, __editingExpDbId, { id: __editingExpDbId, ...item });
+        lsRemoveValue(LS_EXP_DELETES, __editingExpDbId);
+        const sel = `[data-src="db"][data-id="${CSS?.escape ? CSS.escape(__editingExpDbId) : __editingExpDbId}"]`;
+        const el  = document.querySelector(sel);
+        if (el){
+          el.dataset.role = item.role;
+          el.dataset.company = item.company;
+          el.dataset.industry = item.industry;
+          el.dataset.start_month = item.start_month;
+          el.dataset.start_year = item.start_year;
+          el.dataset.is_current = String(item.is_current);
+          el.dataset.end_month = item.end_month;
+          el.dataset.end_year = item.end_year;
+          el.dataset.description = item.description;
+          markDbItemPending(el, '(perubahan menunggu Simpan Profil)');
+        }
+        __editingExpDbId = null;
+        $.ambiance?.({message:'Perubahan pengalaman disimpan ke draft (belum ke server).', type:'success'});
+        bootstrap.Modal.getInstance(document.getElementById('pengalamanModal'))?.hide();
+        expForm.reset(); if(expDescCount) expDescCount.textContent='0';
+        return;
+      }
 
-    eduForm.reset();
-    btnSaveEdu.disabled = false;
-  });
+      // 2) Edit draft?
+      if (typeof __editingExpIndex === 'number'){
+        lsUpdateAt(LS_EXP, __editingExpIndex, item);
+        __editingExpIndex = null;
+        $.ambiance?.({message:'Pengalaman diperbarui (belum disimpan).', type:'success'});
+        renderPendingExperiences();
+        bootstrap.Modal.getInstance(document.getElementById('pengalamanModal'))?.hide();
+        expForm.reset(); if(expDescCount) expDescCount.textContent='0';
+        return;
+      }
 
-  // ====== Override submit Profil: kirim pending LS + form ======
+      // 3) Tambah draft baru
+      addPending(LS_EXP, item);
+      $.ambiance?.({message:'Pengalaman ditambahkan (belum disimpan).', type:'success'});
+      renderPendingExperiences();
+      bootstrap.Modal.getInstance(document.getElementById('pengalamanModal'))?.hide();
+      expForm.reset(); if(expDescCount) expDescCount.textContent='0';
+    });
+  }
+
+  if (eduForm){
+    eduForm.addEventListener('submit', (e)=>{
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      const item = collectEdu();
+
+      // 1) Edit DB?
+      if (__editingEduDbId){
+        lsUpsertById(LS_EDU_UPDATES, __editingEduDbId, { id: __editingEduDbId, ...item });
+        lsRemoveValue(LS_EDU_DELETES, __editingEduDbId);
+        const sel = `[data-src="db"][data-id="${CSS?.escape ? CSS.escape(__editingEduDbId) : __editingEduDbId}"]`;
+        const el  = document.querySelector(sel);
+        if (el){
+          el.dataset.institution = item.institution;
+          el.dataset.major = item.major;
+          el.dataset.start_month = item.start_month;
+          el.dataset.start_year = item.start_year;
+          el.dataset.is_current = String(item.is_current);
+          el.dataset.end_month = item.end_month;
+          el.dataset.end_year = item.end_year;
+          markDbItemPending(el, '(perubahan menunggu Simpan Profil)');
+        }
+        __editingEduDbId = null;
+        $.ambiance?.({message:'Perubahan pendidikan disimpan ke draft (belum ke server).', type:'success'});
+        bootstrap.Modal.getInstance(document.getElementById('pendidikanModal'))?.hide();
+        eduForm.reset();
+        return;
+      }
+
+      // 2) Edit draft?
+      if (typeof __editingEduIndex === 'number'){
+        lsUpdateAt(LS_EDU, __editingEduIndex, item);
+        __editingEduIndex = null;
+        $.ambiance?.({message:'Pendidikan diperbarui (belum disimpan).', type:'success'});
+        renderPendingEducations();
+        bootstrap.Modal.getInstance(document.getElementById('pendidikanModal'))?.hide();
+        eduForm.reset();
+        return;
+      }
+
+      // 3) Tambah draft baru
+      addPending(LS_EDU, item);
+      $.ambiance?.({message:'Pendidikan ditambahkan (belum disimpan).', type:'success'});
+      renderPendingEducations();
+      bootstrap.Modal.getInstance(document.getElementById('pendidikanModal'))?.hide();
+      eduForm.reset();
+    });
+  }
+})();
+</script>
+
+<script>
+// ===============================
+// Submit form Profil: kirim draft + patch queue
+// ===============================
+document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('formProfil');
   const btn  = document.getElementById('btnSaveProfil');
+  if(!form) return;
 
-  form?.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    btn.disabled = true;
+    btn && (btn.disabled = true);
 
-    // ambil pending dari LS dan append sebagai JSON ke FormData
+    // Ambil pending draft
     const pendingExp = lsGet(LS_EXP);
     const pendingEdu = lsGet(LS_EDU);
+
+    // Patch queue DB
+    const expUpdates = lsGet(LS_EXP_UPDATES);
+    const expDeletes = lsGet(LS_EXP_DELETES);
+    const eduUpdates = lsGet(LS_EDU_UPDATES);
+    const eduDeletes = lsGet(LS_EDU_DELETES);
 
     const fd = new FormData(form);
     fd.append('experiences_json', JSON.stringify(pendingExp));
     fd.append('educations_json', JSON.stringify(pendingEdu));
+    fd.append('experiences_updates_json', JSON.stringify(expUpdates));
+    fd.append('experiences_deletes_json', JSON.stringify(expDeletes));
+    fd.append('educations_updates_json',  JSON.stringify(eduUpdates));
+    fd.append('educations_deletes_json',  JSON.stringify(eduDeletes));
 
     try {
       const res = await fetch(form.action, {
@@ -1323,32 +1572,37 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // sukses -> bersihkan LS & badge pending
-      localStorage.removeItem(LS_EXP);
-      localStorage.removeItem(LS_EDU);
+      // sukses -> bersihkan semua LS
+      [LS_EXP,LS_EDU,LS_EXP_UPDATES,LS_EXP_DELETES,LS_EDU_UPDATES,LS_EDU_DELETES].forEach(k=> localStorage.removeItem(k));
       renderPendingExperiences();
       renderPendingEducations();
 
+      // refresh token csrf jika disediakan server
       if (out?.token) {
         const csrf = form.querySelector('input[name="<?= csrf_token() ?>"]');
         if (csrf) csrf.value = out.token;
       }
 
-     // $.ambiance?.({ message: 'Profil & riwayat berhasil disimpan', type: "success" });
+      $.ambiance?.({ message: 'Profil & riwayat berhasil disimpan', type: "success" });
+      location.reload();
+      // optional: location.reload(); // jika ingin reload penuh
     } catch (err) {
       console.error(err);
       $.ambiance?.({ message: 'Network error', type: "error" });
     } finally {
-      btn.disabled = false;
+      btn && (btn.disabled = false);
     }
   });
 });
 </script>
 
 <script>
-document.getElementById('downloadKTA').addEventListener('click', function(){
+// ===============================
+// Download KTA (html2canvas)
+// ===============================
+document.getElementById('downloadKTA')?.addEventListener('click', function(){
   const ktaElement = document.getElementById('ktaCard');
-
+  if(!ktaElement) return;
   html2canvas(ktaElement, {backgroundColor: null}).then(canvas => {
     const link = document.createElement('a');
     link.download = 'KTA.png';
@@ -1358,17 +1612,25 @@ document.getElementById('downloadKTA').addEventListener('click', function(){
 });
 </script>
 
-
-<!-- Ubah Password area -->
 <script>
+// ===============================
+// Ubah Password (AJAX)
+// ===============================
 const csrfNameChgPass = '<?= csrf_token() ?>';
 let   csrfHashChgPass = '<?= csrf_hash() ?>';
 
-document.getElementById('btnSavePwd').addEventListener('click', async () => {
+document.getElementById('btnSavePwd')?.addEventListener('click', async () => {
   const cur = document.getElementById('current_password').value.trim();
   const np  = document.getElementById('new_password').value.trim();
   const nc  = document.getElementById('new_password_confirm').value.trim();
   const alertBox = document.getElementById('alertPwd');
+
+  function show(msg, isErr){
+    if(!alertBox) return;
+    alertBox.className = 'alert ' + (isErr ? 'alert-danger' : 'alert-success');
+    alertBox.innerHTML = msg;
+    alertBox.classList.remove('d-none');
+  }
 
   if (!cur || !np || !nc) return show('Semua field wajib diisi.', true);
   if (np.length < 8)      return show('Kata kunci baru minimal 8 karakter.', true);
@@ -1387,101 +1649,104 @@ document.getElementById('btnSavePwd').addEventListener('click', async () => {
       body: fd,
       credentials: 'same-origin' 
     });
-
     const data = await res.json().catch(() => ({}));
-    if (data.token) csrfHash = data.token;
-
+    if (data.token) csrfHashChgPass = data.token;
     if (!res.ok || data.ok === false) {
       const msg = data.error || (data.errors ? Object.values(data.errors).join('<br>') : 'Gagal memperbarui kata kunci.');
       return show(msg, true);
     }
-
     show(data.message || 'Kata kunci berhasil diperbarui.', false);
   } catch (e) {
     show('Terjadi kesalahan jaringan.', true);
   }
-
-  function show(msg, isErr){
-    alertBox.className = 'alert ' + (isErr ? 'alert-danger' : 'alert-success');
-    alertBox.innerHTML = msg;
-    alertBox.classList.remove('d-none');
-  }
 });
 </script>
 
-<!-- funciton edit profil -->
 <script>
+// ===============================
+// Tampilkan tombol Simpan hanya di tab personal
+// ===============================
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('formProfil');
-  const btn  = document.getElementById('btnSaveProfil');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    btn.disabled = true;
-
-    const fd = new FormData(form);
-
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
-        body: fd
-      });
-      const out = await res.json().catch(()=>null);
-
-      if (!res.ok || (out && out.ok === false)) {
-        const msg = (out?.errors ? Object.values(out.errors).join('<br>') : (out?.error || 'Gagal menyimpan profil'));
-        $.ambiance({ message: msg, type: "error", fade: false });
-        return;
-      }
-
-      localStorage.removeItem('draft_experiences');
-      localStorage.removeItem('draft_educations');
-
-      if (out?.token) {
-        const csrf = form.querySelector('input[name="<?= csrf_token() ?>"]');
-        if (csrf) csrf.value = out.token;
-      }
-
-      $.ambiance({ message: 'Profil berhasil disimpan', type: "success" });
-      location.reload();
-  
-    } catch (err) {
-      console.error(err);
-      $.ambiance({ message: 'Network error', type: "error" });
-    } finally {
-      btn.disabled = false;
-    }
+  const btnSave = document.getElementById('btnSaveProfil');
+  const tabLinks = document.querySelectorAll('#list-tab a[data-bs-toggle="list"]');
+  tabLinks.forEach(link => {
+    link.addEventListener('shown.bs.tab', function (e) {
+      const target = e.target.getAttribute('href');
+      if (target === '#list-personal' || target === '#list-profils' ) { btnSave.style.display = 'inline-block'; }
+      else { btnSave.style.display = 'none'; }
+    });
   });
+  if (!document.querySelector('#list-personal')?.classList.contains('show')) {
+    btnSave && (btnSave.style.display = 'none');
+  }
 });
 </script>
-<script>
-  function closeModalById(id){
-  const el = document.getElementById(id);
-  if (!el) return;
-  let modal = bootstrap.Modal.getInstance(el);
-  if (!modal) {
-    modal = new bootstrap.Modal(el);
-  }
-  modal.hide();
-}</script>
-
-
 
 <script>
-  window.__initialSkills = <?= json_encode($skillsFromDb, JSON_UNESCAPED_UNICODE) ?>;
+// ===============================
+// Avatar preview
+// ===============================
+document.getElementById('avatarInput')?.addEventListener('change', function (e) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function (evt) {
+    const img = document.getElementById('avatarPreview');
+    if(img) img.src = evt.target.result;
+  };
+  reader.readAsDataURL(file);
+});
 </script>
 
 <script>
+// ===============================
+// Modal deactivate
+// ===============================
+function openDeactivateModal(email){
+  const span = document.getElementById('deactivateEmail');
+  if(span) span.textContent = email || '';
+  const m = new bootstrap.Modal(document.getElementById('deactivateModal'));
+  m.show();
+}
+document.getElementById('btnConfirmDeactivate')?.addEventListener('click', async function(){
+  const email = (document.getElementById('deactivateEmail')?.textContent || '').trim();
+  const fd = new FormData();
+  fd.append('email', email);
+  fd.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+  try {
+    const res = await fetch('<?= base_url('profile/deactivate') ?>', {
+      method: 'POST',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      body: fd
+    });
+    const out = await res.json();
+    if (out.ok) {
+      bootstrap.Modal.getInstance(document.getElementById('deactivateModal'))?.hide();
+      $.ambiance?.({ message: 'Akun berhasil dinonaktifkan: ' + email, type: "success" });
+      setTimeout(()=>{ window.location.href = '<?= base_url('auth/logout') ?>'; }, 1500);
+    } else {
+      $.ambiance?.({ message: 'Gagal menonaktifkan akun: ' + (out.error || 'Tidak diketahui'), type: "error" });
+    }
+  } catch {
+    $.ambiance?.({ message: 'Network error', type: "error" });
+  }
+});
+</script>
+
+<script>
+// ===============================
+// Skills chips (tetap sama)
+// ===============================
 (function(){
   const skillsWrapper = document.getElementById('skillsWrapper');
   const skillsInput   = document.getElementById('skillsInput');
   const skillsHidden  = document.getElementById('skillsHidden');
-
+  window.__initialSkills = <?= json_encode($skillsFromDb, JSON_UNESCAPED_UNICODE) ?>;
   let skills = Array.isArray(window.__initialSkills) ? window.__initialSkills : [];
 
-  function syncHidden(){ skillsHidden.value = JSON.stringify(skills); }
+  function syncHidden(){ if(skillsHidden) skillsHidden.value = JSON.stringify(skills); }
   function render(){
+    if(!skillsWrapper) return;
     [...skillsWrapper.querySelectorAll('.chip')].forEach(el => el.remove());
     skills.forEach((t,i)=>{
       const chip = document.createElement('span');
@@ -1492,117 +1757,43 @@ document.addEventListener('DOMContentLoaded', () => {
     syncHidden();
   }
   function addFromInput(){
-    const val = skillsInput.value.trim();
+    const val = (skillsInput?.value || '').trim();
     if(!val) return;
     if(!skills.includes(val)) skills.push(val);
     skillsInput.value = '';
     render();
   }
-
-  skillsInput.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter' || e.key === ','){
-      e.preventDefault(); e.stopPropagation(); addFromInput();
-    }
+  skillsInput?.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ','){ e.preventDefault(); e.stopPropagation(); addFromInput(); }
   });
-  skillsInput.addEventListener('paste', (e)=>{
+  skillsInput?.addEventListener('paste', (e)=>{
     const text = (e.clipboardData || window.clipboardData).getData('text');
     if(text.includes(',')){
       e.preventDefault();
-      text.split(',').map(s=>s.trim()).filter(Boolean).forEach(s=>{
-        if(!skills.includes(s)) skills.push(s);
-      });
+      text.split(',').map(s=>s.trim()).filter(Boolean).forEach(s=>{ if(!skills.includes(s)) skills.push(s); });
       render();
     }
   });
-  skillsWrapper.addEventListener('click', (e)=>{
-    if(e.target.classList.contains('x')){
-      const i = +e.target.dataset.i;
-      skills.splice(i,1); render();
-    }
+  skillsWrapper?.addEventListener('click', (e)=>{
+    if(e.target.classList.contains('x')){ const i = +e.target.dataset.i; skills.splice(i,1); render(); }
   });
-  skillsInput.addEventListener('blur', addFromInput);
-
-  render(); // <- sekarang render pakai __initialSkills yang sudah ada
+  skillsInput?.addEventListener('blur', addFromInput);
+  render();
 })();
 </script>
 
 <script>
-  // buka modal + inject email
-  function openDeactivateModal(email){
-    document.getElementById('deactivateEmail').textContent = email || '';
-    const m = new bootstrap.Modal(document.getElementById('deactivateModal'));
-    m.show();
-  }
-
-  // klik konfirmasi -> callback/AJAX
-  document.getElementById('btnConfirmDeactivate').addEventListener('click', async function(){
-    const email = document.getElementById('deactivateEmail').textContent.trim();
-
-    // ---- Kirim ke server CI4 ----
-    const fd = new FormData();
-    fd.append('email', email);
-    fd.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
-
-    try {
-      const res = await fetch('<?= base_url('profile/deactivate') ?>', {
-        method: 'POST',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
-        body: fd
-      });
-      const out = await res.json();
-
-      if (out.ok) {
-        bootstrap.Modal.getInstance(document.getElementById('deactivateModal')).hide();
-        alert('Akun berhasil dinonaktifkan: ' + email);
-        $.ambiance({ message: 'Akun berhasil dinonaktifkan:' + email, type: "success" });
-        setTimeout(function(){
-            window.location.href = '<?= base_url('auth/logout') ?>';
-        }, 1500); // 1,5 detik
-      } else {
-        alert('Gagal menonaktifkan akun: ' + (out.error || 'Tidak diketahui'));
-        $.ambiance({ message: 'Gagal menonaktifkan akun' + (out.error || 'Tidak diketahui'), type: "error" });
-      }
-    } catch (e) {
-      $.ambiance({ message: 'Network error', type: "error" });
-    }
-  });
+// ===============================
+// Util: close modal by id
+// ===============================
+function closeModalById(id){
+  const el = document.getElementById(id);
+  if (!el) return;
+  let modal = bootstrap.Modal.getInstance(el);
+  if (!modal) { modal = new bootstrap.Modal(el); }
+  modal.hide();
+}
 </script>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const btnSave = document.getElementById('btnSaveProfil');
-  const tabLinks = document.querySelectorAll('#list-tab a[data-bs-toggle="list"]');
-
-  tabLinks.forEach(link => {
-    link.addEventListener('shown.bs.tab', function (e) {
-      const target = e.target.getAttribute('href'); // contoh: #list-personal
-      
-      if (target === '#list-personal') {
-        btnSave.style.display = 'inline-block'; // tampilkan tombol
-      } else {
-        btnSave.style.display = 'none'; // sembunyikan
-      }
-    });
-  });
-
-  // Set awal: hanya tampil kalau tab personal
-  if (!document.querySelector('#list-personal').classList.contains('show')) {
-    btnSave.style.display = 'none';
-  }
-});
-</script>
-
-<script>
-document.getElementById('avatarInput').addEventListener('change', function (e) {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (evt) {
-      document.getElementById('avatarPreview').src = evt.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-});
-</script>
 
 <?= $this->endSection() ?>

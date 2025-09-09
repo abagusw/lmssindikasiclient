@@ -384,153 +384,212 @@ class User extends BaseController
         return redirect()->back()->with('success','Kata kunci berhasil diperbarui.');
     }
 
-    public function saveProfile()
-        {
-            if (!$this->request->isAJAX()) return $this->response->setStatusCode(400)->setJSON(['ok'=>false,'error'=>'Bad request']);
-
-            $userId = session()->get('id');
-            if (!$userId) return $this->response->setStatusCode(401)->setJSON(['ok'=>false,'error'=>'Unauthorized']);
-            $exps = json_decode($this->request->getPost('experiences_json') ?? '[]', true);
-            $edus = json_decode($this->request->getPost('educations_json') ?? '[]', true);
-            $bahasa = $this->request->getPost('bahasa'); // array atau null
-            if (!is_array($bahasa)) {
-                $bahasa = [];
-            }
-            $bahasa = array_map('trim', $bahasa);
-            $bahasa = array_unique($bahasa);
-            $rules = [
-                'fullname' => 'required|min_length[3]',
-                'email'    => 'required|valid_email',
-                'telp'     => 'required',
-                'gender'   => 'required',
-                'kota_kelahiran' => 'required',
-                'tanggal_lahir'  => 'required|valid_date',
-                'kota_domisili'  => 'required',
-                'pendidikan_terakhir' => 'required',
-                'nama_instansi_pendidikan' => 'required',
-            ];
-            if (! $this->validate($rules)) {
-                return $this->response->setStatusCode(422)->setJSON(['ok'=>false,'errors'=>$this->validator->getErrors()]);
-            }
-
-            $disArr = $this->request->getPost('disabilitas') ?? [];
-            if (!is_array($disArr)) $disArr = [$disArr];
-
-            $skillsJson = $this->request->getPost('skills') ?? '[]';
-            $skillsArr  = json_decode($skillsJson, true);
-            if (!is_array($skillsArr)) $skillsArr = [];
-
-            $clean = [];
-            foreach ($skillsArr as $s) {
-                $s = trim((string)$s);
-                if ($s === '') continue;
-                if (mb_strlen($s) > 100) $s = mb_substr($s, 0, 100);
-                $clean[strtolower($s)] = $s; 
-            }
-            $clean = array_slice(array_values($clean), 0, 50);
-
-            $data = [
-                'nama_lengkap'            => $this->request->getPost('fullname'),
-                'nama_panggilan'          => $this->request->getPost('nama_panggilan'),
-                'referensi'               => $this->request->getPost('referensi'),
-                'email'                   => $this->request->getPost('email'),
-                'no_hp'                   => $this->request->getPost('telp'),
-                'jenis_kelamin'           => $this->request->getPost('gender'),
-                'tempat_lahir'            => $this->request->getPost('kota_kelahiran'),
-                'tanggal_lahir'           => $this->request->getPost('tanggal_lahir'),
-                'domisili'                => $this->request->getPost('kota_domisili'),
-                'pendidikan_terakhir'     => $this->request->getPost('pendidikan_terakhir'),
-                'nama_instansi_pendidikan'=> $this->request->getPost('nama_instansi_pendidikan'),
-                'pengalaman_organisasi'   => $this->request->getPost('pengalaman_organisasi'),
-                'disabilitas'               => implode(',', $disArr),
-                'disabilitas_lainnya'     => $this->request->getPost('disabilitas_lainnya'),
-                'link_instagram'          => $this->request->getPost('link_instagram'),
-                'link_twitter'            => $this->request->getPost('link_twitter'),
-                'link_facebook'           => $this->request->getPost('link_facebook'),
-                'link_linkedin'           => $this->request->getPost('link_linkedin'),
-                'keahlian'                => json_encode($clean, JSON_UNESCAPED_UNICODE),
-                'bahasa'                  => json_encode($bahasa, JSON_UNESCAPED_UNICODE),
-                'biografi'                => $this->request->getPost('biografi'),
-                // 'no_hp'                   => $this->request->getPost('phone'),
-            ];
-
-            $memberModel = new \App\Models\MemberModel();
-            $db = \Config\Database::connect();
-
-            $db->transStart();
-
-            // 1) Update profil
-            if (! $memberModel->update($userId, $data)) {
-                $db->transRollback();
-                return $this->response->setStatusCode(500)->setJSON(['ok'=>false,'error'=>'Gagal menyimpan']);
-            }
-
-            // 2) Replace penuh pengalaman
-            if (is_array($exps)) {
-               // $db->table('tb_pengalaman')->where('user_id', $userId)->delete();
-
-                $rows = [];
-                $now = date('Y-m-d H:i:s');
-                foreach ($exps as $x) {
-                    if (empty($x['role']) || empty($x['company'])) continue;
-
-                    $isCur = !empty($x['is_current']) ? 1 : 0;
-                    $rows[] = [
-                        'user_id'     => $userId,
-                        'role'        => $x['role']        ?? null,
-                        'company'     => $x['company']     ?? null,
-                        'industry'    => $x['industry']    ?? null,
-                        'start_month' => $x['start_month'] ?? null,
-                        'start_year'  => $x['start_year']  ?? null,
-                        'is_current'  => $isCur,
-                        'end_month'   => $isCur ? null : ($x['end_month'] ?? null),
-                        'end_year'    => $isCur ? null : ($x['end_year']  ?? null),
-                        'description' => $x['description'] ?? null,
-                        'created_at'  => $now,
-                    ];
-                }
-                if (!empty($rows)) {
-                    $db->table('tb_pengalaman')->insertBatch($rows);
-                }
-            }
-
-            // 3) Replace penuh pendidikan
-            if (is_array($edus)) {
-                //$db->table('tb_pendidikan')->where('user_id', $userId)->delete();
-
-                $rows = [];
-                $now = date('Y-m-d H:i:s');
-                foreach ($edus as $e) {
-                    if (empty($e['institution']) || empty($e['major'])) continue;
-
-                    $isCur = !empty($e['is_current']) ? 1 : 0;
-                    $rows[] = [
-                        'user_id'     => $userId,
-                        'institution' => $e['institution'] ?? null,
-                        'major'       => $e['major']       ?? null,
-                        'start_month' => $e['start_month'] ?? null,
-                        'start_year'  => $e['start_year']  ?? null,
-                        'is_current'  => $isCur,
-                        'end_month'   => $isCur ? null : ($e['end_month'] ?? null),
-                        'end_year'    => $isCur ? null : ($e['end_year']  ?? null),
-                        'created_at'  => $now,
-                    ];
-                }
-                if (!empty($rows)) {
-                    $db->table('tb_pendidikan')->insertBatch($rows);
-                }
-            }
-
-            $db->transComplete();
-
-            if ($db->transStatus() === false) {
-                return $this->response->setStatusCode(500)->setJSON(['ok'=>false,'error'=>'Gagal menyimpan data pengalaman/pendidikan']);
-            }
-
-            $this->session->set('domisili',$this->request->getPost('kota_domisili'));
-
-            return $this->response->setJSON(['ok'=>true,'token'=>csrf_hash()]);
+public function saveProfile()
+{
+    if (!$this->request->isAJAX()) {
+        return $this->response->setStatusCode(400)->setJSON(['ok'=>false,'error'=>'Bad request']);
     }
+
+    $userId = session()->get('id');
+    if (!$userId) {
+        return $this->response->setStatusCode(401)->setJSON(['ok'=>false,'error'=>'Unauthorized']);
+    }
+
+    // --- Ambil payload draft baru ---
+    $exps = json_decode($this->request->getPost('experiences_json') ?? '[]', true) ?: [];
+    $edus = json_decode($this->request->getPost('educations_json') ?? '[]', true) ?: [];
+
+    // --- Ambil payload patch (update/delete untuk data DB) ---
+    $expUpdates = json_decode($this->request->getPost('experiences_updates_json') ?? '[]', true) ?: [];
+    $expDeletes = json_decode($this->request->getPost('experiences_deletes_json') ?? '[]', true) ?: [];
+    $eduUpdates = json_decode($this->request->getPost('educations_updates_json') ?? '[]', true) ?: [];
+    $eduDeletes = json_decode($this->request->getPost('educations_deletes_json') ?? '[]', true) ?: [];
+
+    // --- Form inputs lainnya ---
+    $bahasa = $this->request->getPost('bahasa');
+    if (!is_array($bahasa)) $bahasa = [];
+    $bahasa = array_values(array_unique(array_map('trim', $bahasa)));
+
+    $rules = [
+        'fullname' => 'required|min_length[3]',
+        'email'    => 'required|valid_email',
+        'telp'     => 'required',
+        'gender'   => 'required',
+        'kota_kelahiran' => 'required',
+        'tanggal_lahir'  => 'required|valid_date',
+        'kota_domisili'  => 'required',
+        'pendidikan_terakhir' => 'required',
+        'nama_instansi_pendidikan' => 'required',
+    ];
+    if (! $this->validate($rules)) {
+        return $this->response->setStatusCode(422)->setJSON(['ok'=>false,'errors'=>$this->validator->getErrors()]);
+    }
+
+    $disArr = $this->request->getPost('disabilitas') ?? [];
+    if (!is_array($disArr)) $disArr = [$disArr];
+
+    // skills (chips)
+    $skillsArr = json_decode($this->request->getPost('skills') ?? '[]', true);
+    if (!is_array($skillsArr)) $skillsArr = [];
+    $clean = [];
+    foreach ($skillsArr as $s) {
+        $s = trim((string)$s);
+        if ($s === '') continue;
+        if (mb_strlen($s) > 100) $s = mb_substr($s, 0, 100);
+        $clean[strtolower($s)] = $s;
+    }
+    $clean = array_slice(array_values($clean), 0, 50);
+
+    $data = [
+        'nama_lengkap'              => $this->request->getPost('fullname'),
+        'nama_panggilan'            => $this->request->getPost('nama_panggilan'),
+        'referensi'                 => $this->request->getPost('referensi'),
+        'email'                     => $this->request->getPost('email'),
+        'no_hp'                     => $this->request->getPost('telp'),
+        'jenis_kelamin'             => $this->request->getPost('gender'),
+        'tempat_lahir'              => $this->request->getPost('kota_kelahiran'),
+        'tanggal_lahir'             => $this->request->getPost('tanggal_lahir'),
+        'domisili'                  => $this->request->getPost('kota_domisili'),
+        'pendidikan_terakhir'       => $this->request->getPost('pendidikan_terakhir'),
+        'nama_instansi_pendidikan'  => $this->request->getPost('nama_instansi_pendidikan'),
+        'pengalaman_organisasi'     => $this->request->getPost('pengalaman_organisasi'),
+        'disabilitas'               => implode(',', $disArr),
+        'disabilitas_lainnya'       => $this->request->getPost('disabilitas_lainnya'),
+        'link_instagram'            => $this->request->getPost('link_instagram'),
+        'link_twitter'              => $this->request->getPost('link_twitter'),
+        'link_facebook'             => $this->request->getPost('link_facebook'),
+        'link_linkedin'             => $this->request->getPost('link_linkedin'),
+        'keahlian'                  => json_encode($clean, JSON_UNESCAPED_UNICODE),
+        'bahasa'                    => json_encode($bahasa, JSON_UNESCAPED_UNICODE),
+        'biografi'                  => $this->request->getPost('biografi'),
+    ];
+
+    $db = \Config\Database::connect();
+    $memberModel = new \App\Models\MemberModel();
+    $now = date('Y-m-d H:i:s');
+
+    // helper untuk normalisasi payload exp/edu
+    $normExp = function(array $x): array {
+        $isCur = !empty($x['is_current']) ? 1 : 0;
+        return [
+            'role'        => $x['role']        ?? null,
+            'company'     => $x['company']     ?? null,
+            'industry'    => $x['industry']    ?? null,
+            'start_month' => isset($x['start_month']) ? (int)$x['start_month'] ?: null : null,
+            'start_year'  => isset($x['start_year'])  ? (int)$x['start_year']  ?: null : null,
+            'is_current'  => $isCur,
+            'end_month'   => $isCur ? null : (isset($x['end_month']) ? (int)$x['end_month'] ?: null : null),
+            'end_year'    => $isCur ? null : (isset($x['end_year'])  ? (int)$x['end_year']  ?: null : null),
+            'description' => $x['description'] ?? null,
+        ];
+    };
+    $normEdu = function(array $e): array {
+        $isCur = !empty($e['is_current']) ? 1 : 0;
+        return [
+            'institution' => $e['institution'] ?? null,
+            'major'       => $e['major']       ?? null,
+            'start_month' => isset($e['start_month']) ? (int)$e['start_month'] ?: null : null,
+            'start_year'  => isset($e['start_year'])  ? (int)$e['start_year']  ?: null : null,
+            'is_current'  => $isCur,
+            'end_month'   => $isCur ? null : (isset($e['end_month']) ? (int)$e['end_month'] ?: null : null),
+            'end_year'    => $isCur ? null : (isset($e['end_year'])  ? (int)$e['end_year']  ?: null : null),
+        ];
+    };
+
+    $db->transStart();
+
+    // 1) Update profil
+    if (! $memberModel->update($userId, $data)) {
+        $db->transRollback();
+        return $this->response->setStatusCode(500)->setJSON(['ok'=>false,'error'=>'Gagal menyimpan profil']);
+    }
+
+    // 2) PATCH DB: Hapus pengalaman/pendidikan yang ditandai
+    if (!empty($expDeletes)) {
+        // pastikan hanya milik user
+        $db->table('tb_pengalaman')
+           ->where('user_id', $userId)
+           ->whereIn('id', array_map('intval', $expDeletes))
+           ->delete();
+    }
+    if (!empty($eduDeletes)) {
+        $db->table('tb_pendidikan')
+           ->where('user_id', $userId)
+           ->whereIn('id', array_map('intval', $eduDeletes))
+           ->delete();
+    }
+
+    // 3) PATCH DB: Update pengalaman/pendidikan yang diedit
+    if (!empty($expUpdates)) {
+        foreach ($expUpdates as $row) {
+            if (empty($row['id'])) continue;
+            $payload = $normExp($row);
+            // minimal validasi
+            if (empty($payload['role']) || empty($payload['company'])) continue;
+
+            $payload['updated_at'] = $now;
+            $db->table('tb_pengalaman')
+               ->where('id', (int)$row['id'])
+               ->where('user_id', $userId)
+               ->update($payload);
+        }
+    }
+    if (!empty($eduUpdates)) {
+        foreach ($eduUpdates as $row) {
+            if (empty($row['id'])) continue;
+            $payload = $normEdu($row);
+            if (empty($payload['institution']) || empty($payload['major'])) continue;
+
+            $payload['updated_at'] = $now;
+            $db->table('tb_pendidikan')
+               ->where('id', (int)$row['id'])
+               ->where('user_id', $userId)
+               ->update($payload);
+        }
+    }
+
+    // 4) INSERT draft baru (yang dari localStorage)
+    if (is_array($exps) && !empty($exps)) {
+        $rows = [];
+        foreach ($exps as $x) {
+            $payload = $normExp($x);
+            if (empty($payload['role']) || empty($payload['company'])) continue;
+            $rows[] = $payload + [
+                'user_id'    => $userId,
+                'created_at' => $now,
+            ];
+        }
+        if (!empty($rows)) {
+            $db->table('tb_pengalaman')->insertBatch($rows);
+        }
+    }
+    if (is_array($edus) && !empty($edus)) {
+        $rows = [];
+        foreach ($edus as $e) {
+            $payload = $normEdu($e);
+            if (empty($payload['institution']) || empty($payload['major'])) continue;
+            $rows[] = $payload + [
+                'user_id'    => $userId,
+                'created_at' => $now,
+            ];
+        }
+        if (!empty($rows)) {
+            $db->table('tb_pendidikan')->insertBatch($rows);
+        }
+    }
+
+    $db->transComplete();
+
+    if ($db->transStatus() === false) {
+        return $this->response->setStatusCode(500)->setJSON(['ok'=>false,'error'=>'Gagal menyimpan data pengalaman/pendidikan']);
+    }
+
+    // set session ringan (opsional)
+    session()->set('domisili', $this->request->getPost('kota_domisili'));
+
+    return $this->response->setJSON(['ok'=>true,'token'=>csrf_hash()]);
+}
+
 
     public function deactiveProfile(){
         $userId = session()->get('id');
