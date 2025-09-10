@@ -55,11 +55,11 @@ class Dashboard extends BaseController
             $IdbuttonPay = "failed-button";
         }
 
-        $order_id = uniqid()."|".$this->session->get('id')."|3";
+        $order_id = uniqid()."|".$this->session->get('id')."|3|0";
         $param = [
             'transaction_details' => [
                 'order_id' => $order_id,
-                'gross_amount' => 75000,
+                'gross_amount' => 50000,
             ],
             'customer_details' => [
                 'first_name' => session()->get('nama_lengkap'),
@@ -67,9 +67,9 @@ class Dashboard extends BaseController
                 'email' => session()->get('email'),
             ],'item_details' => [
                 [
-                    'id' => 'iuran_3_bulan', // ID untuk item, bisa disesuaikan
-                    'name' => 'Iuran Awal 3 Bulan', // Nama item yang dibayar
-                    'price' => 75000, // Harga untuk 3 bulan
+                    'id' => 'iuran_2_bulan', // ID untuk item, bisa disesuaikan
+                    'name' => 'Iuran Awal 2 Bulan', // Nama item yang dibayar
+                    'price' => 50000, // Harga untuk 3 bulan
                     'quantity' => 1, // Jumlah item (hanya 1 untuk 3 bulan)
                 ],
             ],

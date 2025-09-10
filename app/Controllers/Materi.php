@@ -380,7 +380,7 @@ class Materi extends BaseController
     //     return $nomorAnggota;
     // }
 
-    public function generateNomorAnggota($cityId)
+    public function generateNomorAnggota10092025($cityId)
     {
         $db = \Config\Database::connect();
 
@@ -424,6 +424,50 @@ class Materi extends BaseController
 
         return $nomorAnggota;
     }
+
+
+public function generateNomorAnggota($cityId)
+{
+    $db = \Config\Database::connect();
+
+    $city = $db->table('ms_city')
+               ->select('kode')
+               ->where('id', $cityId)
+               ->get()
+               ->getRow();
+
+    if (!$city) {
+        return null;
+    }
+
+    $kodeKota = $city->kode;
+
+    $lastMember = $db->table('tb_member')
+        ->select('nomor_anggota')
+        ->like('nomor_anggota', '-' . $kodeKota, 'before')
+        ->orderBy('id', 'DESC')
+        ->get()
+        ->getRow();
+
+    if ($lastMember) {
+        // Ambil angka urut dari format SND/00001-KODE
+        preg_match('/SND\/(\d+)-' . preg_quote($kodeKota, '/') . '$/', $lastMember->nomor_anggota, $matches);
+        if (!empty($matches[1])) {
+            $lastNumber = (int) $matches[1];
+            $nomorUrut = $lastNumber + 1;
+        } else {
+            $nomorUrut = 1;
+        }
+    } else {
+        $nomorUrut = 1;
+    }
+
+    $nomorFormatted = str_pad($nomorUrut, 5, '0', STR_PAD_LEFT);
+    $nomorAnggota = 'SND/' . $nomorFormatted . '-' . $kodeKota;
+
+    return $nomorAnggota;
+}
+
 
 
 public function generateNomorAnggotaLLLL($cityId) //lock tabke

@@ -52,7 +52,7 @@
           
           
           <?php
-          $tagihan = "<h3 class='fw-bold'>Rp. 75,000</h3>";
+          $tagihan = "<h3 class='fw-bold'>Rp. 50,000</h3>";
           
         if($user_logged_in['isregisterpaid'] == 1){
           ?>
@@ -80,7 +80,7 @@
               </li>
               <li>
                 <i class="bi bi-check-circle-fill text-success me-2"></i>
-                Termasuk iuran wajib anggota selama 3 bulan 
+                Termasuk iuran wajib anggota selama 2 bulan 
               </li>
             </ul>
           </div>
