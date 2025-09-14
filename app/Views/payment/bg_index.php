@@ -149,8 +149,14 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
             <i class="bi bi-clock-history fs-4 text-warning"></i>
           </div>
           <div>
-            <small class="text-muted">Pembayaran Iuran Selanjutnya</small><br>
-            <strong><?= date('d M Y', strtotime($expired_dateOri)); ?></strong>
+            <?php 
+            if($today < $expired_date){
+              ?>
+              <small class="text-muted">Pembayaran Iuran Selanjutnya</small><br>
+              <strong><?= date('d M Y', strtotime($expired_dateOri)); ?></strong>
+            <?php }else{?>
+              <strong>Anda belum membayar iuran anggota</strong>
+          <?php } ?>
           </div>
         </div>
       </div>
