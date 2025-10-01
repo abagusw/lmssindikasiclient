@@ -321,6 +321,7 @@
                 <option value="Tetap">Tetap</option>
                 <option value="Kontrak">Kontrak</option>
                 <option value="Magang">Magang</option>
+                <option value="Lepas">Lepas</option>
               </select>
             </div>      
             <div class="col-md-12">
