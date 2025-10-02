@@ -442,26 +442,28 @@ public function generateNomorAnggota($cityId)
 
     $kodeKota = $city->kode;
 
+    // Ambil nomor terakhir tanpa memfilter berdasarkan domisili
     $lastMember = $db->table('tb_member')
         ->select('nomor_anggota')
-        ->like('nomor_anggota', '-' . $kodeKota, 'before')
+        // ->like('nomor_anggota', '-' . $kodeKota, 'before')
         ->orderBy('id', 'DESC')
         ->get()
         ->getRow();
 
     if ($lastMember) {
         // Ambil angka urut dari format SND/00001-KODE
-        preg_match('/SND\/(\d+)-' . preg_quote($kodeKota, '/') . '$/', $lastMember->nomor_anggota, $matches);
+        preg_match('/SND\/(\d+)-/', $lastMember->nomor_anggota, $matches);
         if (!empty($matches[1])) {
             $lastNumber = (int) $matches[1];
             $nomorUrut = $lastNumber + 1;
         } else {
-            $nomorUrut = 1;
+            $nomorUrut = 750;
         }
     } else {
-        $nomorUrut = 1;
+        $nomorUrut = 750;
     }
 
+    // Nomor urut baru mulai dari 750 karena nomor 1-749 akan dipakai member lama
     $nomorFormatted = str_pad($nomorUrut, 5, '0', STR_PAD_LEFT);
     $nomorAnggota = 'SND/' . $nomorFormatted . '-' . $kodeKota;
 

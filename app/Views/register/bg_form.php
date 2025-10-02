@@ -194,8 +194,11 @@
             <label class="form-label required">Gender</label>
             <select class="form-select" name="gender" id="gender" required>
               <option selected disabled>Pilih</option>
-              <option value="1">Laki-laki</option>
-              <option value="0">Perempuan</option>
+            <?php 
+                foreach($getGender as $gender){
+                  echo"
+                <option value=".$gender['id'].">".$gender['name']."</option>";}
+            ?>
             </select>
           </div>
 

@@ -177,7 +177,7 @@
 
       <!-- Description -->
       <p class="text-muted mb-0">
-        Pembayaran <strong>Iuran 3 Bulan</strong> kamu sudah berhasil dibayar dan diverifikasi
+        Pembayaran <strong>Iuran 2 Bulan</strong> kamu sudah berhasil dibayar dan diverifikasi
       </p>
       <a href="<?= base_url('materi/dasar/'.$course_id.'') ?>" class="btn btn-warning text-white px-4 mt-2 mx-auto d-block">
         Mulai pendidikan dasar

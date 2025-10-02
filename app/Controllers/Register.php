@@ -7,6 +7,7 @@ use App\Models\MemberModel;
 use App\Models\MasterSubsektor;
 use App\Models\MasterJabatan;
 use App\Models\MasterCityModel;
+use App\Models\MasterGenderModel;
 use App\Libraries\MyEncrypter;
 
 
@@ -19,6 +20,7 @@ class Register extends BaseController
         $this->masterCityModel = new MasterCityModel();
         $this->masterSubsektor = new MasterSubsektor();
         $this->masterJabatan = new MasterJabatan();
+        $this->masterGenderModel = new MasterGenderModel();
     }
 
 	public function formRegisterNextX()
@@ -87,6 +89,7 @@ class Register extends BaseController
         $data = [
             'dataKey' => $dataKey,
             'getCity' => $this->masterCityModel->findAll(),
+            'getGender' => $this->masterGenderModel->findAll(),
             'getDataJabatan' => $this->masterJabatan->findAll(),
             'getDataSubsektor' => $this->masterSubsektor->findAll(),
         ];
