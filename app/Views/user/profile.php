@@ -411,11 +411,11 @@
                             <label class="form-label required">Gender</label>
                             <?php $jk = old('gender', $member['jenis_kelamin'] ?? ''); ?>
                             <select class="form-select" name="gender" id="gender" required>
-                              <option disabled <?= $jk===''?'selected':''; ?>>Pilih</option>
+                              <option <?= $jk===''?'selected':''; ?>>Pilih</option>
             <?php 
                 foreach($getGender as $gender){
                   echo"
-                <option value=".$gender['id']." ".$jk==='1'?'selected':''.">".$gender['name']."</option>";}
+                <option value=".$gender['id']." ".$jk===$gender['id']?'selected':''.">".$gender['name']."</option>";}
             ?>
                             </select>
                           </div>
