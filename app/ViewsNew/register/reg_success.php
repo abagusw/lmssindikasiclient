@@ -60,20 +60,20 @@
 
     <!-- Judul -->
     <h3 class="fw-bold">Pendaftaran berhasil!</h3>
-    <p class="text-muted">Tim admin Sindikasi akan segera memproses permintaan Anda dalam kurun waktu <strong>maksimal 3 hari kerja</strong></p>
+    <p class="text-muted m-3">Sekretariat Nasional SINDIKASI akan segera memproses permintaan Anda dalam kurun waktu <strong>maksimal 3 hari kerja</strong></p>
 
     <!-- Alert Box -->
-    <div class="alert-box mt-4 mb-4">
+    <div class="alert-box m-3">
       <h6 class="fw-bold"><i class="bi bi-info-circle-fill text-primary"></i> Cara Aktivasi Akun</h6>
       <p class="mb-0">
         Setelah admin memverifikasi permintaan Anda, tautan aktivasi akan dikirim ke alamat email 
         <strong><?= $dataKey->email ?></strong> yang Anda daftarkan. Silakan cek alamat email tersebut secara reguler 
-        untuk dapat mengaktifkan akun dan mulai mengakses portal member Sindikasi.
+        untuk dapat mengaktifkan akun dan mulai mengakses portal member.
       </p>
     </div>
 
     <!-- Tombol -->
-    <a href="<?= base_url('/') ?>" class="btn btn-orange w-100">Kembali ke situs Web indikasi</a>
+    <a href="<?= base_url('/') ?>" class="btn btn-orange mb-3">Kembali</a>
   </div>
 </div>
 

@@ -376,7 +376,7 @@
 <header id="header" class="top-header">
   <div class="logo-container">
     <img src="<?=ASSETS_URL?>assets_fe/images/9fcd3c04308bf53c70c2817d1712d6f94b733228.png" alt="Kolektaria Logo" class="logo-img">
-    <span class="logo-text">kolektaria</span>
+    <span class="logo-text">SINDIKASI</span>
   </div>
   <div class="search-container">
     <img src="<?=ASSETS_URL?>assets_fe/images/I2178_165835_171_2594_152_2294.svg" alt="Search Icon" class="search-icon">

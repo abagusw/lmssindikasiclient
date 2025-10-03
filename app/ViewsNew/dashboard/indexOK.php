@@ -4,9 +4,8 @@
   <div class="banner d-flex">
     <img src="https://i.imgur.com/VZ2okQb.png" alt="emoji tangan" class="me-3" style="width: 80px; height: auto;">
     <div>
-      <h5 class="fw-bold">Selamat bergabung, Kawan!</h5>
-      <p class="mb-0">Kamu resmi jadi bagian dari gerakan kolektif kita! Lakukan pembayaran awal, ikuti materi pelatihan dasar agar semakin paham tujuan kita bersama, dan nantinya kamu akan menerima ID anggota resmi.</p>
-      <p class="mb-0">Bersama kita kuat — ayo mulai perjalanan ini bersama!</p>
+      <h5 class="fw-bold">Selamat bergabung!</h5>
+      <p class="mb-0">Lakukan pembayaran awal dan ikuti materi pendidikan dasar secara mandiri untuk mendapatkan nomor keanggotaan serta terdaftar sebagai anggota aktif Serikat SINDIKASI.</p>
     </div>
   </div>
   <?php
@@ -49,7 +48,7 @@
       <div class="tab-pane fade show active" id="pembayaran">
         <div class="card border-success rounded-4 shadow-sm p-4">
           <h5 class="fw-bold">Pembayaran Iuran Awal</h5>
-          <p>Sebagai bentuk komitmen awal dan dukungan terhadap gerakan bersama, silakan lakukan pembayaran iuran awal. Iuran ini membantu mendukung operasional server dan memungkinkan semua anggota mendapatkan akses penuh ke manfaat, pelatihan, dan kegiatan komunitas.</p>
+          <p>Sebagai bentuk komitmen awal, silakan lakukan pembayaran iuran awal yang berlaku untuk 2 bulan.</p>
           
           
           <?php
