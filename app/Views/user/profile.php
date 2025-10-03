@@ -414,8 +414,10 @@
                               <option <?= $jk===''?'selected':''; ?>>Pilih</option>
             <?php 
                 foreach($getGender as $gender){
-                  echo"
-                <option value=".$gender['id']." ".$jk===$gender['id']?'selected':''.">".$gender['name']."</option>";}
+                  ?>
+                  <option value="<?= $gender['id']; ?>" <?= $jk===$gender['id']?'selected':''; ?>><?= $gender['name']; ?></option>
+                  <?php
+                  }
             ?>
                             </select>
                           </div>
