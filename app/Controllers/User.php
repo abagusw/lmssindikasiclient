@@ -9,6 +9,7 @@ use App\Models\MasterJabatan;
 use App\Models\PengalamanModel;
 use App\Models\PendidikanModel;
 use App\Models\MemberModel;
+use App\Models\MasterGenderModel;
 
 class User extends BaseController
 {
@@ -18,6 +19,7 @@ class User extends BaseController
         $this->masterCityModel = new MasterCityModel();
         $this->masterSubsektor = new MasterSubsektor();
         $this->masterJabatan = new MasterJabatan();
+        $this->masterGenderModel = new MasterGenderModel();
     }
 
     protected function _validation()
@@ -190,6 +192,7 @@ class User extends BaseController
             'getCityById' => $this->masterCityModel->where('id',$this->session->get('domisili'))->first(),
             'session' => \Config\Services::session(),
             'getCity' => $this->masterCityModel->findAll(),
+            'getGender' => $this->masterGenderModel->findAll(),
             'getDataJabatan' => $this->masterJabatan->findAll(),
             'getDataSubsektor' => $this->masterSubsektor->findAll(),
             'validation' => \Config\Services::validation(),

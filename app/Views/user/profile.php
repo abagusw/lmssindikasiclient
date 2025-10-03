@@ -412,9 +412,11 @@
                             <?php $jk = old('gender', $member['jenis_kelamin'] ?? ''); ?>
                             <select class="form-select" name="gender" id="gender" required>
                               <option disabled <?= $jk===''?'selected':''; ?>>Pilih</option>
-                              <option value="1" <?= $jk==='1'?'selected':''; ?>>Laki-laki</option>
-                              <option value="0" <?= $jk==='0'?'selected':''; ?>>Perempuan</option>
-                              <option value="2" <?= $jk==='2'?'selected':''; ?>>Lainnya</option>
+            <?php 
+                foreach($getGender as $gender){
+                  echo"
+                <option value=".$gender['id']." ".$jk==='1'?'selected':''.">".$gender['name']."</option>";}
+            ?>
                             </select>
                           </div>
 
