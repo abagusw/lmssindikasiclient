@@ -231,7 +231,7 @@
             </select>
           </div>
 
-          <div class="col-md-6">
+<!--           <div class="col-md-6">
             <label class="form-label required">Pendidikan terakhir</label>
             <select class="form-select" name="pendidikan_terakhir" id="pendidikan_terakhir" required>
               <option selected disabled>Pilih</option>
@@ -243,9 +243,9 @@
               <option value="S2">S2</option>
               <option value="S3">S3</option>
             </select>
-          </div>
+          </div> -->
 
-          <div class="col-md-12">
+          <div class="col-md-6">
             <label class="form-label required">Nama instansi pendidikan</label>
             <input type="text" name="nama_instansi_pendidikan" id="nama_instansi_pendidikan" class="form-control" placeholder="Ketik di sini" required>
           </div>
@@ -260,14 +260,15 @@
             <label class="form-label">Disabilitas <small>(opsional)</small></label>
             <div class="row">
               <div class="col-md-4">
-                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna netra" id="netra">Tuna Netra</div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna rungu" id="rungu">Tuna rungu</label></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna grahita" id="grahita">Tuna grahita</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="netra" id="netra">Tuna Netra</div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="rungu" id="rungu">Tuna Rungu</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="daksa" id="rungu">Tuna Daksa</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="grahita" id="grahita">Tuna Grahita</label></div>
               </div>
               <div class="col-md-4">
-                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna laras" id="laras">Tuna laras</label></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna wicara" id="wicara">Tuna wicara</label></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Spektrum autisme" id="spektrum">Spektrum autisme</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="laras" id="laras">Tuna Laras</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="wicara" id="wicara">Tuna Wicara</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Spektrum autisme" id="spektrum">Gangguan Spektrum autisme</label></div>
               </div>
               <div class="col-md-4">
                 <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Lainnya" id="lainnya">Lainnya</label></div>
@@ -592,7 +593,7 @@
         gender: "required",
         kota_kelahiran: "required",
         kota_domisili: "required",
-        pendidikan_terakhir: "required",
+       // pendidikan_terakhir: "required",
         nama_instansi_pendidikan: "required",
         subsektor: "required",
         instansi: "required",
@@ -635,7 +636,7 @@
         gender: "Pilih jenis kelamin",
         kota_kelahiran: "Pilih kota kelahiran",
         kota_domisili: "Pilih kota domisili",
-        pendidikan_terakhir: "Pilih pendidikan terakhir",
+      //  pendidikan_terakhir: "Pilih pendidikan terakhir",
         nama_instansi_pendidikan: "Wajib diisi",
         subsektor: "Wajib dipilih",
         instansi: "Wajib diisi",

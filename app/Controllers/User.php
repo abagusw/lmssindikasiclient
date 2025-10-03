@@ -421,7 +421,7 @@ public function saveProfile()
         'kota_kelahiran' => 'required',
         'tanggal_lahir'  => 'required|valid_date',
         'kota_domisili'  => 'required',
-        'pendidikan_terakhir' => 'required',
+        //'pendidikan_terakhir' => 'required',
         'nama_instansi_pendidikan' => 'required',
     ];
     if (! $this->validate($rules)) {
@@ -453,7 +453,7 @@ public function saveProfile()
         'tempat_lahir'              => $this->request->getPost('kota_kelahiran'),
         'tanggal_lahir'             => $this->request->getPost('tanggal_lahir'),
         'domisili'                  => $this->request->getPost('kota_domisili'),
-        'pendidikan_terakhir'       => $this->request->getPost('pendidikan_terakhir'),
+       // 'pendidikan_terakhir'       => $this->request->getPost('pendidikan_terakhir'),
         'nama_instansi_pendidikan'  => $this->request->getPost('nama_instansi_pendidikan'),
         'pengalaman_organisasi'     => $this->request->getPost('pengalaman_organisasi'),
         'disabilitas'               => implode(',', $disArr),

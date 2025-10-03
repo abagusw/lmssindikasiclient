@@ -453,7 +453,10 @@
                               <?php endforeach; ?>
                             </select>
                           </div>
-
+                          <?php
+                          $showPendidikan = false; // Atur menjadi false untuk mematikan, true untuk menampilkan
+                          if ($showPendidikan) {
+                            ?>
                           <div class="col-md-6">
                             <label class="form-label required">Pendidikan terakhir</label>
                             <?php $pend = old('pendidikan_terakhir', $member['pendidikan_terakhir'] ?? ''); ?>
@@ -467,7 +470,9 @@
                                 }
                               ?>
                             </select>
-                          </div>
+                          </div>   <?php
+                          }
+                          ?>
 
                           <div class="col-md-12">
                             <label class="form-label required">Nama instansi pendidikan</label>

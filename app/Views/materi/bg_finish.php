@@ -131,40 +131,66 @@
 </style>
 
 <style>
-  .kta-card {
-    width: 100%;
-    max-width: 240px; /* Sesuaikan ukuran kartu dengan gambar pertama */
-    border-radius: 16px; /* Menjaga sudut kartu tetap melengkung */
-    overflow: hidden;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Shadow yang lebih halus */
-    margin-bottom: 20px;
-  }
+      .card-kta {
+        background: linear-gradient(145deg, #111, #222);
+        color: white;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        width: 260px;
+        margin: auto;
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .card-kta h5 {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+    .card-kta p {
+        margin: 5px 0;
+    }
+    .kta-card{border:1px solid #e7eaf0;border-radius:14px;background:#fff}
+    .cta-panel{border:1px solid #dce7ff;background:#f4f8ff;border-radius:12px}
 
-  .kta-image {
-    height: 220px; /* Sesuaikan tinggi gambar */
-    background: #ffffff url('<?= base_url("public/assets/images/kta_finish.png"); ?>') center/cover no-repeat;
-    background-size: contain; /* Agar gambar tidak terdistorsi */
-  }
+        .kta-background {
+        width: 260px;           
+        height: 400px;          
+        background-image: url('<?= base_url('public/assets/images/bg_kta.png') ?>');
+        background-size: cover;   
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 12px;
+        position: relative;
+        color: white;
+        font-family: sans-serif;
+      }
 
-  .kta-body {
-    padding: 20px 16px; /* Menambahkan ruang pada bagian bawah */
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-  }
+      .kta-text {
+        position: absolute;
+        bottom: 80px;            
+        width: 100%;
+        text-align: center;
+      }
 
-  .kta-body h3 {
-    font-size: 18px; /* Ukuran font nama yang lebih sesuai */
-    font-weight: bold;
-    margin: 8px 0;
-    text-transform: uppercase; /* Menambah kesan tegas */
-  }
+      .kta-text .name {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 4%;
+        margin-left: 15%;
+      }
 
-  .kta-body p {
-    font-size: 14px;
-    color: #f0f0f0;
-    margin-top: 4px;
-  }
+      .kta-text .line {
+        width: 70%;
+        height: 1px;
+        background-color: white;
+        margin: 4px auto;
+      }
+
+      .kta-text .number {
+        font-size: 0.9rem;
+        margin-bottom: 15%;
+        margin-left: 15%;
+      }
 
   .btn-orange {
     background-color: #f2550e;
@@ -481,14 +507,20 @@
         </p>
 
         <!-- Card section -->
-        <div class="d-flex flex-wrap justify-content-center my-4">
-            <!-- Card section -->
-          <div class="kta-card" id="ktaArea">
-            <div class="kta-image"></div>
-            <div class="kta-body text-center">
-              <h6 class="mb-1"><?= $user_logged_in['nama_lengkap']; ?></h6>
-              <small><?= $user_logged_in['nomor_anggota']; ?></small>
+        <div class="d-flex justify-content-center my-3 position-relative">
+          <!-- pakai <img> kalau sudah punya file kartu -->
+          <!-- <img src="path/kartu-anda.png" class="img-fluid" style="max-width:260px;border-radius:14px"> -->
+          <div class="mock position-relative d-flex align-items-center justify-content-center text-white">
+            <div class="text-center">
+             <!--  <div class="fw-semibold">KARTU ANGGOTA</div> -->
+              <div id="ktaArea" class="kta-background">
+                <div class="kta-text">
+                  <div class="name"><?= esc($user_logged_in['nama_lengkap']) ?></div>
+                  <div class="number"><?= esc($user_logged_in['nomor_anggota']) ?></div>
+                </div>
+              </div>
             </div>
+            <div class="brand">SINDIKASI</div>
           </div>
         </div>
 

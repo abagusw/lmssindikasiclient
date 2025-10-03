@@ -128,32 +128,56 @@
     color: #000 !important;               /* teks hitam */
     border-color: #dee2e6 !important;     /* border abu */
   }
+</style>
 
-  .modal-custom {
-  max-width: 900px;   /* ubah sesuai kebutuhan (misal 1000px) */
-  width: 90%;         /* biar responsif */
+<style>
+  .kta-card {
+    width: 100%;
+    max-width: 240px; /* Sesuaikan ukuran kartu dengan gambar pertama */
+    border-radius: 16px; /* Menjaga sudut kartu tetap melengkung */
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Shadow yang lebih halus */
+    margin-bottom: 20px;
   }
 
-  @media (max-width: 768px) {
-    .modal-custom {
-      max-width: 95%;   /* supaya tetap bagus di HP */
-    }
+  .kta-image {
+    height: 220px; /* Sesuaikan tinggi gambar */
+    background: #ffffff url('<?= base_url("public/assets/images/kta_finish.png"); ?>') center/cover no-repeat;
+    background-size: contain; /* Agar gambar tidak terdistorsi */
   }
+
+  .kta-body {
+    padding: 20px 16px; /* Menambahkan ruang pada bagian bawah */
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+  }
+
+  .kta-body h3 {
+    font-size: 18px; /* Ukuran font nama yang lebih sesuai */
+    font-weight: bold;
+    margin: 8px 0;
+    text-transform: uppercase; /* Menambah kesan tegas */
+  }
+
+  .kta-body p {
+    font-size: 14px;
+    color: #f0f0f0;
+    margin-top: 4px;
+  }
+
   .btn-orange {
-    background-color: #ff6600;   /* warna sesuai selera */
+    background-color: #f2550e;
     color: #fff;
     border-radius: 8px;
-    padding: 12px 24px;          /* bikin tombol lebih tinggi & lebar dikit */
-    font-size: 1.1rem;           /* perbesar teks */
-    font-weight: 600;            /* agak tebal */
-    display: inline-block;       /* supaya tidak melebar full */
+    padding: 8px 16px;
+    margin-top: 10px;
+    text-transform: uppercase;
   }
 
   .btn-orange:hover {
-    background-color: #e65c00;   /* warna hover */
-    color: #fff;
+    background-color: #d94b0c;
   }
-
 </style>
 <!--   <style>
     body {
@@ -450,24 +474,32 @@
   <div class="row">
     <!-- KONTEN -->
     <div id="mainContent" class="col-lg-9 p-4">
-      <div class="main-content">
-        <p class="text-muted small">Materi <?= $currentIndex; ?> dari <?= $totalLesson; ?> </p>
-        <h4 class="fw-bold mb-4"><?= $getData['title']; ?></h4>
+        <center>
+        <h5 class="fw-semibold mb-2">Selamat bergabung dengan Sindikasi, <?= $user_logged_in['nama_panggilan']; ?>!</h5>
+        <p class="text-muted mx-auto" style="max-width: 600px;">
+          Terima kasih telah menyelesaikan pendidikan dasar. Kini kamu telah menjadi anggota penuh Serikat Sindikasi—sebuah komunitas solidaritas pekerja yang saling mendukung dan memperjuangkan hak bersama.
+        </p>
 
-        <img src="<?= $getData['feature_image']; ?>" class="img-fluid rounded mb-4" alt="Ilustrasi">
-        <div class="ghost-post-content">
-            <?= $getData['html']; ?>
+        <!-- Card section -->
+        <div class="d-flex flex-wrap justify-content-center my-4">
+            <!-- Card section -->
+          <div class="kta-card" id="ktaArea">
+            <div class="kta-image"></div>
+            <div class="kta-body text-center">
+              <h6 class="mb-1"><?= $user_logged_in['nama_lengkap']; ?></h6>
+              <small><?= $user_logged_in['nomor_anggota']; ?></small>
+            </div>
+          </div>
         </div>
-        <div class="text-center mt-5">
-          <?php 
-          if(!$cekCoursePart){
-            ?>
-          <button class="btn btn-orange px-4 rounded-pill btn-big-custom" type="button" onclick="selesaiBaca(<?php echo $course_id; ?>,<?php echo $getMsCourseLessonByid['course_id']; ?>)">Selesai dibaca</button>
-        <?php } else {?>
-          <button class="btn btn-success px-4 rounded-pill btn-big-custom" type="button" disabled>Sudah Dibaca</button> <?php } ?>
 
+        <!-- Download Button -->
+        <div class="mb-3">
+          <a href="#" id="downloadKTA" class="btn btn-orange px-4">⬇ Unduh KTA</a>
         </div>
-      </div>
+
+        <!-- Back to Home -->
+        <a href="<?php echo base_url(); ?>" class="btn btn-outline-secondary">Kembali ke beranda</a>
+        </center>
     </div>
 
     <!-- SIDEBAR -->
@@ -521,37 +553,9 @@
   </div>
 </div>
 
-<div class="modal fade" id="modalSelesai" tabindex="-1" aria-labelledby="modalSelesaiLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-custom">
-    <div class="modal-content text-center border-0 rounded-4 shadow-sm p-3">
-      
-      <!-- Tombol Close -->
-      <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
-
-      <!-- Gambar Sertifikat -->
-      <img src="<?= base_url() ?>public/assets/images/final.png" alt="Ilustrasi Sertifikat" width="80" class="mx-auto mb-3">
-
-      <!-- Isi Konten -->
-      <h5 class="fw-bold text-dark">Materi selesai!</h5>
-      <p class="mb-1 text-dark">Selamat! Kamu telah menyelesaikan</p>
-      <p class="fw-semibold" id="lblPendidikan">Pendidikan Dasar Serikat</p>
-
-      <!-- Tombol Unduh -->
-      <a href="<?= base_url() ?>materi/materi_selesai/<?= $course_id; ?>" class="btn btn-orange mt-2">Unduh Kartu Tanda Anggota</a>
-    </div>
-  </div>
-</div>
-
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?=ASSETS_URL?>compo_notif/jquery.ambiance.js"></script>
-
-<!-- <script>
-  $('#modalSelesai').modal('show');
-</script> -->
 <script>
   const toggleSidebar = document.getElementById('toggleSidebar');
   const sidebarBox = document.getElementById('sidebarBox');
@@ -582,9 +586,9 @@
             dataType: 'JSON',
             success: function(response) {
               if(response.respCode == 0){
-                // $.ambiance({message: "Sukses disimpan",
-                //   type: "success",
-                //   fade: false});
+                $.ambiance({message: "Sukses disimpan",
+                  type: "success",
+                  fade: false});
 
                 cekMateriSelesai(course_lesson_id,course_id);
               }else{
@@ -618,9 +622,9 @@
                   fade: false});
 
               }else{
-                // $.ambiance({message: response.respMessage,
-                //   type: "error",
-                //   fade: false});
+                $.ambiance({message: response.respMessage,
+                  type: "error",
+                  fade: false});
                 top.location.href="<?= base_url() ?>materi/konten/"+response.nextLessonId;
               }
 
@@ -630,6 +634,17 @@
   }
 
 </script>
-
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+document.getElementById("downloadKTA").addEventListener("click", function () {
+  html2canvas(document.getElementById("ktaArea")).then(function (canvas) {
+    const link = document.createElement('a');
+    link.download = 'kta.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
