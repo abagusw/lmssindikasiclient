@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LMS Sindikasi</title>
+  <title>SINDIKASI</title>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -574,7 +574,7 @@
       <img src="<?= ASSETS_URL ?>assets_fe/images/9fcd3c04308bf53c70c2817d1712d6f94b733228.png" 
            alt="Kolektaria Logo" 
            class="logo-img">
-      <span class="logo-text">kolektaria</span>
+      <span class="logo-text">SINDIKASI</span>
     </a>
   </div>
   <div class="search-container">

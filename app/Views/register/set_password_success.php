@@ -46,8 +46,7 @@
     <h3 class="fw-bold mb-3">Atur password akun berhasil!</h3>
 
     <p class="text-secondary mb-4">
-      Terima kasih telah mengatur kata sandi baru akun Anda.<br>
-      Sekarang, anda dapat melanjutkan proses mulai menggunakan Portal Sindikasi.
+        Silakan login untuk melanjutkan proses pendaftaran.
     </p>
 
     <a href="<?= base_url() ?>" class="btn btn-orange">

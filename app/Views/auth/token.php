@@ -51,14 +51,14 @@
 <body>
   <div class="container">
     <div class="title">Token Login Anda</div>
-    <p>Gunakan token berikut untuk login ke aplikasi <strong>Sindikasi Membership</strong>:</p>
+    <p>Gunakan token berikut untuk login ke aplikasi <strong>Membership SINDIKASI</strong>:</p>
 
     <div class="token-box"><?= $token; ?></div>
 
     <p class="note">Token ini hanya berlaku sampai dengan tanggal <?= date('d-m-Y H:i:s', strtotime($exp_date)) ?> Jangan berikan token ini kepada siapa pun.</p>
 
     <div class="footer">
-      &copy; 2025 Sindikasi Membership. Semua hak dilindungi.
+      &copy; 2025 Membership SINDIKASI. Semua hak dilindungi.
     </div>
   </div>
 </body>

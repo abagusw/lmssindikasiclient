@@ -40,12 +40,12 @@
     
     <!-- Hero Banner -->
     <div class="hero-banner">
-      <img src="<?= base_url() ?>public/assets/images/linimasa.png" alt="Selamat datang di Kolektaria Sindikasi" class="img-fluid">
+      <img src="<?= base_url() ?>public/assets/images/snd_open_graph.webp" alt="Selamat datang di Kolektaria Sindikasi" class="img-fluid">
       
     </div>
 
     <!-- Card 1 -->
-    <div class="card mb-4 shadow-sm">
+    <!-- <div class="card mb-4 shadow-sm">
       <div class="card-body">
         <h5 class="card-title fw-bold">Perdana: Kolektiva Sindikasi 101</h5>
         <p class="card-text">
@@ -53,10 +53,10 @@
         </p>
       </div>
       <img src="https://via.placeholder.com/600x200?text=DIKSARSER" class="card-img-bottom" alt="Diksarser">
-    </div>
+    </div> -->
 
     <!-- Card 2 -->
-    <div class="card mb-4 shadow-sm">
+    <!-- <div class="card mb-4 shadow-sm">
       <div class="card-body">
         <h5 class="card-title fw-bold">Selamat datang kawan-kawan!</h5>
         <p class="card-text">
@@ -64,10 +64,10 @@
         </p>
       </div>
       <img src="https://via.placeholder.com/600x200?text=Union+Poster" class="card-img-bottom" alt="Union">
-    </div>
+    </div> -->
 
     <!-- Card 3 -->
-    <div class="card mb-4 shadow-sm">
+    <!-- <div class="card mb-4 shadow-sm">
       <div class="card-body">
         <h5 class="card-title fw-bold">Selamat datang kawan-kawan!</h5>
         <p class="card-text">
@@ -75,12 +75,12 @@
         </p>
       </div>
       <img src="https://via.placeholder.com/600x200?text=Ilustrasi+Anggota" class="card-img-bottom" alt="Ilustrasi Anggota">
-    </div>
+    </div>  -->
 
     <!-- Button -->
-    <div class="text-center my-4">
+    <!-- <div class="text-center my-4">
       <a href="#" class="btn btn-outline-dark">Lihat semua materi</a>
-    </div>
+    </div>-->
 
   </div>
 

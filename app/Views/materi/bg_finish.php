@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Materi Kolektaria</title>
+  <title>Materi SINDIKASI</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
   <link href="<?=ASSETS_URL?>compo_notif/jquery.ambiance.css" rel="stylesheet">
@@ -483,7 +483,7 @@
 <div class="topbar d-flex justify-content-between align-items-center">
   <div class="d-flex align-items-center gap-3">
    <!--  <img src="<?= base_url('logo.png') ?>" alt="logo" height="32"> -->
-    <strong class="me-3"><a class="brand-link" href="<?= base_url()?>dashboard">🧩 kolektaria</a></strong>
+    <strong class="me-3"><a class="brand-link" href="<?= base_url()?>dashboard">SINDIKASI</a></strong>
     <span class="text-muted">Course</span>
     <a href="#" id="toggleSidebar" class="text-orange ms-4 small">Sembunyikan daftar materi</a>
   </div>
@@ -501,9 +501,9 @@
     <!-- KONTEN -->
     <div id="mainContent" class="col-lg-9 p-4">
         <center>
-        <h5 class="fw-semibold mb-2">Selamat bergabung dengan Sindikasi, <?= $user_logged_in['nama_panggilan']; ?>!</h5>
+        <h5 class="fw-semibold mb-2">Selamat bergabung dengan SINDIKASI, <?= $user_logged_in['nama_panggilan']; ?>!</h5>
         <p class="text-muted mx-auto" style="max-width: 600px;">
-          Terima kasih telah menyelesaikan pendidikan dasar. Kini kamu telah menjadi anggota penuh Serikat Sindikasi—sebuah komunitas solidaritas pekerja yang saling mendukung dan memperjuangkan hak bersama.
+          Terima kasih telah menyelesaikan pendidikan dasar serikat. Kini kamu telah menjadi anggota aktif Serikat SINDIKASI.
         </p>
 
         <!-- Card section -->
@@ -526,11 +526,11 @@
 
         <!-- Download Button -->
         <div class="mb-3">
-          <a href="#" id="downloadKTA" class="btn btn-orange px-4">⬇ Unduh KTA</a>
+          <a href="#" id="downloadKTA" class="btn btn-orange btn-lg">⬇ Unduh KTA</a>
         </div>
 
         <!-- Back to Home -->
-        <a href="<?php echo base_url(); ?>" class="btn btn-outline-secondary">Kembali ke beranda</a>
+        <a href="<?php echo base_url(); ?>" class="btn btn-outline-secondary btn-lg">Kembali ke beranda</a>
         </center>
     </div>
 
