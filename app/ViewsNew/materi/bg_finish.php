@@ -65,7 +65,7 @@
 <!-- Header -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
   <div class="container-fluid px-4">
-    <a class="navbar-brand fw-bold" href="#">kolektaria</a>
+    <a class="navbar-brand fw-bold" href="#">SINDIKASI</a>
     <form class="d-flex d-none d-md-block" role="search" style="width: 300px;">
       <input class="form-control rounded-pill" type="search" placeholder="Search" aria-label="Search">
     </form>
@@ -78,9 +78,9 @@
 
 <!-- Main Content -->
 <div class="container text-center my-5">
-  <h5 class="fw-semibold mb-2">Selamat bergabung dengan Sindikasi, <?= $user_logged_in['nama_panggilan']; ?>!</h5>
+  <h5 class="fw-semibold mb-2">Selamat bergabung dengan SINDIKASI, <?= $user_logged_in['nama_panggilan']; ?>!</h5>
   <p class="text-muted mx-auto" style="max-width: 600px;">
-    Terima kasih telah menyelesaikan pendidikan dasar. Kini kamu telah menjadi anggota penuh Serikat Sindikasi—sebuah komunitas solidaritas pekerja yang saling mendukung dan memperjuangkan hak bersama.
+    Terima kasih telah menyelesaikan pendidikan dasar serikat. Kini kamu telah menjadi anggota aktif Serikat SINDIKASI.
   </p>
 
   <!-- Card section -->
@@ -97,11 +97,11 @@
 
   <!-- Download Button -->
   <div class="mb-3">
-    <a href="#" id="downloadKTA" class="btn btn-orange px-4">⬇ Unduh KTA</a>
+    <a href="#" id="downloadKTA" class="btn btn-orange btn-lg">⬇ Unduh KTA</a>
   </div>
 
   <!-- Back to Home -->
-  <a href="#" class="btn btn-outline-secondary">Kembali ke beranda</a>
+  <a href="#" class="btn btn-outline-secondary btn-lg">Kembali ke beranda</a>
 </div>
 
 <!-- Bootstrap JS -->

@@ -51,7 +51,7 @@
 <body>
   <div class="container">
     <div class="title">Token Login Anda</div>
-    <p>Gunakan token berikut untuk login ke aplikasi <strong>Sindikasi Membership</strong>:</p>
+    <p>Gunakan token berikut untuk login ke aplikasi <strong>Membership SINDIKASI</strong>:</p>
 
     <div class="token-box"><?= $token; ?></div>
 
