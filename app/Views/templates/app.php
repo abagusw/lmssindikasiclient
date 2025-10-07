@@ -49,7 +49,7 @@
   }
 
   .logo-img {
-    width: 35px;
+    width: 40px;
     height: 32px;
   }
 
@@ -116,7 +116,7 @@
   
   @media (max-width: 768px) {
     .top-header {
-      flex-direction: column;
+      flex-direction: row;
       align-items: stretch;
     }
     .search-container {
@@ -577,10 +577,10 @@
       <span class="logo-text">SINDIKASI</span>
     </a>
   </div>
-  <div class="search-container">
+  <!-- <div class="search-container">
     <img src="<?= ASSETS_URL ?>assets_fe/images/I2178_165835_171_2594_152_2294.svg" alt="Search Icon" class="search-icon">
     <input type="text" placeholder="Search" class="search-input">
-  </div>
+  </div> -->
   <div class="user-actions">
 <!--     <div class="action-icons">
       <a href="#" aria-label="Chat"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_165838_208_27044.svg" alt="Chat"></a>
