@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Materi Kolektaria</title>
+  <title>Materi SINDIKASI</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
   <link href="<?=ASSETS_URL?>compo_notif/jquery.ambiance.css" rel="stylesheet">
@@ -433,9 +433,9 @@
 <div class="topbar d-flex justify-content-between align-items-center">
   <div class="d-flex align-items-center gap-3">
    <!--  <img src="<?= base_url('logo.png') ?>" alt="logo" height="32"> -->
-    <strong class="me-3"><a class="brand-link" href="<?= base_url()?>dashboard">🧩 kolektaria</a></strong>
+    <strong class="me-3"><a class="brand-link" href="<?= base_url()?>dashboard">SINDIKASI</a></strong>
     <span class="text-muted">Course</span>
-    <a href="#" id="toggleSidebar" class="text-orange ms-4 small">Sembunyikan daftar materi</a>
+    <a href="#" id="toggleSidebar" class="text-orange ms-4 small">Sembunyikan Daftar Materi</a>
   </div>
 <!--   <div class="d-flex align-items-center gap-3">
     <input type="text" class="form-control form-control-lg" placeholder="Search" style="width: 200px;">
@@ -462,9 +462,9 @@
           <?php 
           if(!$cekCoursePart){
             ?>
-          <button class="btn btn-orange px-4 rounded-pill btn-big-custom" type="button" onclick="selesaiBaca(<?php echo $course_id; ?>,<?php echo $getMsCourseLessonByid['course_id']; ?>)">Selesai dibaca</button>
+          <button class="btn btn-orange px-4 rounded-pill btn-big-custom" type="button" onclick="selesaiBaca(<?php echo $course_id; ?>,<?php echo $getMsCourseLessonByid['course_id']; ?>)">Lanjut</button>
         <?php } else {?>
-          <button class="btn btn-success px-4 rounded-pill btn-big-custom" type="button" disabled>Sudah Dibaca</button> <?php } ?>
+          <button class="btn btn-success px-4 rounded-pill btn-big-custom" type="button" disabled>Lanjut</button> <?php } ?>
 
         </div>
       </div>
