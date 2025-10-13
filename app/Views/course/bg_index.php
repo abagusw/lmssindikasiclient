@@ -66,7 +66,11 @@
   <div class="row gy-4">
     <?php foreach ($courses as $c): ?>
       <?php
-      $gb = urlAdmin."uploads/course/" . $c['cover'];
+      if($c['cover'] != ""){
+        $gb = urlAdmin."uploads/course/" . $c['cover'];
+      }else{
+        $gb = "https://placehold.co/300x200?text=No+Image&font=roboto";
+      }
       $countLesson = $courseLesson->where('course_id',$c['id'])->countAllResults();
       $jumlahPartisipasi = $coursePartModel->where('user_id', $user_id)
                                                   ->where('course_id', $c['id'])
