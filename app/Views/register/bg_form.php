@@ -322,10 +322,10 @@
 <!--               <input type="text" id="status_ketenagakerjaan" name="status_ketenagakerjaan" class="form-control" required> -->
               <select class="form-select" name="status_ketenagakerjaan" id="status_ketenagakerjaan" required>
                 <option selected disabled>Pilih</option>
-                <option value="Tetap">Tetap</option>
-                <option value="Kontrak">Kontrak</option>
+                <option value="Tetap">PKWTT/Tetap</option>
+                <option value="Kontrak">PKWT/Kontrak</option>
                 <option value="Magang">Magang</option>
-                <option value="Lepas">Lepas</option>
+                <option value="Lepas">Tanpa Kontrak</option>
               </select>
             </div>      
             <div class="col-md-12">
