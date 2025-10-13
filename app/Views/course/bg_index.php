@@ -41,7 +41,7 @@
 
     <!-- Filter -->
   <form method="get" class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-4">
-    <div class="d-flex gap-2 align-items-center">
+    <!-- <div class="d-flex gap-2 align-items-center">
       <select name="limit" class="form-select form-select-sm" onchange="this.form.submit()">
         <?php foreach ($limitOptions as $limit): ?>
           <option value="<?= $limit ?>" <?= $selectedLimit == $limit ? 'selected' : '' ?>>
@@ -53,7 +53,7 @@
       <span class="text-muted small">
         Menampilkan <?= $start ?>–<?= $end ?> dari <?= $total ?> item
       </span>
-    </div>
+    </div> -->
 
     <div>
       <select name="sort" class="form-select form-select-sm" onchange="this.form.submit()">

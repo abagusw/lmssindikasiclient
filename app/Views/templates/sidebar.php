@@ -34,12 +34,12 @@ $nomor_anggota = session()->get('nomor_anggota');
         </ul>
       </div>
       <?php } ?>
-      <div class="nav-group">
+      <!-- <div class="nav-group">
         <h3 class="nav-group-title">Event</h3>
         <ul class="nav-list">
           <li class="nav-item"><a href="<?= base_url() ?>event/list"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_166568_264_4496_208_27317_205_2607_204_2602.svg" alt="">Acara</a></li>
         </ul>
-      </div>
+      </div> -->
 <!--       <div class="nav-group">
         <h3 class="nav-group-title">Membership</h3>
         <ul class="nav-list">

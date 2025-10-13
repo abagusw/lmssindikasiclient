@@ -1,0 +1,141 @@
+body {
+    background-color: #f9fafb;
+}
+
+.topbar {
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    padding: 0.75rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.sidebar {
+    min-width: 260px;
+    max-width: 300px;
+    background-color: #fff;
+    border-left: 1px solid #e5e7eb;
+    height: 100vh;
+    padding: 1.5rem;
+    position: sticky;
+    top: 72px;
+    overflow-y: auto;
+}
+
+.main-content {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    margin-top: 2rem;
+}
+
+.text-orange {
+    color: #f97316;
+}
+
+.text-orange:hover {
+    color: #ea580c;
+}
+
+.btn-orange {
+    background-color: #f97316;
+    color: white;
+}
+
+.btn-orange:hover {
+    background-color: #ea580c;
+}
+
+.active-materi {
+    background-color: #f3f4f6;
+    font-weight: bold;
+    color: #111827;
+}
+
+.btn-big-custom {
+font-size: 1.5rem;  /* Perbesar teks */
+padding: 1rem 2rem; /* Perbesar area klik */
+}
+
+.ghost-post-content, .ghost-post-content *{
+opacity: 1 !important;
+filter: none !important;
+-webkit-filter: none !important;
+transform: none !important;
+text-shadow: none !important;
+color: #212529 !important; /* warna teks standar bootstrap */
+}
+
+.brand-link,
+.brand-link:link,
+.brand-link:visited {
+color: #212529 !important;       /* hitam abu Bootstrap */
+text-decoration: none;
+}
+
+.brand-link:hover,
+.brand-link:focus {
+color: #0d6efd !important;       /* biru Bootstrap saat hover */
+}
+
+/* kalau parent pakai efek yang bikin pudar */
+/*.brand-link {
+opacity: 1 !important;
+filter: none !important;
+mix-blend-mode: normal !important;
+}*/
+
+.brand-link {
+color: rgb(33,37,41) !important; /* solid, tidak transparan */
+}
+
+/* kalau pakai mode gelap berbasis OS */
+@media (prefers-color-scheme: dark) {
+.brand-link,
+.brand-link:link,
+.brand-link:visited { color: #212529 !important; } /* terang di dark */
+.brand-link:hover   { color: #74c0fc !important; }
+}
+
+body{ font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+h4.fw-bold {
+color: #212529; /* default light mode */
+}
+
+.fw-semibold {
+    font-weight: 600 !important;
+    color: #212529;
+}
+
+.list-group-item.active {
+background-color: #e9ecef !important; /* abu-abu muda */
+color: #000 !important;               /* teks hitam */
+border-color: #dee2e6 !important;     /* border abu */
+}
+
+.modal-custom {
+max-width: 900px;   /* ubah sesuai kebutuhan (misal 1000px) */
+width: 90%;         /* biar responsif */
+}
+
+@media (max-width: 768px) {
+.modal-custom {
+    max-width: 95%;   /* supaya tetap bagus di HP */
+}
+}
+.btn-orange {
+background-color: #ff6600;   /* warna sesuai selera */
+color: #fff;
+border-radius: 8px;
+padding: 12px 24px;          /* bikin tombol lebih tinggi & lebar dikit */
+font-size: 1.1rem;           /* perbesar teks */
+font-weight: 600;            /* agak tebal */
+display: inline-block;       /* supaya tidak melebar full */
+}
+
+.btn-orange:hover {
+background-color: #e65c00;   /* warna hover */
+color: #fff;
+}

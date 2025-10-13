@@ -24,7 +24,7 @@
 <div class="section-box">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h5 class="mb-0"><?= $dataCourseRow['judul'] ?></h5>
-    <a href="<?= base_url()?>materi/konten/<?= $dataLessonAsc['id'] ?>" class="btn btn-orange">Mulai pelajaran</a>
+    <a href="<?= base_url()?>materi/konten/<?= $dataLessonAsc['id'] ?>" class="btn btn-orange">Mulai Materi</a>
   </div>
 
   <?php
@@ -53,7 +53,6 @@
 
   <!-- Progress -->
   <div class="mb-4">
-    <h6 class="mb-1">Kemajuan Course</h6>
     <p class="text-muted mb-2">Menyelesaikan <?= $jumlahPartisipasi; ?> dari <?= count($dataLesson); ?> materi pelajaran</p>
     <div class="progress">
       <div class="progress-bar bg-success" role="progressbar" style="width: <?= $persen; ?>%;" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100"><?= $persen; ?>%</div>
@@ -62,7 +61,7 @@
 
   <!-- Materi Kursus -->
   <div>
-    <h6 class="mb-3">Materi Kursus <span class="text-muted">(<?= count($dataLesson); ?> materi)</span></h6>
+    <h6 class="mb-3">Daftar Materi<span class="text-muted">(<?= count($dataLesson); ?> materi)</span></h6>
     <div class="list-group">
 
 

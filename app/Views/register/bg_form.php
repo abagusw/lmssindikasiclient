@@ -256,7 +256,7 @@
             <div class="form-text text-end"><small>0/200</small></div>
           </div>
 
-          <div class="col-md-12">
+           <!-- <div class="col-md-12">
             <label class="form-label">Disabilitas <small>(opsional)</small></label>
             <div class="row">
               <div class="col-md-4">
@@ -282,7 +282,7 @@
           </div>
 
         </div>
-        </div>
+        </div> -->
 
         <!-- SECTION 2: Kontak -->
         <div class="form-section">
@@ -389,21 +389,21 @@
           <div class="section-header">Media Sosial</div>
           <div class="row g-3">
             <div class="col-md-6">
-              <label class="form-label">Link Instagram (pilihan)</label>
+              <label class="form-label">Akun Instagram (optional)</label>
               <input type="text" id="link_instagram" name="link_instagram" class="form-control">
             </div>
             <div class="col-md-6">
-              <label class="form-label">Link X (Twitter) (pilihan)</label>
+              <label class="form-label">Akun X (Twitter) (optional)</label>
               <input type="text" id="link_twitter" name="link_twitter" class="form-control">
             </div>
           </div>
           <div class="row g-3">
             <div class="col-md-6">
-              <label class="form-label">Link Facebook (pilihan)</label>
+              <label class="form-label">Akun Facebook (optional)</label>
               <input type="text" id="link_facebook" name="link_facebook" class="form-control">
             </div>
             <div class="col-md-6">
-              <label class="form-label">Link LinkedIn (pilihan)</label>
+              <label class="form-label">Akun LinkedIn (optional)</label>
               <input type="text" id="link_linkedin" name="link_linkedin" class="form-control">
             </div>
           </div>
@@ -519,11 +519,11 @@
               <label class="form-label"><small>Centang semua untuk melanjutkan</small></label>
               <div class="row">
                 <div class="col-md-12">
-                  <div class="form-check">  <input class="form-check-input" type="checkbox" name="pernyataan_keanggotaan[]" value="bersedia_mematui_art" id="bersedia_mematui_art"><label class="form-check-label" for="bersedia_mematui_art">Bersedia mematuhi AD/ART Sindikasi</label></div>
-                  <div class="form-check">  <input class="form-check-input" type="checkbox" name="pernyataan_keanggotaan[]" value="bersedia_mematuhi_kode_etik" id="bersedia_mematuhi_kode_etik"><label class="form-check-label" for="bersedia_mematuhi_kode_etik">Bersedia mematuhi kode etik sindikasi</label></div>
-                  <div class="form-check">  <input class="form-check-input" type="checkbox" name="pernyataan_keanggotaan[]" value="bersedia_mengikuti_pendidikan" id="bersedia_mengikuti_pendidikan"><label class="form-check-label" for="bersedia_mengikuti_pendidikan">Bersedia mengikuti Pendidikan Dasar Anggota sindikasi</label></div>
+                  <div class="form-check">  <input class="form-check-input" type="checkbox" name="pernyataan_keanggotaan[]" value="bersedia_mematui_art" id="bersedia_mematui_art"><label class="form-check-label" for="bersedia_mematui_art">Bersedia mematuhi AD/ART SINDIKASI</label></div>
+                  <div class="form-check">  <input class="form-check-input" type="checkbox" name="pernyataan_keanggotaan[]" value="bersedia_mematuhi_kode_etik" id="bersedia_mematuhi_kode_etik"><label class="form-check-label" for="bersedia_mematuhi_kode_etik">Bersedia mematuhi kode etik SINDIKASI</label></div>
+                  <div class="form-check">  <input class="form-check-input" type="checkbox" name="pernyataan_keanggotaan[]" value="bersedia_mengikuti_pendidikan" id="bersedia_mengikuti_pendidikan"><label class="form-check-label" for="bersedia_mengikuti_pendidikan">Bersedia mengikuti Pendidikan Dasar Anggota SINDIKASI</label></div>
                   <div class="form-check">  <input class="form-check-input" type="checkbox" name="pernyataan_keanggotaan[]" value="statement_keaslian_data" id="statement_keaslian_data"><label class="form-check-label" for="statement_keaslian_data">Statement keaslian data - Saya menyatakan bahwa data yang saya berikah adalah benar</label></div>
-                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pernyataan_keanggotaan[]" value="bersedia_bergabung_grup" id="bersedia_bergabung_grup"><label class="form-check-label" for="bersedia_bergabung_grup">Bersedia bergabung dalam grup whatsapp dan telegram anggota SINDIKASI</label></div>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" name="pernyataan_keanggotaan[]" value="bersedia_bergabung_grup" id="bersedia_bergabung_grup"><label class="form-check-label" for="bersedia_bergabung_grup">Bersedia bergabung dalam grup Whatsapp dan Telegram anggota SINDIKASI</label></div>
                   <div class="form-check"><input class="form-check-input" type="checkbox" name="pernyataan_keanggotaan[]" value="memberikan_konsen" id="memberikan_konsen"><label class="form-check-label" for="memberikan_konsen">Memberikan konsen untuk pemrosesan data sesuai kebijakan privasi SINDIKASI</label></div>
                 </div>
               </div>
@@ -633,7 +633,7 @@
         status_anggota_bpjstk: {
           required: "Pilih status keanggotaan BPJSTK"
         },
-        gender: "Pilih jenis kelamin",
+        gender: "Pilih gender",
         kota_kelahiran: "Pilih kota kelahiran",
         kota_domisili: "Pilih kota domisili",
       //  pendidikan_terakhir: "Pilih pendidikan terakhir",
