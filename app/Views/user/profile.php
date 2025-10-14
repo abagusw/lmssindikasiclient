@@ -493,16 +493,12 @@
                             <label class="form-label">Disabilitas <small>(opsional)</small></label>
                             <div class="row">
                               <div class="col-md-4">
-                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna netra"  <?= is_checked($disArr,'Tuna netra') ?>> Tuna Netra</div>
-                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna rungu"  <?= is_checked($disArr,'Tuna rungu') ?>> Tuna Rungu</div>
-                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna grahita" <?= is_checked($disArr,'Tuna grahita') ?>> Tuna Grahita</div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Disabilitas Fisik"  <?= is_checked($disArr,'Disabilitas Fisik') ?>> Disabilitas Fisik</div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Disabilitas Intelektual"  <?= is_checked($disArr,'Disabilitas Intelektual') ?>> Disabilitas Intelektual</div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Disabilitas Mental" <?= is_checked($disArr,'Disabilitas Mental') ?>> Disabilitas Mental</div>
                               </div>
                               <div class="col-md-4">
-                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna laras"   <?= is_checked($disArr,'Tuna laras') ?>> Tuna Laras</div>
-                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Tuna wicara"  <?= is_checked($disArr,'Tuna wicara') ?>> Tuna Wicara</div>
-                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Spektrum autisme" <?= is_checked($disArr,'Spektrum autisme') ?>> Spektrum Autisme</div>
-                              </div>
-                              <div class="col-md-4">
+                                <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Disabilitas Sensorik"   <?= is_checked($disArr,'Disabilitas Sensorik') ?>> Disabilitas Sensorik</div>                                
                                 <div class="form-check"><input class="form-check-input" type="checkbox" name="disabilitas[]" value="Lainnya" <?= is_checked($disArr,'Lainnya') ?>> Lainnya</div>
                               </div>
                             </div>
