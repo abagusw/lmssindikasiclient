@@ -51,7 +51,7 @@
         <h4 class="fw-bold mb-4"><?= $getData['title']; ?></h4>
 
         <img src="<?= $getData['feature_image']; ?>" class="img-fluid rounded mb-4" alt="Ilustrasi">
-        <div class="ghost-post-content">
+        <div class="ghost-post-content single-content gh-content">
             <?= $getData['html']; ?>
         </div>
         <div class="text-center mt-5">
@@ -226,6 +226,48 @@
   }
 
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Apply Bootstrap ratio + styles to all iframes (including YouTube/Vimeo)
+        function enhanceIframe(iframe) {
+            const src = iframe.src || "";
+            const isVideo = /youtube\.com|youtu\.be|vimeo\.com/i.test(src);
+
+            // Wrap in ratio container if it's a video iframe
+            if (isVideo && !iframe.closest(".ratio")) {
+                const wrapper = document.createElement("div");
+                wrapper.className = "ratio ratio-16x9";
+                iframe.parentNode.insertBefore(wrapper, iframe);
+                wrapper.appendChild(iframe);
+            }
+
+            // Add Bootstrap-like styling
+            iframe.classList.add("rounded", "shadow-sm");
+            iframe.style.border = "none";
+        }
+
+        // Enhance all iframes currently on the page
+        document.querySelectorAll("iframe").forEach(enhanceIframe);
+
+        // Watch for dynamically added iframes (e.g., Ghost embeds loaded later)
+        const observer = new MutationObserver(mutations => {
+            for (const mutation of mutations) {
+                mutation.addedNodes.forEach(node => {
+                    if (node.tagName === "IFRAME") {
+                        enhanceIframe(node);
+                    } else if (node.querySelectorAll) {
+                        node.querySelectorAll("iframe").forEach(enhanceIframe);
+                    }
+                });
+            }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
+</script>
+
+
 
 </body>
 </html>

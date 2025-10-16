@@ -70,11 +70,11 @@
     </center>
     <form id="loginForm">
       <div class="mb-3 mt-4 position-relative">
-        <label for="email" class="form-label">Alamat email</label>
+        <label for="email" class="form-label">Alamat Email</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email Anda">
       </div>
       <div class="mb-3 position-relative">
-        <label for="password" class="form-label">Kata kunci</label>
+        <label for="password" class="form-label">Kata Kunci</label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan kata kunci">
         <div class="password-toggle" onclick="togglePassword()">
           <i class="bi bi-eye" id="eyeIcon"></i>
