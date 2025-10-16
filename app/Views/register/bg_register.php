@@ -65,7 +65,7 @@
         <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Masukkan nama lengkap Anda">
       </div>
       <div class="mb-3">
-        <label for="email" class="form-label">Alamat email</label>
+        <label for="email" class="form-label">Alamat Email</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan alamat email">
       </div>
       <div class="d-grid mt-4">
