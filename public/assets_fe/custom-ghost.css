@@ -145,3 +145,11 @@ blockquote:not([class]) {
     border-left: 4px solid #9b49ff;
 }
 
+.kg-callout-card-accent {
+    background: #fbe7ff !important;
+}
+
+.kg-button-card a.kg-btn-accent {
+    background-color: #9b49ff;
+    color: #fff !important;
+}

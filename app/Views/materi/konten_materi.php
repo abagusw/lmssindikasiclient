@@ -26,12 +26,11 @@
                                       ->countAllResults() > 0;
 ?>
 <!-- TOPBAR -->
-<div class="topbar d-flex justify-content-between align-items-center">
-  <div class="d-flex align-items-center gap-3">
+<div class="topbar">
+  <div class="list-group-item d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start">
    <!--  <img src="<?= base_url('logo.png') ?>" alt="logo" height="32"> -->
     <strong class="me-3"><a class="brand-link" href="<?= base_url()?>dashboard">SINDIKASI</a></strong>
-    <span class="text-muted">Course</span>
-    <a href="#" id="toggleSidebar" class="text-orange ms-4 small">Sembunyikan Daftar Materi</a>
+    <a href="#" id="toggleSidebar" class="text-orange small">Sembunyikan Daftar Materi</a>
   </div>
 <!--   <div class="d-flex align-items-center gap-3">
     <input type="text" class="form-control form-control-lg" placeholder="Search" style="width: 200px;">
@@ -48,10 +47,10 @@
     <div id="mainContent" class="col-lg-9 p-4">
       <div class="main-content">
         <p class="text-muted small">Materi <?= $currentIndex; ?> dari <?= $totalLesson; ?> </p>
-        <h4 class="fw-bold mb-4"><?= $getData['title']; ?></h4>
+        <h4 class="fw-bold mb-4 single-title"><?= $getData['title']; ?></h4>
 
         <img src="<?= $getData['feature_image']; ?>" class="img-fluid rounded mb-4" alt="Ilustrasi">
-        <div class="ghost-post-content single-content gh-content">
+        <div class="ghost-post-content single-content gh-content gh-canvas">
             <?= $getData['html']; ?>
         </div>
         <div class="text-center mt-5">

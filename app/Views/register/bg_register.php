@@ -9,9 +9,11 @@
     body {
       background-color: #121212;
       font-family: 'Segoe UI', sans-serif;
+      margin-left: 1rem;
+      margin-right: 1rem;
     }
     .login-container {
-      max-width: 900px;
+      max-width: 500px;
       margin: 60px auto;
       background-color: #fff;
       border-radius: 16px;
@@ -30,7 +32,7 @@
     .login-image {
       flex: 1;
       background-color: #f5f5f5;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
     }

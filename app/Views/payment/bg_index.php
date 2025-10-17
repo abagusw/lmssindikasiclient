@@ -29,21 +29,21 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
   <div class="row">
     <!-- Paket Pilihan -->
     <div class="col-lg-8 mb-4">
-      <h5 class="mb-3">Pilih Paket Anda</h5>
+      <h5 class="mb-3">Pilih Pembayaran</h5>
       <div class="mb-3">
-        <button class="btn btn-outline-dark me-2 active" id="iuranAnggota" onclick="setFlag(0)">Iuran Anggota</button>
-        <button class="btn btn-outline-secondary" id="bpjsTK" onclick="setFlag(1)">Iuran + BPJS TK</button>
+        <!-- <button class="btn btn-outline-dark me-2 active" id="iuranAnggota" onclick="setFlag(0)">Iuran Anggota</button> -->
+        <!-- <button class="btn btn-outline-secondary" id="bpjsTK" onclick="setFlag(1)">Iuran + BPJS TK</button> -->
       </div>
         <input type="hidden" id="flagInput" value="0" />
       <div class="list-group">
                 <!-- Iuran 3 Bulan (Active) -->
-        <label class="list-group-item d-flex justify-content-between align-items-center">
+        <label class="list-group-item d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start">
           <div>
             <strong>Pendataran Anggota + Iuran 2 Bulan</strong>
-            <div class="text-muted small">Full features, highest limits and priority support</div>
+            <div class="text-muted small">Iuran awal untuk anggota baru yang akan mengikuti pendidikan dasar.</div>
           </div>
-          <div class="text-end">
-            <div class="fw-bold">Rp 50,000</div>
+          <div class="text-end mt-2">
+            <div class="fw-bold fs-5">Rp 50,000</div>
             <?php
             if ($todaySeminggu >= $expired_date){
               ?>
@@ -54,13 +54,13 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
           </div>
         </label>
         <!-- Iuran 3 Bulan (Active) -->
-        <label class="list-group-item d-flex justify-content-between align-items-center">
+        <label class="list-group-item d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start">
           <div>
             <strong>Iuran 3 Bulan</strong>
-            <div class="text-muted small">Full features, highest limits and priority support</div>
+            <div class="text-muted small">Untuk anggota aktif/terdaftar. Terhitung sejak tanggal pembayaran.</div>
           </div>
-          <div class="text-end">
-            <div class="fw-bold">Rp 75,000</div>
+          <div class="text-end mt-2">
+            <div class="fw-bold fs-5">Rp 75,000</div>
             <?php
             if ($todaySeminggu >= $expired_date){
               ?>
@@ -72,13 +72,13 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
         </label>
 
         <!-- Paket lainnya -->
-        <label class="list-group-item d-flex justify-content-between align-items-center">
+        <label class="list-group-item d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start">
           <div>
             <strong>Iuran 6 Bulan</strong>
-            <div class="text-muted small">Full features, highest limits and priority support</div>
+            <div class="text-muted small">Untuk anggota aktif/terdaftar. Terhitung sejak tanggal pembayaran.</div>
           </div>
-          <div class="text-end">
-            <div class="fw-bold">Rp 150,000</div>
+          <div class="text-end mt-2">
+            <div class="fw-bold fs-5">Rp 150,000</div>
             <?php
             if ($todaySeminggu >= $expired_date){
               ?>
@@ -89,13 +89,13 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
           </div>
         </label>
 
-        <label class="list-group-item d-flex justify-content-between align-items-center">
+        <label class="list-group-item d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start">
           <div>
             <strong>Iuran 12 Bulan</strong>
-            <div class="text-muted small">Full features, highest limits and priority support</div>
+            <div class="text-muted small">Untuk anggota aktif/terdaftar. Terhitung sejak tanggal pembayaran.</div>
           </div>
-          <div class="text-end">
-            <div class="fw-bold">Rp 300,000</div>
+          <div class="text-end mt-2">
+            <div class="fw-bold fs-5">Rp 300,000</div>
             <?php
             if ($todaySeminggu >= $expired_date){
               ?>
@@ -107,13 +107,13 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
           </div>
         </label>
 
-        <label class="list-group-item d-flex justify-content-between align-items-center">
+        <label class="list-group-item d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start">
           <div>
             <strong>Iuran 24 Bulan</strong>
-            <div class="text-muted small">Full features, highest limits and priority support</div>
+            <div class="text-muted small">Untuk anggota aktif/terdaftar. Terhitung sejak tanggal pembayaran.</div>
           </div>
-          <div class="text-end">
-            <div class="fw-bold">Rp 600,000</div>
+          <div class="text-end mt-2">
+            <div class="fw-bold fs-5">Rp 600,000</div>
             <?php
             if ($todaySeminggu >= $expired_date){
               ?>
@@ -161,7 +161,7 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
         </div>
       </div>
 
-      <div class="border p-3 rounded">
+      <div class="border p-3 rounded bg-white">
         <h6 class="mb-3">Riwayat Pembayaran</h6>
         <div class="mb-2">
           <?php

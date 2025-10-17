@@ -161,12 +161,12 @@
       
         <div class="row g-3">
           <div class="col-md-6">
-            <label class="form-label required">Nama lengkap</label>
+            <label class="form-label required">Nama Lengkap</label>
             <input type="text" name="fullname" id="fullname" class="form-control" value="<?= $dataKey->fullname ?>" required>
             <div class="form-text-muted">Sesuai dengan yang tertera di KTP</div>
           </div>
           <div class="col-md-6">
-            <label class="form-label">Nama panggilan <small>(opsional)</small></label>
+            <label class="form-label">Nama Panggilan <small>(opsional)</small></label>
             <input type="text" name="nama_panggilan" id="nama_panggilan" class="form-control">
           </div>
 
@@ -176,14 +176,14 @@
           </div>
 
           <div class="col-md-6">
-            <label class="form-label required">Alamat email</label>
+            <label class="form-label required">Alamat Email</label>
             <input type="email" name="email" id="email" class="form-control" value="<?= $dataKey->email ?>" required>
             <div class="form-text-muted">Contoh: namakamu@gmail.com</div>
             <div class="form-text-muted text-warning">Pastikan anda menggunakan alamat email yang valid karena proses aktivasi akan dilakukan melalui email</div>
           </div>
 
           <div class="col-md-6">
-            <label class="form-label required">Nomor ponsel</label>
+            <label class="form-label required">Nomor Ponsel</label>
             <div class="input-group">
               <span class="input-group-text">+62</span>
               <input type="tel" name="telp" id="telp" class="form-control" placeholder="Type here" required>
@@ -203,7 +203,7 @@
           </div>
 
           <div class="col-md-4">
-            <label class="form-label required">Kota kelahiran</label>
+            <label class="form-label required">Kota Kelahiran</label>
             <select class="form-select select2" name="kota_kelahiran" id="kota_kelahiran" required>
               <option selected disabled>Pilih</option>
             <?php 
@@ -215,12 +215,12 @@
           </div>
 
           <div class="col-md-4">
-            <label class="form-label required">Tanggal lahir</label>
+            <label class="form-label required">Tanggal Lahir</label>
             <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" required>
           </div>
 
           <div class="col-md-6">
-            <label class="form-label required">Kota domisili</label>
+            <label class="form-label required">Kota Domisili</label>
             <select class="form-select select2" name="kota_domisili" id="kota_domisili" required>
               <option selected disabled>Pilih</option>
               <?php 
@@ -245,13 +245,13 @@
             </select>
           </div> -->
 
-          <div class="col-md-6">
-            <label class="form-label required">Nama instansi pendidikan</label>
+          <!-- <div class="col-md-6">
+            <label class="form-label required">Nama Instansi Pendidikan</label>
             <input type="text" name="nama_instansi_pendidikan" id="nama_instansi_pendidikan" class="form-control" placeholder="Ketik di sini" required>
-          </div>
+          </div> -->
 
           <div class="col-md-12">
-            <label class="form-label">Pengalaman organisasi <small>(opsional)</small></label>
+            <label class="form-label">Pengalaman Organisasi <small>(opsional)</small></label>
             <textarea name="pengalaman_organisasi" id="pengalaman_organisasi" class="form-control" rows="3" maxlength="200" placeholder="Tulis pengalaman organisasi jika ada"></textarea>
             <div class="form-text text-end"><small>0/200</small></div>
           </div>
@@ -289,7 +289,7 @@
           <div class="section-header">2. Data Pekerjaan</div>
           <div class="row g-3">
             <div class="col-md-6">
-              <label class="form-label required">Subsektor industri kreatif</label>
+              <label class="form-label required">Subsektor Industri</label>
                 <select class="form-select select2" id="subsektor" name="subsektor" required>
                   <option selected disabled>Pilih</option>
                   <?php 
@@ -299,7 +299,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label required">Instansi/perusahaan/pemberi kerja</label>
+              <label class="form-label required">Instansi/Perusahaan/Pemberi Kerja</label>
               <input type="text" id="instansi" name="instansi" class="form-control" required>
             </div>
 
@@ -314,11 +314,11 @@
                 </select>
             </div> -->
             <div class="col-md-6">
-              <label class="form-label required">Jabatan/profesi</label>
+              <label class="form-label required">Jabatan/Profesi</label>
                 <input type="text" id="jabatan" name="jabatan" class="form-control" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label required">Status ketenagakerjaan</label>
+              <label class="form-label required">Status Ketenagakerjaan</label>
 <!--               <input type="text" id="status_ketenagakerjaan" name="status_ketenagakerjaan" class="form-control" required> -->
               <select class="form-select" name="status_ketenagakerjaan" id="status_ketenagakerjaan" required>
                 <option selected disabled>Pilih</option>
@@ -329,16 +329,16 @@
               </select>
             </div>      
             <div class="col-md-12">
-              <label class="form-label">Deskripsi pekerjaan</label>
+              <label class="form-label">Deskripsi Pekerjaan</label>
               <textarea class="form-control" rows="3" id="deskripsi_pekerjaan" name="deskripsi_pekerjaan" maxlength="200" placeholder="Tulis tugas dan tanggung jawab anda"></textarea>
             </div>
             <div class="col-md-12">
-              <label class="form-label">Masalah ketenagakerjaan <small>Anda bisa pilih lebih dari satu</small></label>
+              <label class="form-label">Masalah Ketenagakerjaan <small>(bisa pilih lebih dari satu)</small></label>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-check">
                       <input class="form-check-input" type="checkbox" name="masalah_ketenagakerjaan[]" value="Upah dibawah standar" id="upah_dibawah_standar">
-                      <label class="form-check-label" for="upah_dibawah_standar">Upah dibawah standar</label>
+                      <label class="form-check-label" for="upah_dibawah_standar">Upah di bawah standar</label>
                   </div>
                   <div class="form-check">
                       <input class="form-check-input" type="checkbox" name="masalah_ketenagakerjaan[]" value="Tidak ada jaminan kesehatan" id="tidak_ada_jaminan_kesehatan">
@@ -378,7 +378,7 @@
               <input type="text" id="jenis_masalah_lainnya" name="jenis_masalah_lainnya" class="form-control">
             </div>
             <div class="col-md-12">
-              <label class="form-label">Alasan bergabung Sindikasi</label>
+              <label class="form-label">Alasan Bergabung SINDIKASI</label>
               <textarea class="form-control" rows="3" id="alasan_bergabung_sindikasi" name="alasan_bergabung_sindikasi" maxlength="350" placeholder="Jelaskan alasan anda ingin bergabung dengan sindikasi"></textarea>
             </div>
           </div>
@@ -460,7 +460,7 @@
           <div class="section-header">Keanggotaan BPJS</div>
           <div class="row g-3">
             <div class="col-md-6">
-              <label class="form-label required">Status keanggotaan BPJSTK</label>
+              <label class="form-label required">Status Keanggotaan BPJS Ketenagakerjaan</label>
               <select class="form-select" id="status_anggota_bpjstk" name="status_anggota_bpjstk" required>
                   <option value="" selected disabled>Pilih</option>
                   <option value="aktif">Aktif</option>
@@ -468,7 +468,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label required">Status keanggotaan BPJSKS</label>
+              <label class="form-label required">Status Keanggotaan BPJS Kesehatan</label>
               <select class="form-select" id="status_anggota_bpjsks" name="status_anggota_bpjsks" required>
                   <option value="" selected disabled>Pilih</option>
                   <option value="aktif">Aktif</option>
@@ -479,7 +479,7 @@
         </div>
 
         <div class="form-section">
-          <div class="section-header">Pakta Integritas</div>
+          <div class="section-header">Pakta Integritas Anti Kekerasan Seksual</div>
           <div class="row g-3">
             <div class="col-md-12">
               <label class="form-label"><small>Centang semua untuk melanjutkan</small></label>
@@ -594,7 +594,7 @@
         kota_kelahiran: "required",
         kota_domisili: "required",
        // pendidikan_terakhir: "required",
-        nama_instansi_pendidikan: "required",
+        // nama_instansi_pendidikan: "required",
         subsektor: "required",
         instansi: "required",
         jabatan: "required",
@@ -621,11 +621,11 @@
         },
         'pakta_integritas[]': {
         required: "Semua poin pakta integritas wajib dicentang",
-        minlength: "Harap centang semua 6 poin pakta integritas"
+        minlength: "Harap centang semua poin pakta integritas"
         },
         'pernyataan_keanggotaan[]': {
           required: "Semua pernyataan keanggotaan wajib dicentang",
-          minlength: "Harap centang semua 6 pernyataan"
+          minlength: "Harap centang semua pernyataan"
         },
         status_anggota_bpjsks: {
           required: "Pilih status keanggotaan BPJSKS"
@@ -637,7 +637,7 @@
         kota_kelahiran: "Pilih kota kelahiran",
         kota_domisili: "Pilih kota domisili",
       //  pendidikan_terakhir: "Pilih pendidikan terakhir",
-        nama_instansi_pendidikan: "Wajib diisi",
+      //  nama_instansi_pendidikan: "Wajib diisi",
         subsektor: "Wajib dipilih",
         instansi: "Wajib diisi",
         jabatan: "Wajib dipilih",
@@ -673,7 +673,7 @@
       submitHandler: function (form) {
           // Manual tambahan validasi jumlah checkbox
           if ($('input[name="pakta_integritas[]"]:checked').length < 6) {
-            alert('Anda harus mencentang semua 6 poin Pakta Integritas.');
+            alert('Anda harus mencentang semua poin Pakta Integritas.');
             return false;
           }
           if ($('input[name="pernyataan_keanggotaan[]"]:checked').length < 6) {
