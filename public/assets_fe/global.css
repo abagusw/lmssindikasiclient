@@ -83,4 +83,41 @@ img {
   --bs-btn-disabled-border-color:#f97316;
 }
 
+@media (max-width: 767.98px) {
+  .btn-orange {
+    width: 100% !important; /* full width on mobile */
+  }
+}
 
+.img-fluid.rounded {
+  max-width: 200px !important;
+  width: 100% !important;
+}
+
+@media (max-width: 767.98px) {
+  .img-fluid.rounded {
+    max-width: 100% !important;
+  }
+}
+
+.btn-responsive {
+  width: auto;
+}
+
+@media (max-width: 767.98px) {
+  .btn-responsive {
+    width: 100%;
+  }
+}
+
+.nav-item a {
+  font-size: 16px !important;
+}
+
+.top-header {
+  padding: 1rem 1rem !important;
+}
+
+.card-body {
+  padding: 0 0 !important;
+}

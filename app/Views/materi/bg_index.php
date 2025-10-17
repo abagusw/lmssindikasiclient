@@ -22,9 +22,9 @@
 </div>
 <?php } else { ?>
 <div class="section-box">
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between align-items-center mb-4 gap-3 gap-md-0">
     <h5 class="mb-0"><?= $dataCourseRow['judul'] ?></h5>
-    <a href="<?= base_url()?>materi/konten/<?= $dataLessonAsc['id'] ?>" class="btn btn-orange">Mulai Materi</a>
+    <a href="<?= base_url()?>materi/konten/<?= $dataLessonAsc['id'] ?>" class="btn btn-orange ">Mulai Materi</a>
   </div>
 
   <?php
@@ -61,7 +61,7 @@
 
   <!-- Materi Kursus -->
   <div>
-    <h6 class="mb-3">Daftar Materi<span class="text-muted">(<?= count($dataLesson); ?> materi)</span></h6>
+    <h6 class="mb-3">Daftar Materi<span class="text-muted ms-2">(<?= count($dataLesson); ?> materi)</span></h6>
     <div class="list-group">
 
 
@@ -98,7 +98,7 @@
                                                   ->countAllResults() > 0;
 
              ?>
-          <label class="list-group-item d-flex justify-content-between align-items-center">
+          <label class="list-group-item d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start">
             <div>
                 <?php if ($isParticipated): ?>
                   <i class="bi bi-check-circle-fill text-success me-2"></i>
@@ -107,7 +107,7 @@
                 <?php endif; ?>
                 <?= esc($title); ?>
             </div>
-            <small class="text-muted"><?= $data['posts'][0]['reading_time'] ?> menit baca</small>
+            <small class="text-muted mt-1 mt-md-0 ms-md-2"><?= $data['posts'][0]['reading_time'] ?> menit baca</small>
           </label>
         <?php } ?>
 

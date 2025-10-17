@@ -25,7 +25,7 @@
     }
 
     .profile-info {
-      margin-left: 140px;
+      margin-left: 0px;
     }
 
     .badge-role {
@@ -329,13 +329,13 @@
   <!-- Main Content -->
   <div class="container mt-5 pt-4">
     <!-- Nama dan Role -->
-    <div class="d-flex align-items-start mb-4">
+    <div class="d-flex flex-wrap flex-md-nowrap align-items-start mb-4">
       <div class="profile-info">
         <h4 class="mb-1"><?= $user_logged_in['nama_lengkap']; ?> <span class="badge badge-role text-white">Aktif</span></h4>
         <small class="text-muted"><?= $user_logged_in['profesi']." — ". $getCityById['name']." — Bergabung ".date('M Y', strtotime($user_logged_in['approval_date']))?></small>
       </div>
-      <div class="ms-auto">
-        <button type="submit" id="btnSaveProfil" form="formProfil" class="btn btn-warning btn-sm">
+      <div class="ms-md-auto mt-3 mt-md-0">
+        <button type="submit" id="btnSaveProfil" form="formProfil" class="btn btn-primary btn-sm">
           Simpan Profil
         </button>
       </div>
@@ -747,29 +747,15 @@
                           <!-- Panel informasi + tombol unduh -->
                           <div class="cta-panel p-3 p-md-4">
                             <div class="d-flex align-items-start">
-                              <div class="me-3">
-                                <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style="width:38px;height:38px">
-                                  <i class="bi bi-geo-alt-fill"></i>
-                                </div>
-                              </div>
                               <div class="flex-grow-1">
                                 <div class="d-flex justify-content-between">
-                                  <div class="cta-title">Unduh Kartu Tanda Anggota (KTA) kamu di sini!</div>
-                                  <button class="btn btn-link text-muted p-0 ms-3" data-bs-toggle="collapse" data-bs-target="#ctaBody" aria-expanded="true" aria-controls="ctaBody">
-                                    <i class="bi bi-x-lg"></i>
-                                  </button>
+                                  <div class="cta-title">Unduh Kartu Tanda Anggota (KTA)</div>
                                 </div>
 
                                 <div id="ctaBody" class="collapse show">
                                   <p class="text-secondary mb-2 small">
                                     Kartu Tanda Anggota merupakan identitas resmi yang menandakan Anda sebagai bagian dari Serikat Sindikasi.
                                   </p>
-                                  <ul class="small text-secondary mb-3">
-                                    <li>Digunakan untuk verifikasi identitas saat menghadiri kegiatan resmi.</li>
-                                    <li>Bisa ditunjukkan saat registrasi, workshop, rapat, dan kegiatan lain.</li>
-                                    <li>Mendukung verifikasi keanggotaan saat berkomunikasi dengan pengurus.</li>
-                                    <li>Arsipkan kartu digital ini di ponsel untuk akses cepat.</li>
-                                  </ul>
 
                                   <div class="d-flex flex-wrap gap-2">
                                     <a id="downloadKTA" href="#!" class="btn btn-primary">
@@ -782,7 +768,6 @@
                                       <i class="bi bi-printer me-1"></i> Cetak
                                     </button> -->
                                   </div>
-                                  <div class="form-text mt-2">Pastikan Anda mengunduh dan menyimpan KTA digital dalam format yang sesuai untuk keperluan sehari-hari.</div>
                                 </div>
                               </div>
                             </div>

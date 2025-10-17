@@ -15,6 +15,7 @@
     transform: translateY(-3px);
     transition: 0.2s ease;
   }
+
 </style>
 
 <?php
@@ -40,7 +41,7 @@
   <h4 class="mb-3">Course</h4>
 
     <!-- Filter -->
-  <form method="get" class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-4">
+  <form method="get" class="d-flex flex-column flex-md-row mb-4">
     <!-- <div class="d-flex gap-2 align-items-center">
       <select name="limit" class="form-select form-select-sm" onchange="this.form.submit()">
         <?php foreach ($limitOptions as $limit): ?>
@@ -97,14 +98,14 @@
             <img src="<?= $gb ?>" alt="Course image" class="img-fluid rounded" style="max-width: 200px;">
           </div>
           <div class="flex-grow-1">
-            <h5 class="mb-1"><?= esc($c['judul']) ?></h5>
-            <p class="text-muted mb-2"><?= esc($c['deskripsi']) ?></p>
-            <div class="mb-2">
+            <h5 class="mb-3"><?= esc($c['judul']) ?></h5>
+            <p class="text-muted mb-3"><?= esc($c['deskripsi']) ?></p>
+            <div class="mb-3">
               <div class="progress">
                 <div class="progress-bar bg-success" style="width: <?= $persen; ?>%"><?= $persen; ?>%</div>
               </div>
             </div>
-            <a href="<?= base_url('materi/dasar/'.$c['id'].'') ?>" class="btn btn-sm btn-outline-warning">Lihat materi →</a>
+            <a href="<?= base_url('materi/dasar/'.$c['id'].'') ?>" class="btn btn-primary btn-sm btn-responsive" style="border-radius: 4px;">Lihat materi →</a>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 <?= $this->section('content'); ?>
     <section id="welcome-banner" class="welcome-banner">
-      <img src="<?= ASSETS_URL ?>assets_fe/images/fd3feb21b24afe6be4c58f8ca0b6efe733243138.png" alt="Welcome illustration" class="welcome-image">
+      <img src="<?= ASSETS_URL ?>assets_fe/images/fd3feb21b24afe6be4c58f8ca0b6efe733243138.png" alt="Welcome illustration" class="welcome-image d-flex flex-wrap flex-md-nowrap">
       <div class="welcome-text">
         <h2>Selamat bergabung!</h2>
         <p>Lakukan pembayaran awal dan ikuti materi pendidikan dasar secara mandiri untuk mendapatkan nomor keanggotaan serta terdaftar sebagai anggota aktif Serikat SINDIKASI.</p>
@@ -29,7 +29,7 @@
   <!-- Isi utama -->
 <div class="row mt-4">
   <!-- Checklist Kiri -->
-  <div class="col-md-4">
+  <div class="col-md-4 mb-4">
     <div class="list-group">
       <a id="btnPembayaran" href="#pembayaran" class="list-group-item list-group-item-action active d-flex align-items-center" data-bs-toggle="tab">
         <i class="<?= $iconPaid; ?>"></i> Pembayaran awal
