@@ -704,6 +704,7 @@
             error: function (xhr) {
               alert('xhr :'+xhr);
               alert("Terjadi kesalahan: " + xhr.responseText);
+              console.error("ERROR: " + xhr.responseText);
             },
             complete: function () {
               $('#submitBtn').prop('disabled', false).text('Kirim');
