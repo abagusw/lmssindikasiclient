@@ -108,7 +108,7 @@ class Register extends BaseController
             'kota_kelahiran' => 'required',
             'kota_domisili' => 'required',
             // 'pendidikan_terakhir' => 'required',
-            'nama_instansi_pendidikan' => 'required',
+            // 'nama_instansi_pendidikan' => 'required',
             'subsektor' => 'required',
             'instansi' => 'required',
             'jabatan' => 'required',
