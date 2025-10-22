@@ -534,8 +534,6 @@
       transform: none !important;
       visibility: visible !important;
       border-right: 1px solid rgba(0,0,0,.075);
-      width: 260px; /* Lebih sempit */
-      max-width: 260px;
       background-color: #fff; /* Tambahkan background putih */
     }
 
@@ -584,7 +582,7 @@
       <a href="#" aria-label="Notifications"><img src="<?= ASSETS_URL ?>assets_fe/images/I2178_165839_208_27044.svg" alt="Notifications"></a>
     </div> -->
     <a href="#" aria-label="User Profile" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="<?= ASSETS_URL ?>assets_fe/images/29c9e3543a0bc3d9befd55d562c0a441cf65ca65.png" alt="User Avatar" class="user-avatar">
+      <img src="<?= ASSETS_URL ?>assets_fe/images/avatar-profile-default.png" alt="User Avatar" class="user-avatar">
     </a>
     <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser">
 
@@ -608,7 +606,7 @@
 if($user['isregisterpaid'] <> 1){
   ?>
 <section id="notification" class="notification-bar">
-  <p>Kamu belum membayar iuran awal. Segera lakukan pembayaran agar dapat mulai mengakses portal Sindikasi secara lengkap</p>
+  <p>Kamu belum membayar iuran awal. Segera lakukan pembayaran untuk mengakses portal membership</p>
 </section>
 <?php } ?>
 

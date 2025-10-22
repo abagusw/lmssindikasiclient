@@ -117,12 +117,12 @@ border-color: #dee2e6 !important;     /* border abu */
 
 .modal-custom {
 max-width: 900px;   /* ubah sesuai kebutuhan (misal 1000px) */
-width: 90%;         /* biar responsif */
+width: 100%;         /* biar responsif */
 }
 
 @media (max-width: 768px) {
 .modal-custom {
-    max-width: 95%;   /* supaya tetap bagus di HP */
+    max-width: 100%;   /* supaya tetap bagus di HP */
 }
 }
 .btn-orange {
@@ -130,7 +130,7 @@ background-color: #ff6600;   /* warna sesuai selera */
 color: #fff;
 border-radius: 8px;
 padding: 12px 24px;          /* bikin tombol lebih tinggi & lebar dikit */
-font-size: 1.1rem;           /* perbesar teks */
+font-size: 1.2rem;           /* perbesar teks */
 font-weight: 600;            /* agak tebal */
 display: inline-block;       /* supaya tidak melebar full */
 }

@@ -6,11 +6,12 @@
 
   <style>
    .profile-header {
-      background-image: url('<?= base_url("public/assets/images/keyboard.png"); ?>');
+      background-image: url('<?= base_url("public/assets/images/bg-header-image.png"); ?>');
       background-size: cover;
       background-position: center;
       height: 180px;
       position: relative;
+      background-color: #f97316;
     }
 
     .profile-avatar {
@@ -315,11 +316,11 @@
     }
 
   </style>
-  <div class="profile-header">
+  <div class="profile-header rounded">
     <!-- Klik gambar langsung buka file chooser -->
     <label for="avatarInput">
       <img id="avatarPreview"
-           src="<?= base_url() ?>public/assets/images/user.avif"
+           src="<?= base_url() ?>public/assets_fe/images/avatar-profile-default.png"
            class="profile-avatar"
            alt="Avatar">
     </label>
@@ -546,7 +547,7 @@
                 ?>
                 <div class="tab-pane fade" id="list-profils" role="tabpanel">
                     <div class="section-header">Data Profil</div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                       <label for="bahasa" class="form-label">Bahasa yang dikuasai</label>
                       <select id="bahasa" name="bahasa[]" multiple="multiple" style="width: 100%;" class="form-control">
                           <?php foreach ($allLanguages as $lang): ?>
@@ -555,7 +556,7 @@
                             </option>
                           <?php endforeach; ?>
                       </select>
-                    </div>
+                    </div> -->
                     <div class="mb-3">
                       <label class="form-label">Biografi</label>
                       <textarea name="biografi" id="biografi" class="form-control" rows="3" placeholder="Tulis biografi singkat..."><?= $member['biografi']; ?></textarea>
@@ -589,7 +590,7 @@
 
                     <!-- Pengalaman -->
                     <div class="section-card">
-                      <div class="d-flex justify-content-between align-items-center mb-2">
+                      <div class="d-flex flex-wrap flex-md-nowrap justify-content-between align-items-center mb-4 gap-2 gap-md-0">
                         <div class="section-title">Pengalaman</div>
                         <a href="#!" class="btn-add" data-bs-toggle="modal" data-bs-target="#pengalamanModal">+ Tambah pengalaman</a>
                       </div>
@@ -608,7 +609,7 @@
                                    data-end_month="<?= esc($x['end_month']) ?>"
                                    data-end_year="<?= esc($x['end_year']) ?>"
                                    data-description="<?= esc($x['description'] ?? '') ?>">
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-wrap flex-md-nowrap justify-content-between gap-2 gap-md-0">
                                   <div>
                                     <strong><?= esc($x['role']) ?> - <?= esc($x['company']) ?></strong>
                                     <span class="text-muted">
@@ -621,7 +622,7 @@
                                     <?php endif; ?>
                                     <div class="small text-warning mt-1 d-none db-pending-label"></div>
                                   </div>
-                                  <div class="ms-2 text-nowrap">
+                                  <div class="mt-2 text-nowrap">
                                     <button type="button" class="btn btn-sm btn-outline-secondary me-1" 
                                             data-action="db-exp-edit" data-id="<?= (int)$x['id'] ?>">Edit</button>
                                     <button type="button" class="btn btn-sm btn-outline-danger" 
@@ -639,7 +640,7 @@
 
                     <!-- Pendidikan -->
                     <div class="section-card">
-                      <div class="d-flex justify-content-between align-items-center mb-2">
+                      <div class="d-flex flex-wrap flex-md-nowrap justify-content-between align-items-center mb-4 gap-2 gap-md-0">
                         <div class="section-title">Pendidikan</div>
                         <a href="#!" class="btn-add" data-bs-toggle="modal" data-bs-target="#pendidikanModal">+ Tambah pendidikan</a>
                       </div>
@@ -656,7 +657,7 @@
                                      data-is_current="<?= (int)$e['is_current'] ?>"
                                      data-end_month="<?= esc($e['end_month']) ?>"
                                      data-end_year="<?= esc($e['end_year']) ?>">
-                                  <div class="d-flex justify-content-between">
+                                  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between gap-2 gap-md-0">
                                     <div>
                                       <strong><?= esc($e['institution']) ?></strong> 
                                       <span class="text-muted"> - <?= esc($e['major']) ?></span>
@@ -667,7 +668,7 @@
                                       </span>
                                       <div class="small text-warning mt-1 d-none db-pending-label"></div>
                                     </div>
-                                    <div class="ms-2 text-nowrap">
+                                    <div class="mt-2 text-nowrap">
                                       <button type="button" class="btn btn-sm btn-outline-secondary me-1" 
                                               data-action="db-edu-edit" data-id="<?= (int)$e['id'] ?>">Edit</button>
                                       <button type="button" class="btn btn-sm btn-outline-danger" 
@@ -722,7 +723,7 @@
                     <div class="row justify-content-center">
                       <div class="col-12 col-lg-8">
                         <div class="kta-card p-3 p-md-4">
-                          <h5 class="mb-3">Kartu Tanda Anggota (KTA)</h5>
+                          <h5 class="mb-3 text-center">Kartu Tanda Anggota (KTA)</h5>
 
                           <!-- Kartu mockup -->
                           <div class="d-flex justify-content-center my-3 position-relative">
@@ -748,17 +749,17 @@
                           <div class="cta-panel p-3 p-md-4">
                             <div class="d-flex align-items-start">
                               <div class="flex-grow-1">
-                                <div class="d-flex justify-content-between">
+                                <!-- <div class="d-flex justify-content-between">
                                   <div class="cta-title">Unduh Kartu Tanda Anggota (KTA)</div>
-                                </div>
+                                </div> -->
 
                                 <div id="ctaBody" class="collapse show">
-                                  <p class="text-secondary mb-2 small">
+                                  <!-- <p class="text-secondary mb-2 small">
                                     Kartu Tanda Anggota merupakan identitas resmi yang menandakan Anda sebagai bagian dari Serikat Sindikasi.
-                                  </p>
+                                  </p> -->
 
                                   <div class="d-flex flex-wrap gap-2">
-                                    <a id="downloadKTA" href="#!" class="btn btn-primary">
+                                    <a id="downloadKTA" href="#!" class="btn btn-primary w-100">
                                       <i class="bi bi-download me-1"></i> Unduh KTA (PNG)
                                     </a>
 <!--                                     <a href="#" class="btn btn-outline-primary">
