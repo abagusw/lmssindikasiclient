@@ -520,7 +520,6 @@
                 </div>
               </div>
             </div>
-            <div class="brand">SINDIKASI</div>
           </div>
         </div>
 

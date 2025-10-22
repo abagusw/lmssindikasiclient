@@ -1,7 +1,7 @@
 <?= $this->extend('templates/app'); ?>
 
 <?= $this->section('content'); ?>
-    <section id="welcome-banner" class="welcome-banner">
+    <section id="welcome-banner" class="welcome-banner d-flex flex-wrap flex-md-nowrap justify-content-between align-items-center gap-2 gap-md-2">
       <img src="<?= ASSETS_URL ?>assets_fe/images/fd3feb21b24afe6be4c58f8ca0b6efe733243138.png" alt="Welcome illustration" class="welcome-image d-flex flex-wrap flex-md-nowrap">
       <div class="welcome-text">
         <h2>Selamat bergabung!</h2>

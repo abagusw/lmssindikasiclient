@@ -57,9 +57,9 @@
           <?php 
           if(!$cekCoursePart){
             ?>
-          <button class="btn btn-orange px-4 rounded-pill btn-big-custom" type="button" onclick="selesaiBaca(<?php echo $course_id; ?>,<?php echo $getMsCourseLessonByid['course_id']; ?>)">Lanjut</button>
+          <button class="btn btn-orange" type="button" onclick="selesaiBaca(<?php echo $course_id; ?>,<?php echo $getMsCourseLessonByid['course_id']; ?>)">Lanjut</button>
         <?php } else {?>
-          <button class="btn btn-success px-4 rounded-pill btn-big-custom" type="button" disabled>Lanjut</button> <?php } ?>
+          <button class="btn btn-success" type="button" disabled>Lanjut</button> <?php } ?>
 
         </div>
       </div>
