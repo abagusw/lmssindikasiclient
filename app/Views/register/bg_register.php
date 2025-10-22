@@ -101,6 +101,14 @@
   function inputFormRegiser(){
         var fullname = $('#fullname').val();
         var email = $('#email').val();
+        if (fullname == "") {
+          alert("Nama lengkap harus diisi !");
+          return;
+        }
+        if (email == "") {
+          alert("Email harus diisi !");
+          return;
+        }
         
         $.ajax({
             type: 'POST',
