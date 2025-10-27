@@ -205,6 +205,9 @@ class Auth extends BaseController
     } else {
       $respCode = 0;
       $respMessage = "Login Sukses";
+      if ($user['create_by_sistem'] == 1) {
+        $respCode = 2;
+      }
 
       session()->set([
         'id' => $user['id'],
