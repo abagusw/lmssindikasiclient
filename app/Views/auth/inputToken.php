@@ -148,11 +148,6 @@
                 $.ambiance({message: "Login Sukses",
                   type: "success",
                   fade: false});
-              }else if(response.respCode == 2){
-                top.location.href="<?php echo base_url('payment/index')?>";
-                $.ambiance({message: "Login Sukses",
-                  type: "success",
-                  fade: false});
               }else{
                 $.ambiance({message: response.respMessage,
                   type: "error",
