@@ -174,7 +174,7 @@ $expired_date = date('Y-m-d', strtotime($expired_dateOri));
           <span class="badge badge-success">Lunas</span>
           <div class="fw-bold">Rp <?php echo number_format($rowData->gross_amount, 0, ',', '.'); ?></div>
           <div class="small text-muted">Pembayaran <?= $rowData->jenis_transaksi; ?> bulan <?= $jnFlag; ?></div>
-          <div class="text-muted small"><?= date('d M Y H:i:s', strtotime($rowData->created_at)); ?></div>
+          <div class="text-muted small"><?= date('d M Y H:i:s', strtotime($transaction_time)); ?></div>
         </div>
       </div>
     </div>

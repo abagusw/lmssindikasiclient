@@ -21,19 +21,28 @@ class Payment extends BaseController
     protected $userModel;
     protected $memberModel;
     protected $paymentModel;
+    protected $paymentCallBackModel;
+    protected $paymentSuccessMemberModel;
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->memberModel = new MemberModel();
         $this->paymentModel = new PaymentModel();
+        $this->paymentCallBackModel = new PaymentCallBackModel();
         $this->paymentSuccessMemberModel = new PaymentSuccessMemberModel();
     }
 
     public function index()
     {
         $getPaymentSukses = $this->paymentSuccessMemberModel->orderBy('id', 'DESC')->where('user_id',$this->session->get('id'))->get();
+        $getPaymentCallback = $this->paymentCallBackModel->orderBy('id', 'DESC')->where('user_id',$this->session->get('id'))->get();
         $getCekPaymentSukses = $this->paymentSuccessMemberModel->orderBy('id', 'DESC')->where('user_id',$this->session->get('id'))->countAllResults();
         $rowData = $getPaymentSukses->getRow();
+        $callback = $getPaymentCallback->getRow();
+        $transaction_time = empty($rowData) ? 'Unknown' : $rowData->created_at;
+        if($callback){
+            $transaction_time = $callback->transaction_time;
+        }
         $data = [
             'title' => 'Payment',
             'user_logged_in' => $this->userModel->find($this->session->get('id')),
@@ -41,6 +50,7 @@ class Payment extends BaseController
             'memberAll' => $this->memberModel->countMemberAll(),
             'getData' => $this->memberModel->where('flag', '1')->findAll(),
             'rowData' => $rowData,
+            'transaction_time' => $transaction_time,
             'getCekPaymentSukses' => $getCekPaymentSukses
         ];
 
