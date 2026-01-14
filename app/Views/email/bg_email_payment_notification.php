@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Datang di Serikat SINDIKASI</title>
+    <title>Membership SINDIKASI</title>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -143,52 +143,20 @@
     <div class="email-container">
         <div class="header">
             <img src="https://sindikasi.org/images/logo_medium.b1bc581.c9be1a476612b6c1bb320543c218d756.png" alt="SINDIKASI Logo" class="logo">
-            <h1 class="title">Selamat Datang di Serikat SINDIKASI!</h1>
+            <h1 class="title">Membership SINDIKASI</h1>
         </div>
 
         <div class="greeting">
-            <strong>Halo <?= $getData['nama_lengkap']; ?>,</strong>
+            <strong>Halo <?= $nama_lengkap; ?></strong>
         </div>
 
         <div class="steps-container">
-            <h2 class="steps-title">Langkah Selanjutnya untuk Mengaktifkan Keanggotaan</h2>
-
-
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <div class="step-title">Buat Password Akun</div>
-                    <div class="step-description">Aktifkan akun Anda dengan membuat password yang aman untuk mengakses dashboard membership.</div>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <div class="step-title">Login ke Dashboard Membership</div>
-                    <div class="step-description">Masuk ke portal anggota untuk mengakses profil, informasi keanggotaan, dan fitur lainnya.</div>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <div class="step-title">Lakukan Pembayaran Iuran Awal</div>
-                    <div class="step-description">Selesaikan pembayaran iuran pertama untuk mengakses materi pendidikan dasar.</div>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-number">4</div>
-                <div class="step-content">
-                    <div class="step-title">Selesaikan Materi Pendidikan Dasar</div>
-                    <div class="step-description">Ikuti orientasi anggota baru secara mandiri untuk memahami landasan berdirinya SINDIKASi, serta mengetahui hak dan kewajiban kamu sebagai anggota.</div>
-                </div>
-            </div>
+            <h2 class="steps-title">Agar tetap bisa menikmati manfaat membership SINDIKASI, kamu bisa lakukan iuran sebelum tanggal <?= $expired_date; ?></h2>    
+            <br><p style="text-align: center;color: crimson;">Abaikan email ini jika sudah membayar iuran</p>        
         </div>
 
         <div style="text-align: center; margin: 30px 0;">
-            <a href="<?= fe ?>set-password?accountregister=<?= $ciphertext; ?>" class="cta-button">Buat Password</a>
+            <a href="<?= fe ?>payment/index" class="cta-button">Iuran Disini</a>
         </div>
 
         <div class="footer">

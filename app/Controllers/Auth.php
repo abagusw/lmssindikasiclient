@@ -78,7 +78,13 @@ class Auth extends BaseController
             'token_expired' => $now->format('Y-m-d H:i:s')
           ]);
 
-          $this->sendAsyncRequest($this->kirimEmailToken($email, $token, $now->format('Y-m-d H:i:s')));
+          $isemailsent = $this->kirimEmailToken($email, $token, $now->format('Y-m-d H:i:s'));
+          if ($isemailsent) {
+            $respMessage = "Pengiriman email token login ke : " . $email . " berhasil."; 
+          } else {
+            $respMessage = "Gagal mengirim email token login ke : " . $email . ".";   
+            $respCode = "88";   
+          }
         }
       } else {
         $respMessage = "Password Salah";
@@ -120,10 +126,16 @@ class Auth extends BaseController
       ]);
       $ciphertext = $encrypter->encrypt($dataGenerate);
 
-      $this->sendAsyncRequest($this->kirimEmailLupaPassword($email, $ciphertext, $now->format('Y-m-d H:i:s')));
-
+      $isemailsent = $this->kirimEmailLupaPassword($email, $ciphertext, $now->format('Y-m-d H:i:s'));
+      
       $respMessage = "Sukses";
       $respCode = "0";
+      if ($isemailsent) {
+        $respMessage = "Pengiriman email reset password ke : " . $email . " berhasil."; 
+      } else {
+        $respMessage = "Gagal mengirim email reset password ke : " . $email . ".";   
+        $respCode = "88";   
+      }
       $rsp = $ciphertext;
     } else {
       $respMessage = "Email tidak ditemukan";
@@ -185,7 +197,14 @@ class Auth extends BaseController
       'token' => $token,
       'token_expired' => $now->format('Y-m-d H:i:s')
     ]);
-    $this->sendAsyncRequest($this->kirimEmailToken($email, $token, $now->format('Y-m-d H:i:s')));
+    $isemailsent = $this->kirimEmailToken($email, $token, $now->format('Y-m-d H:i:s'));
+    if ($isemailsent) {
+      $desk = "Pengiriman ulang email token login ke : " . $email . " berhasil.";      
+      return $this->response->setJSON(array('success' => 1, 'message' => $desk));
+    } else {
+      $desk = "Gagal mengirim ulang email token login ke : " . $email . ".";      
+      return $this->response->setJSON(array('success' => 0, 'message' => $desk));
+    }
   }
 
   public function verifikasiTokenLogin()
@@ -254,7 +273,7 @@ class Auth extends BaseController
       'token' => $token
     ];
     $vw = view('auth/token', $data);
-    $this->konfigEmail($user['email'], $user['nama_lengkap'],'Token Login', $vw);
+    return $this->konfigEmail($user['email'], $user['nama_lengkap'], 'Token Login', $vw);
   }
 
   public function kirimEmailLupaPassword($email, $chiper, $token_exp)
@@ -268,7 +287,7 @@ class Auth extends BaseController
       'ciphertext' => $chiper
     ];
     $vw = view('auth/bg_email_lupa_password', $data);
-    $this->konfigEmail($user['email'],$user['nama_lengkap'], 'Verifikasi Lupa Password', $vw);
+    return $this->konfigEmail($user['email'], $user['nama_lengkap'], 'Verifikasi Lupa Password', $vw); 
   }
 
   private function sendAsyncRequest($url)
@@ -298,39 +317,46 @@ class Auth extends BaseController
   public function konfigEmail($toEmail, $toName, $subject, $view)
   {
     $apiKey = "ef002126f3ce08d048586f718b4cddd0";
-    $apiSecret = "5bdfc6bd0cd33414c685c94b6c98567a";
+    $apiSecret = "60bba545ef781de4a3635885bdc12f29";
 
-    $mj = new Client($apiKey, $apiSecret, true, ['version' => 'v3.1']);
+    try {
+      $mj = new Client($apiKey, $apiSecret, true, ['version' => 'v3.1', 'timeout' => 100, 'connect_timeout' => 10]);
 
-    $body = [
-      'Messages' => [
-        [
-          'From' => [
-            'Email' => "tech@sindikasi.org",
-            'Name' => "Admin Sindikasi"
-          ],
-          'To' => [
-            [
-              'Email' => $toEmail,
-              'Name' => $toName
-            ]
-          ],
-          'Subject' => $subject,
-          'TextPart' => "Hi, Sindikasi Member",
-          'HTMLPart' => $view
+      $body = [
+        'Messages' => [
+          [
+            'From' => [
+              'Email' => "tech@sindikasi.org",
+              'Name' => "Admin Sindikasi"
+            ],
+            'To' => [
+              [
+                'Email' => $toEmail,
+                'Name' => $toName
+              ]
+            ],
+            'Subject' => $subject,
+            'TextPart' => "Hi, Sindikasi Member",
+            'HTMLPart' => $view
+          ]
         ]
-      ]
-    ];
+      ];
 
-    $response = $mj->post(Resources::$Email, ['body' => $body]);
+      $response = $mj->post(Resources::$Email, ['body' => $body]);
 
-    if ($response->success()) {
-      $desk = "Email berhasil dikirim ke : " . $toEmail . " Subject : " . $subject . " Tanggal " . date('Y-m-d H:i:s') . "";
-    } else {
-      $desk = "Gagal mengirim email: " . $toEmail . " Subject : " . $subject . " Tanggal " . date('Y-m-d H:i:s') . " error : " . $email->printDebugger(['headers']) . "";
+      if ($response->success()) {
+        $desk = "Email berhasil dikirim ke : " . $toEmail . " Subject : " . $subject . " Tanggal " . date('Y-m-d H:i:s') . "";
+      } else {
+        $desk = "Gagal mengirim email: " . $toEmail . " Subject : " . $subject . " Tanggal " . date('Y-m-d H:i:s') . " error : " . $response->getReasonPhrase() . "";
+      }
+
+      $this->insertLog($desk);
+      return true;
+    } catch (Exception $e) {
+      $message = 'Mailjet error: ' . $e->getMessage();
+      $this->insertLog($message);
+      return false;
     }
-
-    $this->insertLog($desk);
   }
 
   public function form_register()
